@@ -1,13 +1,13 @@
 # duplicated
-root: /liv-motor/html/ # root_urlpath
+root: /rentalmotor/html/ # root_urlpath
 admin_dir: admin/ # admin_route
-tpl: /liv-motor/html/user_data/packages/default/ # front_urlpath
-admin_tpl: /liv-motor/html/user_data/packages/admin/ # admin_urlpath
-image_path: /liv-motor/html/upload/save_image/ # image_save_urlpath
+tpl: /rentalmotor/html/user_data/packages/default/ # front_urlpath
+admin_tpl: /rentalmotor/html/user_data/packages/admin/ # admin_urlpath
+image_path: /rentalmotor/html/upload/save_image/ # image_save_urlpath
 
 # base valiables
-root_dir: /var/www/html/liv-motor
-root_urlpath: /liv-motor/html
+root_dir: /var/www/html/rentalmotor
+root_urlpath: /rentalmotor/html
 template_code: default
 
 # routing
@@ -16,40 +16,40 @@ user_data_route: user_data
 
 # public directory
 public_path: /html
-public_path_realdir: /var/www/html/liv-motor/html
+public_path_realdir: /var/www/html/rentalmotor/html
 
 # realdir::image
-image_save_realdir: /var/www/html/liv-motor/html/upload/save_image
-image_temp_realdir: /var/www/html/liv-motor/html/upload/temp_image
+image_save_realdir: /var/www/html/rentalmotor/html/upload/save_image
+image_temp_realdir: /var/www/html/rentalmotor/html/upload/temp_image
 
 # realdir::user_data
-user_data_realdir: /var/www/html/liv-motor/html/user_data
+user_data_realdir: /var/www/html/rentalmotor/html/user_data
 
 # realdir::block
-block_default_realdir: /var/www/html/liv-motor/src/Eccube/Resource/template/default/Block
-block_realdir: /var/www/html/liv-motor/app/template/default/Block
+block_default_realdir: /var/www/html/rentalmotor/src/Eccube/Resource/template/default/Block
+block_realdir: /var/www/html/rentalmotor/app/template/default/Block
 
 # realdir::template
-template_default_realdir: /var/www/html/liv-motor/src/Eccube/Resource/template/default
-template_default_html_realdir: /var/www/html/liv-motor/html/template/default
-template_admin_realdir: /var/www/html/liv-motor/src/Eccube/Resource/template/admin
-template_admin_html_realdir: /var/www/html/liv-motor/html/template/admin
-template_realdir: /var/www/html/liv-motor/app/template/default
-template_html_realdir: /var/www/html/liv-motor/html/template/default
-template_temp_realdir: /var/www/html/liv-motor/app/cache/eccube/template
+template_default_realdir: /var/www/html/rentalmotor/src/Eccube/Resource/template/default
+template_default_html_realdir: /var/www/html/rentalmotor/html/template/default
+template_admin_realdir: /var/www/html/rentalmotor/src/Eccube/Resource/template/admin
+template_admin_html_realdir: /var/www/html/rentalmotor/html/template/admin
+template_realdir: /var/www/html/rentalmotor/app/template/default
+template_html_realdir: /var/www/html/rentalmotor/html/template/default
+template_temp_realdir: /var/www/html/rentalmotor/app/cache/eccube/template
 
 # realdir::csv
-csv_temp_realdir: /var/www/html/liv-motor/app/cache/eccube/csv
+csv_temp_realdir: /var/www/html/rentalmotor/app/cache/eccube/csv
 
 # realdir:plugin
-plugin_realdir: /var/www/html/liv-motor/app/Plugin
-plugin_temp_realdir: /var/www/html/liv-motor/app/cache/plugin
-plugin_html_realdir: /var/www/html/liv-motor/html/plugin
+plugin_realdir: /var/www/html/rentalmotor/app/Plugin
+plugin_temp_realdir: /var/www/html/rentalmotor/app/cache/plugin
+plugin_html_realdir: /var/www/html/rentalmotor/html/plugin
 
 # urlpath
-admin_urlpath: /liv-motor/html/template/admin
-front_urlpath: /liv-motor/html/template/default
-image_save_urlpath: /liv-motor/html/upload/save_image
-image_temp_urlpath: /liv-motor/html/upload/temp_image
-user_data_urlpath: /liv-motor/html/user_data
-plugin_urlpath: /liv-motor/html/plugin
+admin_urlpath: /rentalmotor/html/template/admin
+front_urlpath: /rentalmotor/html/template/default
+image_save_urlpath: /rentalmotor/html/upload/save_image
+image_temp_urlpath: /rentalmotor/html/upload/temp_image
+user_data_urlpath: /rentalmotor/html/user_data
+plugin_urlpath: /rentalmotor/html/plugin
