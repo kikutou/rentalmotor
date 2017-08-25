@@ -1,4 +1,4 @@
-/app/cache/
-/app/log/
-/app/config/
+#/app/cache/
+#/app/log/
+#/app/config/
 /.idea/
