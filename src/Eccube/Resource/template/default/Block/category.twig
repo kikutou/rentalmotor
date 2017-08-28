@@ -19,25 +19,31 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
-{% macro tree(Category) %}
+{% macro tree(Category, image=true) %}
     <li>
         <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
-            {{ Category.name }}
+            {% if image %}
+                <img src="{{ app.config.front_urlpath }}/img/default/logo-w-{{ Category.name|lower }}.png" alt="{{ Category.name }}" width="169" height="26" />
+            {% else %}
+                {{ Category.name }}
+            {% endif %}
         </a>
         {% if Category.children|length > 0 %}
             <ul>
             {% for ChildCategory in Category.children %}
-                    {{ _self.tree(ChildCategory) }}
+                    {{ _self.tree(ChildCategory, false) }}
             {% endfor %}
             </ul>
         {% endif %}
     </li>
 {% endmacro %}
-
-<nav id="category" class="drawer_block pc">
-    <ul class="category-nav">
-    {% for Category in Categories %}
-        {{ _self.tree(Category) }}
-    {% endfor %}
-    </ul> <!-- category-nav -->
-</nav>
+<article>
+    <nav id="category" class="drawer_block pc" style="background-color: red">
+        <ul class="category-nav">
+            <li>メーカーを選択</li>
+            {% for Category in Categories %}
+                {{ _self.tree(Category) }}
+            {% endfor %}
+        </ul> <!-- category-nav -->
+    </nav>
+</article>
