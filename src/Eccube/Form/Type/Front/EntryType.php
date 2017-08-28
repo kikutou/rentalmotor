@@ -32,11 +32,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class EntryType extends AbstractType
 {
+    protected $app;
     protected $config;
 
-    public function __construct($config)
+    public function __construct($app)
     {
-        $this->config = $config;
+        $this->app = $app;
+        $this->config = $app['config'];
     }
 
     /**
@@ -44,6 +46,15 @@ class EntryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $Categories = $this->app['eccube.repository.category']->findBy(array(
+            'level' => 1
+        ));
+
+        $choices = array('' => '');
+        foreach ($Categories as $category) {
+            $choices[$category['id']] = $category['name'];
+        }
+
         $builder
             ->add('name', 'name', array(
                 'required' => true,
@@ -59,7 +70,53 @@ class EntryType extends AbstractType
             ->add('email', 'repeated_email')
             ->add('password', 'repeated_password')
 
-            ->add('category_1', 'choice')
+            ->add('category_1_1', 'choice', array(
+                'choices' => $choices
+            ))
+            ->add('category_1_2', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+            ->add('category_1_3', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+            ->add('category_1_4', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+
+            ->add('category_2_1', 'choice', array(
+                'choices' => $choices
+            ))
+            ->add('category_2_2', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+            ->add('category_2_3', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+            ->add('category_2_4', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+
+            ->add('category_3_1', 'choice', array(
+                'choices' => $choices
+            ))
+            ->add('category_3_2', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+            ->add('category_3_3', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
+            ->add('category_3_4', 'choice', array(
+                'disabled' => true,
+                'choices' => array('' => '')
+            ))
 
             ->add('save', 'submit', array('label' => 'この内容で登録する'));
     }

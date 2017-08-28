@@ -29,6 +29,7 @@ use Eccube\Common\Constant;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Exception\CartException;
+use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -319,6 +320,31 @@ class ProductController
             'Product' => $Product,
             'is_favorite' => $is_favorite,
         ));
+    }
+
+    public function getChildCategories(Application $app, Request $request)
+    {
+        if (!$request->isMethod('POST')) {
+            throw new BadResponseException();
+        }
+
+        $parent_id = json_decode($request->getContent(), true);
+
+        /** @var \Eccube\Entity\Category $Parent */
+        $Parent = $app['eccube.repository.category']->find($parent_id['parent_id']);
+
+        if (is_null($Parent)) {
+            $Children = array();
+        } else {
+            $Children = $Parent->getChildren();
+        }
+
+        $options = array();
+        foreach ($Children as $child) {
+            $options[$child->getId()] = $child->getName();
+        }
+
+        return json_encode($options);
     }
 
     /**
