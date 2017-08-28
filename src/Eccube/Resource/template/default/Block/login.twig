@@ -21,15 +21,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #}
 {% if is_granted('ROLE_USER') %}
     <ul>
-        <li><a class="btn btn-sub" href="">ログアウト</a></li>
-        <li><a class="btn btn-main" href="">お気に入り</a></li>
-        <li><a class="btn btn-main" href="">マイページ</a></li>
+        <li><a class="btn btn-sub" href="{{ url('logout') }}">ログアウト</a></li>
+        <li><a class="btn btn-main" href="{{ url('mypage_favorite') }}">お気に入り</a></li>
+        <li><a class="btn btn-main" href="{{ url('mypage') }}">マイページ</a></li>
     </ul>
 {% else %}
     <ul>
-        <li><a class="btn btn-sub" href="">ログアウト</a></li>
-        <li><a class="btn btn-main" href="">お気に入り</a></li>
-        <li><a class="btn btn-main" href="">マイページ</a></li>
+        <li><a class="btn btn-main" href="{{ url('entry') }}">新規登録</a></li>
+        <li><a class="btn btn-main" href="{{ url('mypage_login') }}">ログイン</a></li>
     </ul>
 {% endif %}
 </nav>
