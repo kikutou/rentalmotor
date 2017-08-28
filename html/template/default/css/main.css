@@ -1072,7 +1072,6 @@ article.wrap .cart > div:last-child{
   border-bottom:solid 1px #ccc;
 }
 
-}
 article.wrap .cart > div ul{
   display: table;
   table-layout: fixed;

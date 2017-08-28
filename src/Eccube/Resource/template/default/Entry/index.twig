@@ -60,13 +60,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             {{ form_errors(form.kana.kana02) }}
                         </dd>
                     </dl>
-                    <dl id="top_box__company_name">
-                        <dt>{{ form_label(form.company_name) }}</dt>
-                        <dd class="form-group input_name">
-                            {{ form_widget(form.company_name) }}
-                            {{ form_errors(form.company_name) }}
-                        </dd>
-                    </dl>
                     <dl id="top_box__address_detail">
                         <dt>{{ form_label(form.address) }}</dt>
                         <dd>
@@ -83,15 +76,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             <div class="form-inline form-group input_tel">
                                 {{ form_widget(form.tel, {attr : {class : 'short'}}) }}
                                 {{ form_errors(form.tel) }}
-                            </div>
-                        </dd>
-                    </dl>
-                    <dl id="top_box__fax">
-                        <dt>{{ form_label(form.fax) }}</dt>
-                        <dd>
-                            <div class="form-inline form-group input_tel">
-                                {{ form_widget(form.fax, {attr : {class : 'short'}}) }}
-                                {{ form_errors(form.fax) }}
                             </div>
                         </dd>
                     </dl>
@@ -117,32 +101,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             {% endfor %}
                         </dd>
                     </dl>
-                </div>
-                <div id="top_box__birth" class="dl_table not_required">
-                    <dl>
-                        <dt>{{ form_label(form.birth) }}</dt>
+                    <dl id="top_box__category">
+                        <dt>{{ form_label(form.category1) }}</dt>
                         <dd>
-                            <div class="form-group form-inline">
-                                {{ form_widget(form.birth) }}
-                                {{ form_errors(form.birth) }}
-                            </div>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt id="top_box__sex">{{ form_label(form.sex) }}</dt>
-                        <dd>
-                            <div class="form-group form-inline">
-                                {{ form_widget(form.sex) }}
-                                {{ form_errors(form.sex) }}
-                            </div>
-                        </dd>
-                    </dl>
-                    <dl id="top_box__job">
-                        <dt>{{ form_label(form.job) }}</dt>
-                        <dd>
-                            <div class="form-group form-inline">
-                                {{ form_widget(form.job) }}
-                                {{ form_errors(form.job) }}
+                            <div class="form-inline form-group input_category1">
+                                {{ form_widget(form.category1, {attr : {class : 'short'}}) }}
+                                {{ form_errors(form.category1) }}
                             </div>
                         </dd>
                     </dl>

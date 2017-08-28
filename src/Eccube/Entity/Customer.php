@@ -201,6 +201,11 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
     private $del_flg;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $CustomerCategories;
+
+    /**
      * @var \Eccube\Entity\Master\Sex
      */
     private $Sex;
@@ -240,6 +245,7 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
      */
     public function __construct()
     {
+        $this->CustomerCategories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->CustomerFavoriteProducts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->CustomerAddresses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->Orders = new \Doctrine\Common\Collections\ArrayCollection();
@@ -1024,6 +1030,39 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
     public function getDelFlg()
     {
         return $this->del_flg;
+    }
+
+    /**
+     * Add CustomerCategories
+     *
+     * @param  \Eccube\Entity\CustomerCategory $customerCategories
+     * @return Customer
+     */
+    public function addCustomerCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories[] = $customerCategories;
+
+        return $this;
+    }
+
+    /**
+     * Remove CustomerCategories
+     *
+     * @param \Eccube\Entity\CustomerCategory $customerCategories
+     */
+    public function removeProductCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories->removeElement($customerCategories);
+    }
+
+    /**
+     * Get CustomerCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCustomerCategories()
+    {
+        return $this->CustomerCategories;
     }
 
     /**
