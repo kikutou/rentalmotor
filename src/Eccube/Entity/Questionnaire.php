@@ -1,0 +1,615 @@
+<?php
+
+namespace Eccube\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Questionnaire
+ */
+class Questionnaire extends \Eccube\Entity\AbstractEntity
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $question1_note;
+
+    /**
+     * @var string
+     */
+    private $question1_note_admin;
+
+    /**
+     * @var string
+     */
+    private $question2_note_admin;
+
+    /**
+     * @var \DateTime
+     */
+    private $question3;
+
+    /**
+     * @var string
+     */
+    private $question3_note_admin;
+
+    /**
+     * @var string
+     */
+    private $question4_note;
+
+    /**
+     * @var string
+     */
+    private $question4_note_admin;
+
+    /**
+     * @var string
+     */
+    private $question5_note;
+
+    /**
+     * @var string
+     */
+    private $question5_note_admin;
+
+    /**
+     * @var string
+     */
+    private $question6_note_admin;
+
+    /**
+     * @var string
+     */
+    private $question7;
+
+    /**
+     * @var string
+     */
+    private $question7_note_admin;
+
+    /**
+     * @var \DateTime
+     */
+    private $create_date;
+
+    /**
+     * @var \DateTime
+     */
+    private $update_date;
+
+    /**
+     * @var integer
+     */
+    private $del_flg = '0';
+
+    /**
+     * @var \Eccube\Entity\Master\Question1
+     */
+    private $Question1;
+
+    /**
+     * @var \Eccube\Entity\Master\Question2
+     */
+    private $Question2;
+
+    /**
+     * @var \Eccube\Entity\Master\Question4
+     */
+    private $Question4;
+
+    /**
+     * @var \Eccube\Entity\Master\Question5
+     */
+    private $Question5;
+
+    /**
+     * @var \Eccube\Entity\Master\Question6
+     */
+    private $Question6;
+
+    /**
+     * @var \Eccube\Entity\Customer
+     */
+    private $Customer;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set question1_note
+     *
+     * @param string $question1Note
+     * @return Questionnaire
+     */
+    public function setQuestion1Note($question1Note)
+    {
+        $this->question1_note = $question1Note;
+
+        return $this;
+    }
+
+    /**
+     * Get question1_note
+     *
+     * @return string 
+     */
+    public function getQuestion1Note()
+    {
+        return $this->question1_note;
+    }
+
+    /**
+     * Set question1_note_admin
+     *
+     * @param string $question1NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion1NoteAdmin($question1NoteAdmin)
+    {
+        $this->question1_note_admin = $question1NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question1_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion1NoteAdmin()
+    {
+        return $this->question1_note_admin;
+    }
+
+    /**
+     * Set question2_note_admin
+     *
+     * @param string $question2NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion2NoteAdmin($question2NoteAdmin)
+    {
+        $this->question2_note_admin = $question2NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question2_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion2NoteAdmin()
+    {
+        return $this->question2_note_admin;
+    }
+
+    /**
+     * Set question3
+     *
+     * @param \DateTime $question3
+     * @return Questionnaire
+     */
+    public function setQuestion3($question3)
+    {
+        $this->question3 = $question3;
+
+        return $this;
+    }
+
+    /**
+     * Get question3
+     *
+     * @return \DateTime 
+     */
+    public function getQuestion3()
+    {
+        return $this->question3;
+    }
+
+    /**
+     * Set question3_note_admin
+     *
+     * @param string $question3NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion3NoteAdmin($question3NoteAdmin)
+    {
+        $this->question3_note_admin = $question3NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question3_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion3NoteAdmin()
+    {
+        return $this->question3_note_admin;
+    }
+
+    /**
+     * Set question4_note
+     *
+     * @param string $question4Note
+     * @return Questionnaire
+     */
+    public function setQuestion4Note($question4Note)
+    {
+        $this->question4_note = $question4Note;
+
+        return $this;
+    }
+
+    /**
+     * Get question4_note
+     *
+     * @return string 
+     */
+    public function getQuestion4Note()
+    {
+        return $this->question4_note;
+    }
+
+    /**
+     * Set question4_note_admin
+     *
+     * @param string $question4NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion4NoteAdmin($question4NoteAdmin)
+    {
+        $this->question4_note_admin = $question4NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question4_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion4NoteAdmin()
+    {
+        return $this->question4_note_admin;
+    }
+
+    /**
+     * Set question5_note
+     *
+     * @param string $question5Note
+     * @return Questionnaire
+     */
+    public function setQuestion5Note($question5Note)
+    {
+        $this->question5_note = $question5Note;
+
+        return $this;
+    }
+
+    /**
+     * Get question5_note
+     *
+     * @return string 
+     */
+    public function getQuestion5Note()
+    {
+        return $this->question5_note;
+    }
+
+    /**
+     * Set question5_note_admin
+     *
+     * @param string $question5NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion5NoteAdmin($question5NoteAdmin)
+    {
+        $this->question5_note_admin = $question5NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question5_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion5NoteAdmin()
+    {
+        return $this->question5_note_admin;
+    }
+
+    /**
+     * Set question6_note_admin
+     *
+     * @param string $question6NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion6NoteAdmin($question6NoteAdmin)
+    {
+        $this->question6_note_admin = $question6NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question6_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion6NoteAdmin()
+    {
+        return $this->question6_note_admin;
+    }
+
+    /**
+     * Set question7
+     *
+     * @param string $question7
+     * @return Questionnaire
+     */
+    public function setQuestion7($question7)
+    {
+        $this->question7 = $question7;
+
+        return $this;
+    }
+
+    /**
+     * Get question7
+     *
+     * @return string 
+     */
+    public function getQuestion7()
+    {
+        return $this->question7;
+    }
+
+    /**
+     * Set question7_note_admin
+     *
+     * @param string $question7NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion7NoteAdmin($question7NoteAdmin)
+    {
+        $this->question7_note_admin = $question7NoteAdmin;
+
+        return $this;
+    }
+
+    /**
+     * Get question7_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion7NoteAdmin()
+    {
+        return $this->question7_note_admin;
+    }
+
+    /**
+     * Set create_date
+     *
+     * @param \DateTime $createDate
+     * @return Questionnaire
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->create_date = $createDate;
+
+        return $this;
+    }
+
+    /**
+     * Get create_date
+     *
+     * @return \DateTime 
+     */
+    public function getCreateDate()
+    {
+        return $this->create_date;
+    }
+
+    /**
+     * Set update_date
+     *
+     * @param \DateTime $updateDate
+     * @return Questionnaire
+     */
+    public function setUpdateDate($updateDate)
+    {
+        $this->update_date = $updateDate;
+
+        return $this;
+    }
+
+    /**
+     * Get update_date
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateDate()
+    {
+        return $this->update_date;
+    }
+
+    /**
+     * Set del_flg
+     *
+     * @param integer $delFlg
+     * @return Questionnaire
+     */
+    public function setDelFlg($delFlg)
+    {
+        $this->del_flg = $delFlg;
+
+        return $this;
+    }
+
+    /**
+     * Get del_flg
+     *
+     * @return integer 
+     */
+    public function getDelFlg()
+    {
+        return $this->del_flg;
+    }
+
+    /**
+     * Set Question1
+     *
+     * @param \Eccube\Entity\Master\Question1 $question1
+     * @return Questionnaire
+     */
+    public function setQuestion1(\Eccube\Entity\Master\Question1 $question1 = null)
+    {
+        $this->Question1 = $question1;
+
+        return $this;
+    }
+
+    /**
+     * Get Question1
+     *
+     * @return \Eccube\Entity\Master\Question1 
+     */
+    public function getQuestion1()
+    {
+        return $this->Question1;
+    }
+
+    /**
+     * Set Question2
+     *
+     * @param \Eccube\Entity\Master\Question2 $question2
+     * @return Questionnaire
+     */
+    public function setQuestion2(\Eccube\Entity\Master\Question2 $question2 = null)
+    {
+        $this->Question2 = $question2;
+
+        return $this;
+    }
+
+    /**
+     * Get Question2
+     *
+     * @return \Eccube\Entity\Master\Question2 
+     */
+    public function getQuestion2()
+    {
+        return $this->Question2;
+    }
+
+    /**
+     * Set Question4
+     *
+     * @param \Eccube\Entity\Master\Question4 $question4
+     * @return Questionnaire
+     */
+    public function setQuestion4(\Eccube\Entity\Master\Question4 $question4 = null)
+    {
+        $this->Question4 = $question4;
+
+        return $this;
+    }
+
+    /**
+     * Get Question4
+     *
+     * @return \Eccube\Entity\Master\Question4 
+     */
+    public function getQuestion4()
+    {
+        return $this->Question4;
+    }
+
+    /**
+     * Set Question5
+     *
+     * @param \Eccube\Entity\Master\Question5 $question5
+     * @return Questionnaire
+     */
+    public function setQuestion5(\Eccube\Entity\Master\Question5 $question5 = null)
+    {
+        $this->Question5 = $question5;
+
+        return $this;
+    }
+
+    /**
+     * Get Question5
+     *
+     * @return \Eccube\Entity\Master\Question5 
+     */
+    public function getQuestion5()
+    {
+        return $this->Question5;
+    }
+
+    /**
+     * Set Question6
+     *
+     * @param \Eccube\Entity\Master\Question6 $question6
+     * @return Questionnaire
+     */
+    public function setQuestion6(\Eccube\Entity\Master\Question6 $question6 = null)
+    {
+        $this->Question6 = $question6;
+
+        return $this;
+    }
+
+    /**
+     * Get Question6
+     *
+     * @return \Eccube\Entity\Master\Question6 
+     */
+    public function getQuestion6()
+    {
+        return $this->Question6;
+    }
+
+    /**
+     * Set Customer
+     *
+     * @param \Eccube\Entity\Customer $customer
+     * @return Questionnaire
+     */
+    public function setCustomer(\Eccube\Entity\Customer $customer = null)
+    {
+        $this->Customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get Customer
+     *
+     * @return \Eccube\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->Customer;
+    }
+}

@@ -1,0 +1,19 @@
+Eccube\Entity\Master\QuestionnaireQuestion1:
+    type: entity
+    table: mtb_questionnaire_question1
+    repositoryClass: Eccube\Repository\Master\QuestionnaireQuestion1Repository
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: false
+            id: true
+    fields:
+        name:
+            type: text
+            nullable: true
+        rank:
+            type: smallint
+            nullable: false
+            unsigned: false
+    lifecycleCallbacks: {  }
