@@ -46,13 +46,24 @@ class EntryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $Categories = $this->app['eccube.repository.category']->findBy(array(
-            'level' => 1
-        ));
+        $level1 = array('' => '');
+        foreach ($this->app['eccube.repository.category']->findBy(array('level' => 1)) as $category) {
+            $level1[$category['id']] = $category['name'];
+        }
 
-        $choices = array('' => '');
-        foreach ($Categories as $category) {
-            $choices[$category['id']] = $category['name'];
+        $level2 = array('' => '');
+        foreach ($this->app['eccube.repository.category']->findBy(array('level' => 2)) as $category) {
+            $level2[$category['id']] = $category['name'];
+        }
+
+        $level3 = array('' => '');
+        foreach ($this->app['eccube.repository.category']->findBy(array('level' => 3)) as $category) {
+            $level3[$category['id']] = $category['name'];
+        }
+
+        $level4 = array('' => '');
+        foreach ($this->app['eccube.repository.category']->findBy(array('level' => 4)) as $category) {
+            $level4[$category['id']] = $category['name'];
         }
 
         $builder
@@ -71,51 +82,54 @@ class EntryType extends AbstractType
             ->add('password', 'repeated_password')
 
             ->add('category_1_1', 'choice', array(
-                'choices' => $choices
+                'choices' => $level1,
+                'required' => false
             ))
             ->add('category_1_2', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level2,
+                'required' => false
             ))
             ->add('category_1_3', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level3,
+                'required' => false
             ))
             ->add('category_1_4', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level4,
+                'required' => false
             ))
 
             ->add('category_2_1', 'choice', array(
-                'choices' => $choices
+                'choices' => $level1,
+                'required' => false
             ))
             ->add('category_2_2', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level2,
+                'required' => false
             ))
             ->add('category_2_3', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level3,
+                'required' => false
             ))
             ->add('category_2_4', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level4,
+                'required' => false
             ))
 
             ->add('category_3_1', 'choice', array(
-                'choices' => $choices
+                'choices' => $level1,
+                'required' => false
             ))
             ->add('category_3_2', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level2,
+                'required' => false
             ))
             ->add('category_3_3', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level3,
+                'required' => false
             ))
             ->add('category_3_4', 'choice', array(
-                'disabled' => true,
-                'choices' => array('' => '')
+                'choices' => $level4,
+                'required' => false
             ))
 
             ->add('save', 'submit', array('label' => 'この内容で登録する'));
