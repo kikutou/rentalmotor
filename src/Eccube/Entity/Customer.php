@@ -201,6 +201,11 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
     private $del_flg;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $CustomerCategories;
+
+    /**
      * @var \Eccube\Entity\Master\Sex
      */
     private $Sex;
@@ -240,6 +245,7 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
      */
     public function __construct()
     {
+        $this->CustomerCategories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->CustomerFavoriteProducts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->CustomerAddresses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->Orders = new \Doctrine\Common\Collections\ArrayCollection();
@@ -1027,6 +1033,39 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
     }
 
     /**
+     * Add CustomerCategories
+     *
+     * @param  \Eccube\Entity\CustomerCategory $customerCategories
+     * @return Customer
+     */
+    public function addCustomerCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories[] = $customerCategories;
+
+        return $this;
+    }
+
+    /**
+     * Remove CustomerCategories
+     *
+     * @param \Eccube\Entity\CustomerCategory $customerCategories
+     */
+    public function removeProductCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories->removeElement($customerCategories);
+    }
+
+    /**
+     * Get CustomerCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCustomerCategories()
+    {
+        return $this->CustomerCategories;
+    }
+
+    /**
      * Add CustomerFavoriteProducts
      *
      * @param  \Eccube\Entity\CustomerFavoriteProduct $customerFavoriteProducts
@@ -1238,5 +1277,113 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
         $this->CustomerAddresses[] = $customerAddresses;
 
         return $this;
+    }
+
+    public function getCategory11()
+    {
+        if (empty($this->CustomerCategories->toArray())) {
+            return '';
+        }
+
+        return $this->CustomerCategories[0]->getId();
+    }
+
+    public function getCategory12()
+    {
+        if (empty($this->CustomerCategories->toArray())) {
+            return '';
+        }
+
+        return $this->CustomerCategories[0]->getParent()->getId();
+    }
+
+    public function getCategory13()
+    {
+        if (empty($this->CustomerCategories->toArray())) {
+            return '';
+        }
+
+        return $this->CustomerCategories[0]->getParent()->getParent()->getId();
+    }
+
+    public function getCategory14()
+    {
+        if (empty($this->CustomerCategories->toArray())) {
+            return '';
+        }
+
+        return $this->CustomerCategories[0]->getParent()->getParent()->getParent()->getId();
+    }
+
+    public function getCategory21()
+    {
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return '';
+        }
+
+        return $this->CustomerCategories[1]->getId();
+    }
+
+    public function getCategory22()
+    {
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return '';
+        }
+
+        return $this->CustomerCategories[1]->getParent()->getId();
+    }
+
+    public function getCategory23()
+    {
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return '';
+        }
+
+        return $this->CustomerCategories[1]->getParent()->getParent()->getId();
+    }
+
+    public function getCategory24()
+    {
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return '';
+        }
+
+        return $this->CustomerCategories[1]->getParent()->getParent()->getParent()->getId();
+    }
+
+    public function getCategory31()
+    {
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return '';
+        }
+
+        return $this->CustomerCategories[2]->getId();
+    }
+
+    public function getCategory32()
+    {
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return '';
+        }
+
+        return $this->CustomerCategories[2]->getParent()->getId();
+    }
+
+    public function getCategory33()
+    {
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return '';
+        }
+
+        return $this->CustomerCategories[2]->getParent()->getParent()->getId();
+    }
+
+    public function getCategory34()
+    {
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return '';
+        }
+
+        return $this->CustomerCategories[2]->getParent()->getParent()->getParent()->getId();
     }
 }

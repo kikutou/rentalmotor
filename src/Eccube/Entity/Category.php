@@ -188,6 +188,11 @@ class Category extends \Eccube\Entity\AbstractEntity
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    private $CustomerCategories;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
     private $Children;
 
     /**
@@ -206,6 +211,7 @@ class Category extends \Eccube\Entity\AbstractEntity
     public function __construct()
     {
         $this->ProductCategories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->CustomerCategories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->Children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -388,6 +394,39 @@ class Category extends \Eccube\Entity\AbstractEntity
     public function getProductCategories()
     {
         return $this->ProductCategories;
+    }
+
+    /**
+     * Add CustomerCategories
+     *
+     * @param  \Eccube\Entity\CustomerCategory $customerCategories
+     * @return Category
+     */
+    public function addCustomerCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories[] = $customerCategories;
+
+        return $this;
+    }
+
+    /**
+     * Remove CustomerCategories
+     *
+     * @param \Eccube\Entity\CustomerCategory $customerCategories
+     */
+    public function removeCustomerCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories->removeElement($customerCategories);
+    }
+
+    /**
+     * Get CustomerCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCustomerCategories()
+    {
+        return $this->CustomerCategories;
     }
 
     /**

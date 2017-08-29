@@ -47,12 +47,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 {{ form_widget(form.kana.kana02, { attr : { placeholder: 'メイ' }}) }}
                             </dd>
                         </dl>
-                        <dl id="confirm_box__company_name">
-                            <dt>{{ form_label(form.company_name) }}</dt>
-                            <dd class="form-group input_name">
-                                {{ form_widget(form.company_name) }}
-                            </dd>
-                        </dl>
                         <dl id="confirm_box__address_detail">
                             <dt>{{ form_label(form.address) }}</dt>
                             <dd>
@@ -67,14 +61,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             <dd>
                                 <div class="form-inline form-group input_tel">
                                     {{ form_widget(form.tel, {attr : {class : 'short'}}) }}
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl id="confirm_box__fax">
-                            <dt>{{ form_label(form.fax) }}</dt>
-                            <dd>
-                                <div class="form-inline form-group input_tel">
-                                    {{ form_widget(form.fax, {attr : {class : 'short'}}) }}
                                 </div>
                             </dd>
                         </dl>
@@ -94,32 +80,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                     ********
                                     {{ form_widget(form.password.first, {freeze_display_text: false}) }}
                                     {{ form_widget(form.password.second, {freeze_display_text: false}) }}
-                                </div>
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="dl_table not_required">
-                        <dl id="confirm_box__birth">
-                            <dt>{{ form_label(form.birth) }}</dt>
-                            <dd>
-                                <div class="form-group form-inline">
-                                    {{ form_widget(form.birth) }}
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl id="confirm_box__sex">
-                            <dt>{{ form_label(form.sex) }}</dt>
-                            <dd>
-                                <div class="form-group form-inline">
-                                    {{ form_widget(form.sex) }}
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl id="confirm_box__job">
-                            <dt>{{ form_label(form.job) }}</dt>
-                            <dd>
-                                <div class="form-group form-inline">
-                                    {{ form_widget(form.job) }}
                                 </div>
                             </dd>
                         </dl>

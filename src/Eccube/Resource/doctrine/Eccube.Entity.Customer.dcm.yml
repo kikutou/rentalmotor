@@ -168,6 +168,10 @@ Eccube\Entity\Customer:
                 name: pref
                 referencedColumnName: id
     oneToMany:
+        CustomerCategories:
+            targetEntity: Eccube\Entity\CustomerCategory
+            cascade: ["persist", "remove"]
+            mappedBy: Customer
         CustomerFavoriteProducts:
             targetEntity: Eccube\Entity\CustomerFavoriteProduct
             mappedBy: Customer

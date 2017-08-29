@@ -105,6 +105,7 @@ class FrontControllerProvider implements ControllerProviderInterface
         // products
         $c->match('/products/list', '\Eccube\Controller\ProductController::index')->bind('product_list');
         $c->match('/products/detail/{id}', '\Eccube\Controller\ProductController::detail')->bind('product_detail')->assert('id', '\d+');
+        $c->match('/child_categories', '\Eccube\Controller\ProductController::getChildCategories')->bind('get_child_categories');
 
         // shopping
         $c->match('/shopping', '\Eccube\Controller\ShoppingController::index')->bind('shopping');
