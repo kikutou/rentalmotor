@@ -313,12 +313,15 @@ class ProductController
             $is_favorite = $app['eccube.repository.customer_favorite_product']->isFavorite($Customer, $Product);
         }
 
+        $rental_date = $app['eccube.service.datetime']->getRentalDate();
+
         return $app->render('Product/detail.twig', array(
             'title' => $this->title,
             'subtitle' => $Product->getName(),
             'form' => $form->createView(),
             'Product' => $Product,
             'is_favorite' => $is_favorite,
+            'rental_date' => $rental_date
         ));
     }
 

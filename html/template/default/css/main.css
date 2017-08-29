@@ -269,16 +269,16 @@ header article:last-child nav ul li img{
   margin:0 auto;
 }
 header article:last-child nav ul li img:hover{
-  opacity:0.8; 
+  opacity:0.8;
 }
 header article:last-child nav ul li:nth-child(2){
   padding-bottom:4px;
 }
 header article:last-child nav ul li:nth-child(3){
-  
+
 }
 header article:last-child nav ul li:nth-child(4){
-  
+
 }
 header article:last-child nav ul li:nth-child(5) img{
   width:auto;
@@ -289,6 +289,7 @@ header article:last-child nav ul li:nth-child(5) img{
     display: none;
   }
 }
+
 
 
 
@@ -509,7 +510,7 @@ section.top-pr div .tw-qr{
 
 /**/
 section.news{
-  
+
 }
 section.news p{
   margin-bottom:1.5em;
@@ -1036,7 +1037,7 @@ article.wrap .steps ul{
 }
 article.wrap .steps ul li{
   position: relative;
-  display: table-cell; 
+  display: table-cell;
   vertical-align: bottom;
   border-bottom:solid 2px #ccc;
   text-align:center;
@@ -1182,7 +1183,7 @@ article.wrap .cart > div ol li:nth-child(3) span{ background:#a28ddd; color:#fff
   }
   article.wrap .cart > div ul li:nth-child(4),
   article.wrap .cart > div ul li:last-child{
-    text-align: left; 
+    text-align: left;
   }
   article.wrap .cart > div ul li:nth-child(4) span,
   article.wrap .cart > div ul li:last-child span{
@@ -1247,7 +1248,3 @@ article.wrap .go2payment a:hover{
     margin-bottom:16px;
   }
 }
-
-
-
-

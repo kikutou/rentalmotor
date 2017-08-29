@@ -62,6 +62,9 @@ class EccubeServiceProvider implements ServiceProviderInterface
         $app['eccube.service.mail'] = $app->share(function () use ($app) {
             return new \Eccube\Service\MailService($app);
         });
+        $app['eccube.service.datetime'] = $app->share(function () use ($app) {
+            return new \Eccube\Service\DateTimeService($app);
+        });
         $app['eccube.service.csv.export'] = $app->share(function () use ($app) {
             $csvService = new \Eccube\Service\CsvExportService();
             $csvService->setEntityManager($app['orm.em']);

@@ -2,4 +2,4 @@
 /app/log/
 /app/config/
 /.idea/
-/app/
+/.htaccess

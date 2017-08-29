@@ -111,166 +111,175 @@ $(function(){
     <!-- ▼item_detail▼ -->
     <div id="item_detail">
         <div id="detail_wrap" class="row">
-            <!--★画像★-->
-            <div id="item_photo_area" class="col-sm-6">
-                <div id="detail_image_box__slides" class="slides">
-                    {% if Product.ProductImage|length > 0 %}
-                        {% for ProductImage in Product.ProductImage %}
-                        <div id="detail_image_box__item--{{ loop.index }}"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}"/></div>
-                        {% endfor %}
-                    {% else %}
-                        <div id="detail_image_box__item"><img src="{{ app.config.image_save_urlpath }}/{{ ''|no_image_product }}"/></div>
-                    {% endif %}
-                </div>
-            </div>
 
-            <section id="item_detail_area" class="col-sm-6">
-
-                <!--★商品名★-->
-                <h3 id="detail_description_box__name" class="item_name">{{ Product.name }}</h3>
-                <div id="detail_description_box__body" class="item_detail">
-
-                    {% if Product.ProductTag is not empty %}
-                        <!--▼商品タグ-->
-                        <div id="product_tag_box" class="product_tag">
-                            {% for ProductTag in Product.ProductTag %}
-                                <span id="product_tag_box__product_tag--{{ ProductTag.Tag.id }}" class="product_tag_list">{{ ProductTag.Tag }}</span>
-                            {% endfor %}
-                        </div>
-                        <hr>
-                        <!--▲商品タグ-->
-                    {% endif %}
-
-                    <!--★通常価格★-->
-                    {% if Product.hasProductClass -%}
-                        {% if Product.getPrice01Min is not null and Product.getPrice01IncTaxMin == Product.getPrice01IncTaxMax %}
-                        <p id="detail_description_box__class_normal_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                        {% elseif Product.getPrice01Min is not null and Product.getPrice01Max is not null %}
-                        <p id="detail_description_box__class_normal_range_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }} ～ {{ Product.getPrice01IncTaxMax|price }}</span> <span class="small">税込</span></p>
-                        {% endif %}
-                    {% else -%}
-                        {% if Product.getPrice01Max is not null %}
-                        <p id="detail_description_box__normal_price" class="normal_price"> 通常価格：<span class="price01_default">{{ Product.getPrice01IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                        {% endif %}
-                    {% endif -%}
-
-                    <!--★販売価格★-->
-                    {% if Product.hasProductClass -%}
-                        {% if Product.getPrice02IncTaxMin == Product.getPrice02IncTaxMax %}
-                        <p id="detail_description_box__class_sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                        {% else %}
-                        <p id="detail_description_box__class_range_sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }} ～ {{  Product.getPrice02IncTaxMax|price }}</span> <span class="small">税込</span></p>
-                        {% endif %}
-                    {% else -%}
-                        <p id="detail_description_box__sale_price" class="sale_price text-primary"> <span class="price02_default">{{ Product.getPrice02IncTaxMin|price }}</span> <span class="small">税込</span></p>
-                    {% endif -%}
-
-                    <!--▼商品コード-->
-                    <p id="detail_description_box__item_range_code" class="item_code">商品コード： <span id="item_code_default">
-                        {{ Product.code_min }}
-                        {% if Product.code_min != Product.code_max %} ～ {{ Product.code_max }}{% endif %}
-                        </span> </p>
-                    <!--▲商品コード-->
-
-                    <!-- ▼関連カテゴリ▼ -->
-                    <div id="relative_category_box" class="relative_cat">
-                        <p>関連カテゴリ</p>
-                          {% for ProductCategory in Product.ProductCategories %}
-                        <ol id="relative_category_box__relative_category--{{ ProductCategory.product_id }}_{{ loop.index }}">
-                            {% for Category in ProductCategory.Category.path %}
-                            <li><a id="relative_category_box__relative_category--{{ ProductCategory.product_id }}_{{ loop.parent.loop.index }}_{{ Category.id }}" href="{{ url('product_list') }}?category_id={{ Category.id }}">{{ Category.name }}</a></li>
-                            {% endfor %}
-                        </ol>
-                        {% endfor %}
+            <!-- catch start -->
+            <article class="contents-catch privacy"><!-- ページによってclassを変更 -->
+                <section>
+                    <div>
+                        <h2>KAWASAKI Ninja250<!-- 車体名 --></h2>
                     </div>
-                    <!-- ▲関連カテゴリ▲ -->
+                </section>
+            </article>
+            <!-- catch end -->
 
-                    <form action="?" method="post" id="form1" name="form1">
-                        <!--▼買い物かご-->
-                        <div id="detail_cart_box" class="cart_area">
-                            {% if Product.stock_find %}
+            <form action="?" method="post" id="form1" name="form1">
+                <!-- contents start -->
+                <article class="wrap">
+                    <section class="item-detail">
+                        <ul>
+                            <li>
+                                {% if Product.ProductImage|length > 0 %}
+                                    {% for ProductImage in Product.ProductImage %}
+                                        <div id="detail_image_box__item--{{ loop.index }}"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div id="detail_image_box__item"><img src="{{ app.config.image_save_urlpath }}/{{ ''|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></div>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <h3>商品名</h3>
+                                <p class="item-name">{{ Product.name }}</p>
+                                <h3>適合車種</h3>
+                                <p class="item-model"><small>NINJA250 ［ニンジャ］ 13-15</small><small>NINJA250 ［ニンジャ］ ABS 13-15</small></p>
+                                <h3>レンタル価格</h3>
+                                <p class="item-price">
+                                    <span class="yen">
+                                        <!--★通常価格★-->
+                                        {% if Product.hasProductClass -%}
+                                            {% if Product.getPrice01Min is not null and Product.getPrice01IncTaxMin == Product.getPrice01IncTaxMax %}
+                                                {{ Product.getPrice01IncTaxMin|price }}
+                                            {% elseif Product.getPrice01Min is not null and Product.getPrice01Max is not null %}
+                                                {{ Product.getPrice01IncTaxMin|price }} ～ {{ Product.getPrice01IncTaxMax|price }}
+                                            {% endif %}
+                                        {% else -%}
+                                            {% if Product.getPrice01Max is not null %}
+                                                {{ Product.getPrice01IncTaxMin|price }}
+                                            {% endif %}
+                                        {% endif -%}
 
-                                {# 規格 #}
-                                {% if form.classcategory_id1 is defined %}
-                                <ul id="detail_cart_box__cart_class_category_id" class="classcategory_list">
-                                    {# 規格1 #}
-                                    <li>
-                                        {{ form_widget(form.classcategory_id1) }}
-                                        {{ form_errors(form.classcategory_id1) }}
-                                    </li>
-                                    {# 規格2 #}
-                                    {% if form.classcategory_id2 is defined %}
-                                        <li>
-                                            {{ form_widget(form.classcategory_id2) }}
-                                            {{ form_errors(form.classcategory_id2) }}
-                                        </li>
-                                     {% endif %}
-                                </ul>
+                                        <!--★販売価格★-->
+                                        {% if Product.hasProductClass -%}
+                                            {% if Product.getPrice02IncTaxMin == Product.getPrice02IncTaxMax %}
+                                                {{ Product.getPrice02IncTaxMin|price }}
+                                            {% else %}
+                                                {{ Product.getPrice02IncTaxMin|price }} ～ {{  Product.getPrice02IncTaxMax|price }}
+                                            {% endif %}
+                                        {% else -%}
+                                            {{ Product.getPrice02IncTaxMin|price }}
+                                        {% endif -%}
+                                    </span>
+                                </p>
+
+                                {% if BaseInfo.option_favorite_product == 1 %}
+                                    {% if is_favorite == false %}
+                                        <button type="submit" id="favorite" class="btn btn-main">お気に入りに追加</button>
+                                    {% else %}
+                                        <a class="btn btn-main" disabled="disabled">お気に入りに追加済みです</a>
+                                    {% endif %}
                                 {% endif %}
 
-                                {# 数量 #}
-                                <dl id="detail_cart_box__cart_quantity" class="quantity">
-                                    <dt>数量</dt>
-                                    <dd>
-                                        {{ form_widget(form.quantity) }}
-                                        {{ form_errors(form.quantity) }}
-                                    </dd>
-                                </dl>
+                                <a class="btn btn-sub" href="#">お問い合わせ</a>
+                            </li>
+                        </ul>
 
-                                <div class="extra-form">
-                                    {% for f in form.getIterator %}
-                                        {% if f.vars.name matches '[^plg*]' %}
-                                            {{ form_row(f) }}
-                                        {% endif %}
+                        <ol>
+                            {% if Product.ProductImage|length > 0 %}
+                                {% set checked = true %}
+                                {% for ProductImage in Product.ProductImage %}
+                                    <li {% if checked %}class="check"{% endif %}><a href="#"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></a></li>
+                                    {% set checked = false %}
+                                {% endfor %}
+                            {% endif %}
+                        </ol>
+                    </section>
+                </article>
+
+                <article class="wrap">
+                    <section class="calendar">
+                        <h3>レンタル希望日を選択</h3>
+                        <div>
+                            <a class="scroll-left" href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                            <div>
+                                <ul>
+                                    <!-- class="active"は、選択ができるもの。 class="check"は現在レンタル希望日としてチェックを付けている日 -->
+                                    {% for month,days in rental_date %}
+                                    <li>
+                                        <div class="calendar-box">
+                                            <h4>{{ month }}月</h4>
+                                            <table>
+                                                <tr>
+                                                    <th><span>日</span></th>
+                                                    <th><span>月</span></th>
+                                                    <th><span>火</span></th>
+                                                    <th><span>水</span></th>
+                                                    <th><span>木</span></th>
+                                                    <th><span>金</span></th>
+                                                    <th><span>土</span></th>
+                                                </tr>
+                                                {% for day in days %}
+                                                    <tr>
+                                                        {% for date in day %}
+                                                            <td {% if date['active'] %}class="active"{% endif %}><span>{{ date['day'] }}</span></td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </li>
                                     {% endfor %}
-                                </div>
-
-                                {# カートボタン #}
-                                <div id="detail_cart_box__button_area" class="btn_area">
-                                    <ul id="detail_cart_box__insert_button" class="row">
-                                        <li class="col-xs-12 col-sm-8"><button type="submit" id="add-cart" class="btn btn-primary btn-block prevention-btn prevention-mask">カートに入れる</button></li>
-                                    </ul>
-                                    {#Favorite product button#}
-                                    {% if BaseInfo.option_favorite_product == 1 %}
-                                        <ul id="detail_cart_box__favorite_button" class="row">
-                                            {% if is_favorite == false %}
-                                                <li class="col-xs-12 col-sm-8"><button type="submit" id="favorite" class="btn btn-info btn-block prevention-btn prevention-mask">お気に入りに追加</button></li>
-                                            {% else %}
-                                                <li class="col-xs-12 col-sm-8"><button type="submit" id="favorite" class="btn btn-info btn-block" disabled="disabled">お気に入りに追加済みです</button></li>
-                                            {% endif %}
-                                        </ul>
-                                    {% endif %}
-                                </div> {#End div#detail_cart_box__button_area #}
-                            {% else %}
-                                {# 在庫がない場合は品切れボタンを表示 #}
-                                <div id="detail_cart_box__button_area" class="btn_area">
-                                    <ul class="row">
-                                        <li class="col-xs-12 col-sm-8"><button type="button" class="btn btn-default btn-block" disabled="disabled">ただいま品切れ中です</button></li>
-                                    </ul>
-                                    {#Favorite product button#}
-                                    {% if BaseInfo.option_favorite_product == 1 %}
-                                        <ul id="detail_cart_box__favorite_button" class="row">
-                                            {% if is_favorite == false %}
-                                                <li class="col-xs-12 col-sm-8"><button type="submit" id="favorite" class="btn btn-info btn-block prevention-btn prevention-mask">お気に入りに追加</button></li>
-                                            {% else %}
-                                                <li class="col-xs-12 col-sm-8"><button type="submit" id="favorite" class="btn btn-info btn-block" disabled="disabled">お気に入りに追加済みです</button></li>
-                                            {% endif %}
-                                        </ul>
-                                    {% endif %}
-                                </div> {#End div#detail_cart_box__button_area #}
-                            {% endif %} {#End stock find#}
+                                </ul>
+                            </div>
+                            <a class="scroll-right" href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
-                        <!--▲買い物かご-->
-                        {{ form_rest(form) }}
-                    </form>
-
-                    <!--★商品説明★-->
-                    <p id="detail_not_stock_box__description_detail" class="item_comment">{{ Product.description_detail|raw|nl2br }}</p>
-
-                </div>
-                <!-- /.item_detail -->
-
-            </section>
+                    </section>
+                </article>
+                <article class="wrap">
+                    <section class="period">
+                        <h3>レンタル期間</h3>
+                        <div>
+                            <ul>
+                                <li>
+                                    <div class="inner-box">
+                                        <h4>発送希望日</h4>
+                                        2017年<span>8月6日</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="inner-box">
+                                        <h4>到着予定日</h4>
+                                        2017年<span>8月6日</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="inner-box">
+                                        <h4>返却日</h4>
+                                        2017年<span>8月6日</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+                <article class="wrap">
+                    <section class="go-next">
+                        <div>
+                            <a href="#Notes">注意事項</a>をご確認ください。
+                            {% if Product.stock_find %}
+                                <button class="btn btn-main" type="submit" id="add-cart">カートに追加</button>
+                            {% else %}
+                                <button class="btn btn-main" type="button" disabled="disabled">ただいま品切れ中です</button>
+                            {% endif %}
+                            <textarea>
+                                注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。
+                                注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。
+                                注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。
+                                注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。注意事項の文章を入れる。
+                            </textarea>
+                        </div>
+                    </section>
+                </article>
+                {{ form_rest(form) }}
+            </form>
             <!--詳細ここまで-->
         </div>
 

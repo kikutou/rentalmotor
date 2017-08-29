@@ -60,7 +60,7 @@ class CustomerCategory extends \Eccube\Entity\AbstractEntity
      * @param  integer $customerId
      * @return CustomerCategory
      */
-    public function setProductId($customerId)
+    public function setCustomerId($customerId)
     {
         $this->customer_id = $customerId;
 
@@ -126,7 +126,7 @@ class CustomerCategory extends \Eccube\Entity\AbstractEntity
     /**
      * Set Customer
      *
-     * @param  \Eccube\Entity\Product $product
+     * @param  \Eccube\Entity\Customer $customer
      * @return CustomerCategory
      */
     public function setCustomer(\Eccube\Entity\Customer $customer = null)

@@ -240,6 +240,19 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
      */
     private $Orders;
 
+    private $category_1_1;
+    private $category_1_2;
+    private $category_1_3;
+    private $category_1_4;
+    private $category_2_1;
+    private $category_2_2;
+    private $category_2_3;
+    private $category_2_4;
+    private $category_3_1;
+    private $category_3_2;
+    private $category_3_3;
+    private $category_3_4;
+
     /**
      * Constructor
      */
@@ -1281,109 +1294,241 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory11()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_1)) {
+            return $this->category_1_1;
         }
 
-        return $this->CustomerCategories[0]->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getParent()->getParent()->getParent()->getId();
+    }
+
+    public function setCategory11($category)
+    {
+        $this->category_1_1 = $category;
+
+        return $this;
     }
 
     public function getCategory12()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_2)) {
+            return $this->category_1_2;
         }
 
-        return $this->CustomerCategories[0]->getParent()->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getParent()->getParent()->getId();
+    }
+
+    public function setCategory12($category)
+    {
+        $this->category_1_2 = $category;
+
+        return $this;
     }
 
     public function getCategory13()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_3)) {
+            return $this->category_1_3;
         }
 
-        return $this->CustomerCategories[0]->getParent()->getParent()->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getParent()->getId();
+    }
+
+    public function setCategory13($category)
+    {
+        $this->category_1_3 = $category;
+
+        return $this;
     }
 
     public function getCategory14()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_4)) {
+            return $this->category_1_4;
         }
 
-        return $this->CustomerCategories[0]->getParent()->getParent()->getParent()->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getId();
+    }
+
+    public function setCategory14($category)
+    {
+        $this->category_1_4 = $category;
+
+        return $this;
     }
 
     public function getCategory21()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_1)) {
+            return $this->category_2_1;
         }
 
-        return $this->CustomerCategories[1]->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getParent()->getParent()->getParent()->getId();
+    }
+
+    public function setCategory21($category)
+    {
+        $this->category_2_1 = $category;
+
+        return $this;
     }
 
     public function getCategory22()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_2)) {
+            return $this->category_2_2;
         }
 
-        return $this->CustomerCategories[1]->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getParent()->getParent()->getId();
+    }
+
+    public function setCategory22($category)
+    {
+        $this->category_2_2 = $category;
+
+        return $this;
     }
 
     public function getCategory23()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_3)) {
+            return $this->category_2_3;
         }
 
-        return $this->CustomerCategories[1]->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getParent()->getId();
+    }
+
+    public function setCategory23($category)
+    {
+        $this->category_2_3 = $category;
+
+        return $this;
     }
 
     public function getCategory24()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_4)) {
+            return $this->category_2_4;
         }
 
-        return $this->CustomerCategories[1]->getParent()->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getId();
+    }
+
+    public function setCategory24($category)
+    {
+        $this->category_2_4 = $category;
+
+        return $this;
     }
 
     public function getCategory31()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_1)) {
+            return $this->category_3_1;
         }
 
-        return $this->CustomerCategories[2]->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getParent()->getParent()->getParent()->getId();
+    }
+
+    public function setCategory31($category)
+    {
+        $this->category_3_1 = $category;
+
+        return $this;
     }
 
     public function getCategory32()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_2)) {
+            return $this->category_3_2;
         }
 
-        return $this->CustomerCategories[2]->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getParent()->getParent()->getId();
+    }
+
+    public function setCategory32($category)
+    {
+        $this->category_3_2 = $category;
+
+        return $this;
     }
 
     public function getCategory33()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_3)) {
+            return $this->category_3_3;
         }
 
-        return $this->CustomerCategories[2]->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getParent()->getId();
+    }
+
+    public function setCategory33($category)
+    {
+        $this->category_3_3 = $category;
+
+        return $this;
     }
 
     public function getCategory34()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_4)) {
+            return $this->category_3_4;
         }
 
-        return $this->CustomerCategories[2]->getParent()->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getId();
+    }
+
+    public function setCategory34($category)
+    {
+        $this->category_3_4 = $category;
+
+        return $this;
     }
 }

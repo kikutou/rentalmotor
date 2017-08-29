@@ -25,34 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% block javascript %}
 <script src="//ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+<!--suppress JSUnusedLocalSymbols -->
 <script>
-    $(function() {
-        $('#zip-search').click(function() {
-            AjaxZip3.zip2addr('entry[zip][zip01]', 'entry[zip][zip02]', 'entry[address][pref]', 'entry[address][addr01]');
-        });
-
-        $(
-            "#entry_category_1_1, #entry_category_2_1, #entry_category_3_1,"
-            + "#entry_category_1_2, #entry_category_2_2, #entry_category_3_2,"
-            + "#entry_category_1_3, #entry_category_2_3, #entry_category_3_3"
-        ).change(function () {
-            var level = /^.*(\d)$/.exec($(this).attr('id'))[1];
-            var parent_id = $(this).val();
-            var next = $("#" + $(this).attr('id').replace(/^(.*)\d$/, "$1" + (parseInt(level) + 1)));
-
-            if (parent_id === '') {
-                var child;
-                for (var i = level; i < 4; i++) {
-                    child = $("#" + $(this).attr('id').replace(/^(.*)\d$/, "$1" + (parseInt(i) + 1)));
-                    child.attr('disabled', true);
-                    child.children("[value!='']").remove();
-                }
-            } else {
-                getChildCategory(parent_id, next);
-            }
-        });
-    });
-    
     function getChildCategory(parent_id, next) {
         $.ajax({
             url: "{{ url('get_child_categories') }}",
@@ -65,10 +39,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             });
 
             $.when(next.children("[value!='']").remove()).then(next.append(options).val(''));
-            next.attr('disabled', false);
+            //next.attr('disabled', false);
         })
     }
 </script>
+<script src="{{ app.config.front_urlpath }}/js/entry/index.js?v={{ constant('Eccube\\Common\\Constant::VERSION') }}"></script>
 {% endblock javascript %}
 
 {% block main %}

@@ -24,27 +24,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% set body_class = 'cart_page' %}
 
 {% block main %}
-    <h1 class="page-heading">ショッピングカート</h1>
+    <article class="contents-catch privacy"><!-- ページによってclassを変更 -->
+        <section>
+            <div>
+                <h2>レンタル予定商品（カート）<!-- 車体名 --></h2>
+            </div>
+        </section>
+    </article>
+
     <div id="cart" class="container-fluid">
         <div id="cart_box" class="row">
             <div id="cart_box__body" class="col-md-10 col-md-offset-1">
-                {% if is_granted('ROLE_USER') %}
-                <div id="cart_box__flow_state" class="flowline step3">
-                {% else %}
-                <div id="cart_box__flow_state" class="flowline step4">
-                {% endif %}
-                    <ul id="cart_box__flow_state_list" class="clearfix">
-                        <li class="active"><span class="flow_number">1</span><br>カートの商品</li>
-                    {% if is_granted('ROLE_USER') %}
-                        <li><span class="flow_number">2</span><br>ご注文内容確認</li>
-                        <li><span class="flow_number">3</span><br>完了</li>
-                    {% else %}
-                        <li><span class="flow_number">2</span><br>お客様情報</li>
-                        <li><span class="flow_number">3</span><br>ご注文内容確認</li>
-                        <li><span class="flow_number">4</span><br>完了</li>
-                    {% endif %}
-                    </ul>
-                </div>
+                <article class="wrap">
+                    <section class="steps">
+                        <ul>
+                            <li class="active"><div><span>1.商品の確認</span></div></li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li><div><span>2.ご注文内容の確認</span></div></li>
+                                <li><div><span>3.完了</span></div></li>
+                            {% else %}
+                                <li><div><span>2.お客様情報</span></div></li>
+                                <li><div><span>3.ご注文内容の確認</span></div></li>
+                                <li><div><span>4.完了</span></div></li>
+                            {% endif %}
+                        </ul>
+                    </section>
+                </article>
 
                 {% set productStr = app.session.flashbag.get('eccube.front.request.product') %}
                 {% for error in app.session.flashbag.get('eccube.front.request.error')  %}
@@ -74,111 +79,66 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
                 {% if Cart.CartItems|length > 0 %}
                 <form name="form" id="form_cart" method="post" action="{{ url('cart') }}">
-                    <p id="cart_item__info" class="message">
-                        商品の合計金額は「<strong>{{ Cart.total_price|price }}</strong>」です。
-                        {% if BaseInfo.delivery_free_amount and BaseInfo.delivery_free_quantity %}
-                            <br />
-                            {% if is_delivery_free %}
-                                現在送料無料です。
-                            {% else %}
-                                あと「<strong>{{ least|price }}</strong>」または「<strong>{{ quantity|number_format }}個</strong>」のお買い上げで<strong class="text-primary">送料無料</strong>になります。
-                            {% endif %}
-                        {% elseif BaseInfo.delivery_free_amount %}
-                            <br />
-                            {% if is_delivery_free %}
-                                現在送料無料です。
-                            {% else %}
-                                あと「<strong>{{ least|price }}</strong>」のお買い上げで<strong class="text-primary">送料無料</strong>になります。
-                            {% endif %}
-                        {% elseif BaseInfo.delivery_free_quantity %}
-                            <br />
-                            {% if is_delivery_free %}
-                                現在送料無料です。
-                            {% else %}
-                                あと「<strong>{{ quantity|number_format }}個</strong>」のお買い上げで<strong class="text-primary">送料無料</strong>になります。
-                            {% endif %}
-                        {% endif %}
-                    </p>
                     <div id="cart_item_list" class="cart_item table">
-                        <div class="thead">
-                            <ol id="cart_item_list__header">
-                                <li id="cart_item_list__header_cart_remove">削除</li>
-                                <li id="cart_item_list__header_product_detail">商品内容</li>
-                                <li id="cart_item_list__header_total">数量</li>
-                                <li id="cart_item_list__header_sub_total">小計</li>
-                            </ol>
-                        </div>
                         <div id="cart_item_list__body" class="tbody">
-
-                            {% for CartItem in Cart.CartItems %}
-                                {% set ProductClass = CartItem.Object %}
-                                {% set Product = ProductClass.Product %}
-
-                                <div id="cart_item_list__item" class="item_box tr">
-                                    <div id="cart_item_list__cart_remove" class="icon_edit td">
-                                        <a href="{{ url('cart_remove', {'productClassId': ProductClass.id }) }}" {{ csrf_token_for_anchor() }} data-method="put" data-message="カートから商品を削除してもよろしいですか?">
-                                            <svg class="cb cb-close"><use xlink:href="#cb-close" /></svg>
-                                        </a>
-                                    </div>
-                                    <div class="td table">
-                                        <div id="cart_item_list__product_image" class="item_photo">
-                                            <a  target="_blank" href="{{ url('product_detail', {id : Product.id} ) }}">
-                                                <img src="{{ app.config.image_save_urlpath }}/{{ Product.MainListImage|no_image_product }}" alt="{{ Product.name }}" />
-                                            </a>
-                                        </div>
-                                        <dl class="item_detail">
-                                            <dt id="cart_item_list__product_detail" class="item_name text-default">
-                                                <a target="_blank" href="{{ url('product_detail', {id : Product.id} ) }}">{{ Product.name }}</a>
-                                            </dt>
-                                            <dd id="cart_item_list__class_category" class="item_pattern small">
-                                                {% if ProductClass.ClassCategory1 and ProductClass.ClassCategory1.id %}
-                                                    {{ ProductClass.ClassCategory1.ClassName }}：{{ ProductClass.ClassCategory1 }}
-                                                {% endif %}
-                                                {% if ProductClass.ClassCategory2 and ProductClass.ClassCategory2.id %}
-                                                    <br>{{ ProductClass.ClassCategory2.ClassName }}：{{ ProductClass.ClassCategory2 }}
-                                                {% endif %}
-                                            </dd>
-                                            <dd id="cart_item_list__item_price" class="item_price">￥{{ CartItem.price|number_format }}</dd>
-                                            <dd id="cart_item_list__item_subtotal" class="item_subtotal">小計：￥{{ CartItem.total_price|number_format }}</dd>
-                                        </dl>
-                                    </div>
-                                    <div id="cart_item_list__quantity" class="item_quantity td">
-                                        {{ CartItem.quantity|number_format }}
-                                        <ul id="cart_item_list__quantity_edit">
+                            <article class="wrap">
+                                {#<section class="cart">#}
+                                {% for CartItem in Cart.CartItems %}
+                                    {% set ProductClass = CartItem.Object %}
+                                    {% set Product = ProductClass.Product %}
+                                    <div>
+                                        <ul>
                                             <li>
-                                                {% if CartItem.quantity > 1 %}
-                                                    <a id="cart_item_list__down" href="{{ url('cart_down', {'productClassId': ProductClass.id}) }}" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false"><svg class="cb cb-minus"><use xlink:href="#cb-minus" /></svg></a>
-                                                {% else %}
-                                                    <span><svg class="cb cb-minus"><use xlink:href="#cb-minus" /></svg></span>
-                                                {% endif %}
+                                                <a href="{{ url('cart_remove', {'productClassId': ProductClass.id }) }}" {{ csrf_token_for_anchor() }} data-method="put" data-message="カートから商品を削除してもよろしいですか?">
+                                                    削除<i class="fa fa-times" aria-hidden="true"></i>
+                                                </a>
                                             </li>
                                             <li>
-                                                <a id="cart_item_list__up" href="{{ url('cart_up', {'productClassId': ProductClass.id}) }}" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false"><svg class="cb cb-plus"><use xlink:href="#cb-plus" /></svg></a>
+                                                <a target="_blank" href="{{ url('product_detail', {id : Product.id} ) }}">
+                                                    <img src="{{ app.config.image_save_urlpath }}/{{ Product.MainListImage|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" />
+                                                </a>
                                             </li>
+                                            <li>
+                                                <h3 class="item-name"><a target="_blank" href="{{ url('product_detail', {id : Product.id} ) }}">{{ Product.name }}</a></h3>
+                                                <p class="item-model"><small>NINJA250 ［ニンジャ］ 13-15</small><small>NINJA250 ［ニンジャ］ ABS 13-15</small></p>
+                                                <p class="item-price"><span class="yen">{{ CartItem.price|number_format }}</span>（税込） / 2週間</p>
+                                            </li>
+                                            <li>個数
+                                                <span>
+                                                    {{ CartItem.quantity|number_format }}
+                                                    {% if CartItem.quantity > 1 %}
+                                                        <a id="cart_item_list__down" href="{{ url('cart_down', {'productClassId': ProductClass.id}) }}" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false"><svg class="cb cb-minus"><use xlink:href="#cb-minus" /></svg></a>
+                                                    {% else %}
+                                                        <span><svg class="cb cb-minus"><use xlink:href="#cb-minus" /></svg></span>
+                                                    {% endif %}
+                                                    <a id="cart_item_list__up" href="{{ url('cart_up', {'productClassId': ProductClass.id}) }}" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false"><svg class="cb cb-plus"><use xlink:href="#cb-plus" /></svg></a>
+                                                </span>
+                                            </li>
+                                            <li>小計<span>{{ CartItem.total_price|number_format }}</span></li>
                                         </ul>
+                                        <ol>
+                                            <li><span>発送希望日</span> YYYY年MM月DD日</li>
+                                            <li><span>到着予定日</span> YYYY年MM月DD日</li>
+                                            <li><span>返却日</span> YYYY年MM月DD日</li>
+                                        </ol>
                                     </div>
-                                    <div id="cart_item_list__subtotal" class="item_subtotal td">￥{{ CartItem.total_price|number_format }}</div>
-                                </div><!--/item_box-->
-                            {% endfor %}
-
+                                {% endfor %}
+                                {#</section>#}
+                            </article>
                         </div>
                     </div><!--/cart_item-->
-                    <div class="total_box">
-                        <dl id="total_box__total_price" class="total_price">
-                            <dt>合計：</dt>
-                            <dd class="text-primary">￥{{ Cart.total_price|number_format }}</dd>
-                        </dl>
-                        <div id="total_box__user_action_menu" class="btn_group">
 
-                            <p id="total_box__next_button" >
-                                <a href="{{ path('cart_buystep') }}" class="btn btn-primary btn-block">レジに進む</a>
-                            </p>
-                            <p id="total_box__top_button">
-                                <a  href="{{ url('top') }}" class="btn btn-info btn-block">お買い物を続ける</a>
-                            </p>
-                        </div>
-                    </div>
-
+                    <article class="wrap">
+                        <section class="total">
+                            <div>
+                                <p>お支払い金額</p>
+                                <span class="yen">{{ Cart.total_price|number_format }}</span>
+                            </div>
+                        </section>
+                        <section class="go2payment">
+                            <a class="btn btn-main" href="{{ path('cart_buystep') }}">お会計に進む</a>
+                        </section>
+                    </article>
                 </form>
                 {% else %}
                 <div id="cart_box__message" class="message">
@@ -187,9 +147,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                     </p>
                 </div>
                 {% endif %}
-
             </div><!-- /.col -->
         </div><!-- /.row -->
-        </div>
     </div>
 {% endblock %}
