@@ -105,6 +105,47 @@ class EntryController extends AbstractController
                     $app['orm.em']->persist($CustomerAddress);
                     $app['orm.em']->flush();
 
+                    if (!empty($Customer->getCategory14())) {
+                        $CustomerCategory = new \Eccube\Entity\CustomerCategory();
+
+                        $CustomerCategory
+                            ->setCustomerId($Customer->getId())
+                            ->setCustomer($Customer)
+                            ->setCategoryId($Customer->getCategory14())
+                            ->setCategory($app['eccube.repository.category']->find($Customer->getCategory14()))
+                            ->setRank(1);
+
+                        $app['orm.em']->persist($CustomerCategory);
+                    }
+
+                    if (!empty($Customer->getCategory24())) {
+                        $CustomerCategory = new \Eccube\Entity\CustomerCategory();
+
+                        $CustomerCategory
+                            ->setCustomerId($Customer->getId())
+                            ->setCustomer($Customer)
+                            ->setCategoryId($Customer->getCategory24())
+                            ->setCategory($app['eccube.repository.category']->find($Customer->getCategory24()))
+                            ->setRank(2);
+
+                        $app['orm.em']->persist($CustomerCategory);
+                    }
+
+                    if (!empty($Customer->getCategory34())) {
+                        $CustomerCategory = new \Eccube\Entity\CustomerCategory();
+
+                        $CustomerCategory
+                            ->setCustomerId($Customer->getId())
+                            ->setCustomer($Customer)
+                            ->setCategoryId($Customer->getCategory34())
+                            ->setCategory($app['eccube.repository.category']->find($Customer->getCategory34()))
+                            ->setRank(3);
+
+                        $app['orm.em']->persist($CustomerCategory);
+                    }
+
+                    $app['orm.em']->flush();
+
                     log_info('会員登録完了');
 
                     $event = new EventArgs(

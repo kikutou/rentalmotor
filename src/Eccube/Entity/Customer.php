@@ -1294,11 +1294,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory11()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_1)) {
+            return $this->category_1_1;
         }
 
-        return $this->CustomerCategories[0]->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getParent()->getParent()->getParent()->getId();
     }
 
     public function setCategory11($category)
@@ -1310,11 +1314,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory12()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_2)) {
+            return $this->category_1_2;
         }
 
-        return $this->CustomerCategories[0]->getParent()->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getParent()->getParent()->getId();
     }
 
     public function setCategory12($category)
@@ -1326,11 +1334,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory13()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_3)) {
+            return $this->category_1_3;
         }
 
-        return $this->CustomerCategories[0]->getParent()->getParent()->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getParent()->getId();
     }
 
     public function setCategory13($category)
@@ -1342,11 +1354,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory14()
     {
-        if (empty($this->CustomerCategories->toArray())) {
-            return '';
+        if (isset($this->category_1_4)) {
+            return $this->category_1_4;
         }
 
-        return $this->CustomerCategories[0]->getParent()->getParent()->getParent()->getId();
+        if (empty($this->CustomerCategories->toArray())) {
+            return null;
+        }
+
+        return $this->CustomerCategories[0]->getCategory()->getId();
     }
 
     public function setCategory14($category)
@@ -1358,11 +1374,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory21()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_1)) {
+            return $this->category_2_1;
         }
 
-        return $this->CustomerCategories[1]->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getParent()->getParent()->getParent()->getId();
     }
 
     public function setCategory21($category)
@@ -1374,11 +1394,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory22()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_2)) {
+            return $this->category_2_2;
         }
 
-        return $this->CustomerCategories[1]->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getParent()->getParent()->getId();
     }
 
     public function setCategory22($category)
@@ -1390,11 +1414,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory23()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_3)) {
+            return $this->category_2_3;
         }
 
-        return $this->CustomerCategories[1]->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getParent()->getId();
     }
 
     public function setCategory23($category)
@@ -1406,11 +1434,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory24()
     {
-        if (count($this->CustomerCategories->toArray()) < 2) {
-            return '';
+        if (isset($this->category_2_4)) {
+            return $this->category_2_4;
         }
 
-        return $this->CustomerCategories[1]->getParent()->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 2) {
+            return null;
+        }
+
+        return $this->CustomerCategories[1]->getCategory()->getId();
     }
 
     public function setCategory24($category)
@@ -1422,11 +1454,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory31()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_1)) {
+            return $this->category_3_1;
         }
 
-        return $this->CustomerCategories[2]->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getParent()->getParent()->getParent()->getId();
     }
 
     public function setCategory31($category)
@@ -1438,11 +1474,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory32()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_2)) {
+            return $this->category_3_2;
         }
 
-        return $this->CustomerCategories[2]->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getParent()->getParent()->getId();
     }
 
     public function setCategory32($category)
@@ -1454,11 +1494,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory33()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_3)) {
+            return $this->category_3_3;
         }
 
-        return $this->CustomerCategories[2]->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getParent()->getId();
     }
 
     public function setCategory33($category)
@@ -1470,11 +1514,15 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
     public function getCategory34()
     {
-        if (count($this->CustomerCategories->toArray()) < 3) {
-            return '';
+        if (isset($this->category_3_4)) {
+            return $this->category_3_4;
         }
 
-        return $this->CustomerCategories[2]->getParent()->getParent()->getParent()->getId();
+        if (count($this->CustomerCategories->toArray()) < 3) {
+            return null;
+        }
+
+        return $this->CustomerCategories[2]->getCategory()->getId();
     }
 
     public function setCategory34($category)
