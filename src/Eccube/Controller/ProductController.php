@@ -116,7 +116,7 @@ class ProductController
                     $addCartData = $addCartForm->getData();
 
                     try {
-                        $app['eccube.service.cart']->addProduct($addCartData['product_class_id'], $addCartData['quantity'])->save();
+                        $app['eccube.service.cart']->addProduct($addCartData['product_class_id'], 1)->save();
                     } catch (CartException $e) {
                         $app->addRequestError($e->getMessage());
                     }
@@ -268,7 +268,7 @@ class ProductController
                     }
                 } elseif ($addCartData['mode'] === 'add_cart') {
 
-                    log_info('カート追加処理開始', array('product_id' => $Product->getId(), 'product_class_id' => $addCartData['product_class_id'], 'quantity' => $addCartData['quantity']));
+                    log_info('カート追加処理開始', array('product_id' => $Product->getId(), 'product_class_id' => $addCartData['product_class_id'], 'quantity' => 1));
 
                     try {
                         $app['eccube.service.cart']->addProduct($addCartData['product_class_id'], 1, \DateTime::createFromFormat('Y-m-d', $addCartData['rental_date']))->save();
@@ -277,7 +277,7 @@ class ProductController
                         $app->addRequestError($e->getMessage());
                     }
 
-                    log_info('カート追加処理完了', array('product_id' => $Product->getId(), 'product_class_id' => $addCartData['product_class_id'], 'quantity' => $addCartData['quantity']));
+                    log_info('カート追加処理完了', array('product_id' => $Product->getId(), 'product_class_id' => $addCartData['product_class_id'], 'quantity' => 1));
 
                     $event = new EventArgs(
                         array(

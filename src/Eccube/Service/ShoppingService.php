@@ -476,8 +476,10 @@ class ShoppingService
 
             $quantity = $item->getQuantity();
 
+            $rental_date = $item->getRentalDate();
+
             // 受注明細情報を作成
-            $OrderDetail = $this->getNewOrderDetail($Product, $ProductClass, $quantity);
+            $OrderDetail = $this->getNewOrderDetail($Product, $ProductClass, $quantity, $rental_date);
             $OrderDetail->setOrder($Order);
             $Order->addOrderDetail($OrderDetail);
 
@@ -495,9 +497,10 @@ class ShoppingService
      * @param Product $Product
      * @param ProductClass $ProductClass
      * @param $quantity
-     * @return \Eccube\Entity\OrderDetail
+     * @param \DateTime $rental_date
+     * @return OrderDetail
      */
-    public function getNewOrderDetail(Product $Product, ProductClass $ProductClass, $quantity)
+    public function getNewOrderDetail(Product $Product, ProductClass $ProductClass, $quantity, $rental_date)
     {
         $OrderDetail = new OrderDetail();
         $TaxRule = $this->app['eccube.repository.tax_rule']->getByRule($Product, $ProductClass);
@@ -507,6 +510,7 @@ class ShoppingService
             ->setProductCode($ProductClass->getCode())
             ->setPrice($ProductClass->getPrice02())
             ->setQuantity($quantity)
+            ->setRentalDate($rental_date)
             ->setTaxRule($TaxRule->getCalcRule()->getId())
             ->setTaxRate($TaxRule->getTaxRate());
 

@@ -94,6 +94,7 @@ function rentalDate(td) {
     $.when($("#rental_date").find('td.check').removeClass('check').addClass('active')).then(function () {
         $(td).removeClass('active').addClass('check');
         $("input[name='rental_date']").val($(td).data('date'));
+        $("#add-cart").prop('disabled', false);
 
         var rental_date = new Date($(td).data('date'));
         var achieve_date = new Date(rental_date);
@@ -295,7 +296,7 @@ function addFavorite() {
                         <div>
                             <a href="#Notes">注意事項</a>をご確認ください。
                             {% if Product.stock_find %}
-                                <button class="btn btn-main" type="submit" id="add-cart">カートに追加</button>
+                                <button class="btn btn-main" type="submit" id="add-cart" disabled="disabled">カートに追加</button>
                             {% else %}
                                 <button class="btn btn-main" type="button" disabled="disabled">ただいま品切れ中です</button>
                             {% endif %}
