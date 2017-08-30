@@ -65,7 +65,7 @@ class DateTimeService
             if ($date < $now || $week === '0' || $week === '6') {
                 $active = false;
             }
-            $group[] = array('date' => $date->format('Ymd'), 'day' => $date->format('j'), 'active' => $active);
+            $group[] = array('date' => $date->format('Y-m-d'), 'day' => $date->format('j'), 'active' => $active);
 
             if (count($group) === 7) {
                 $rental[$month][] = $group;

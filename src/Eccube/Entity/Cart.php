@@ -101,7 +101,8 @@ class Cart extends \Eccube\Entity\AbstractEntity
                 $find = true;
                 $CartItem
                     ->setPrice($AddCartItem->getPrice())
-                    ->setQuantity($AddCartItem->getQuantity());
+                    ->setQuantity($AddCartItem->getQuantity())
+                    ->setRentalDate($AddCartItem->getRentalDate());
             }
         }
 
