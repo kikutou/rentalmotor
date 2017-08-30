@@ -50,13 +50,8 @@ class DateTimeService
             $month = $date->format('n');
             $week = $date->format('w');
             if (!array_key_exists($month, $rental)) {
-                if (!empty($group)) {
-                    while (count($group) < 7) {
-                        $group[] = array('date' => '', 'day' => '', 'active' => false);
-                    }
-
-                    $rental[(clone $date)->modify('-1 day')->format('n')][] = $group;
-                }
+                $last_month = (clone $date)->modify('-1 day')->format('n');;
+                $this->fillRentalDate($last_month, $group, $rental);
 
                 $rental[$month] = array();
                 $group = array();
@@ -70,7 +65,7 @@ class DateTimeService
             if ($date < $now || $week === '0' || $week === '6') {
                 $active = false;
             }
-            $group[] = array('date' => $date->format('Ymd'), 'day' => $date->format('j'), 'active' => $active);
+            $group[] = array('date' => $date->format('Y-m-d'), 'day' => $date->format('j'), 'active' => $active);
 
             if (count($group) === 7) {
                 $rental[$month][] = $group;
@@ -80,6 +75,34 @@ class DateTimeService
             $date->modify('+1 day');
         }
 
+        $last_month = (clone $date)->modify('-1 day')->format('n');;
+        $this->fillRentalDate($last_month, $group, $rental);
+
         return $rental;
+    }
+
+    /**
+     * @param string $last_month
+     * @param array $group
+     * @param array $rental
+     */
+    private function fillRentalDate($last_month, $group, &$rental)
+    {
+        if (!empty($group)) {
+            while (count($group) < 7) {
+                $group[] = array('date' => '', 'day' => '', 'active' => false);
+            }
+
+            $rental[$last_month][] = $group;
+
+            while (count($rental[$last_month]) < 5) {
+                $group = array();
+                while (count($group) < 7) {
+                    $group[] = array('date' => '', 'day' => '', 'active' => false);
+                }
+
+                $rental[$last_month][] = $group;
+            }
+        }
     }
 }

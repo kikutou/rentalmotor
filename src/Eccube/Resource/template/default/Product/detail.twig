@@ -89,6 +89,32 @@ $(function(){
         }
     });
 });
+
+function rentalDate(td) {
+    $.when($("#rental_date").find('td.check').removeClass('check').addClass('active')).then(function () {
+        $(td).removeClass('active').addClass('check');
+        $("input[name='rental_date']").val($(td).data('date'));
+        $("#add-cart").prop('disabled', false);
+
+        var rental_date = new Date($(td).data('date'));
+        var achieve_date = new Date(rental_date);
+        achieve_date.setDate(rental_date.getDate() + 2);
+        var return_date = new Date(rental_date);
+        return_date.setDate(rental_date.getDate() + 14);
+
+        $("#rental-year").text(rental_date.getFullYear() + '年');
+        $("#rental-date").text(rental_date.getMonth() + 1 + '月' + rental_date.getDate() + '日');
+        $("#achieve-year").text(achieve_date.getFullYear() + '年');
+        $("#achieve-date").text(achieve_date.getMonth() + 1 + '月' + achieve_date.getDate() + '日');
+        $("#return-year").text(return_date.getFullYear() + '年');
+        $("#return-date").text(return_date.getMonth() + 1 + '月' + return_date.getDate() + '日');
+    })
+}
+
+function addFavorite() {
+    $("input[name='rental_date']").val("{{ 'now'|date('Y-m-d') }}");
+    return true;
+}
 </script>
 
 {% endblock %}
@@ -172,7 +198,7 @@ $(function(){
 
                                 {% if BaseInfo.option_favorite_product == 1 %}
                                     {% if is_favorite == false %}
-                                        <button type="submit" id="favorite" class="btn btn-main">お気に入りに追加</button>
+                                        <button type="submit" id="favorite" class="btn btn-main" onclick="return addFavorite();">お気に入りに追加</button>
                                     {% else %}
                                         <a class="btn btn-main" disabled="disabled">お気に入りに追加済みです</a>
                                     {% endif %}
@@ -199,7 +225,7 @@ $(function(){
                         <h3>レンタル希望日を選択</h3>
                         <div>
                             <a class="scroll-left" href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                            <div>
+                            <div id="rental_date">
                                 <ul>
                                     <!-- class="active"は、選択ができるもの。 class="check"は現在レンタル希望日としてチェックを付けている日 -->
                                     {% for month,days in rental_date %}
@@ -219,7 +245,9 @@ $(function(){
                                                 {% for day in days %}
                                                     <tr>
                                                         {% for date in day %}
-                                                            <td {% if date['active'] %}class="active"{% endif %}><span>{{ date['day'] }}</span></td>
+                                                            <td{% if date['active'] %} class="active" onclick="rentalDate(this);"{% endif %}{% if date['date'] != '' %} data-date="{{ date['date'] }}"{% endif %}>
+                                                                <span>{{ date['day'] }}</span>
+                                                            </td>
                                                         {% endfor %}
                                                     </tr>
                                                 {% endfor %}
@@ -241,19 +269,22 @@ $(function(){
                                 <li>
                                     <div class="inner-box">
                                         <h4>発送希望日</h4>
-                                        2017年<span>8月6日</span>
+                                        <span id="rental-year">----年</span>
+                                        <span id="rental-date">--月--日</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="inner-box">
                                         <h4>到着予定日</h4>
-                                        2017年<span>8月6日</span>
+                                        <span id="achieve-year">----年</span>
+                                        <span id="achieve-date">--月--日</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="inner-box">
                                         <h4>返却日</h4>
-                                        2017年<span>8月6日</span>
+                                        <span id="return-year">----年</span>
+                                        <span id="return-date">--月--日</span>
                                     </div>
                                 </li>
                             </ul>
@@ -265,7 +296,7 @@ $(function(){
                         <div>
                             <a href="#Notes">注意事項</a>をご確認ください。
                             {% if Product.stock_find %}
-                                <button class="btn btn-main" type="submit" id="add-cart">カートに追加</button>
+                                <button class="btn btn-main" type="submit" id="add-cart" disabled="disabled">カートに追加</button>
                             {% else %}
                                 <button class="btn btn-main" type="button" disabled="disabled">ただいま品切れ中です</button>
                             {% endif %}

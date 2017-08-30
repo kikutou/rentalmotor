@@ -31,6 +31,7 @@ class CartItem extends \Eccube\Entity\AbstractEntity
     private $class_id;
     private $price;
     private $quantity;
+    private $rental_date;
     private $object;
 
     public function __construct()
@@ -39,7 +40,7 @@ class CartItem extends \Eccube\Entity\AbstractEntity
 
     public function __sleep()
     {
-        return array('class_name', 'class_id', 'price', 'quantity');
+        return array('class_name', 'class_id', 'price', 'quantity', 'rental_date');
     }
 
     /**
@@ -116,6 +117,41 @@ class CartItem extends \Eccube\Entity\AbstractEntity
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRentalDate()
+    {
+        return $this->rental_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAchieveDate()
+    {
+        return $this->rental_date->modify('+2 day');
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReturnDate()
+    {
+        return $this->rental_date->modify('+12 day');
+    }
+
+    /**
+     * @param  \DateTime $rental_date
+     * @return \Eccube\Entity\CartItem
+     */
+    public function setRentalDate($rental_date)
+    {
+        $this->rental_date = $rental_date;
+
+        return $this;
     }
 
     /**

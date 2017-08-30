@@ -53,6 +53,9 @@ Eccube\Entity\OrderDetail:
             type: smallint
             nullable: true
             unsigned: false
+        rental_date:
+            type: datetime
+            nullable: false
     manyToOne:
         Order:
             targetEntity: Eccube\Entity\Order
