@@ -17,7 +17,9 @@ class Version20170830171647 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $table = $schema->getTable('dtb_order_detail');
-        $table->addColumn('rental_date', 'datetime', array('NotNull' => true));
+        if ($table->hasColumn('rental_date')) {
+            $table->addColumn('rental_date', 'datetime', array('NotNull' => true));
+        }
     }
 
     /**
