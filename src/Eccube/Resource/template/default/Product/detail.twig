@@ -92,15 +92,19 @@ $(function(){
 
 function rentalDate(td) {
     $.when($("#rental_date").find('td.check').removeClass('check').addClass('active')).then(function () {
-        $(td).removeClass('active').addClass('check');
-        $("input[name='rental_date']").val($(td).data('date'));
-        $("#add-cart").prop('disabled', false);
-
         var rental_date = new Date($(td).data('date'));
         var achieve_date = new Date(rental_date);
         achieve_date.setDate(rental_date.getDate() + 2);
         var return_date = new Date(rental_date);
         return_date.setDate(rental_date.getDate() + 14);
+
+        $("input[name='rental_date']").val($(td).data('date'));
+        $("#add-cart").prop('disabled', false);
+
+        var deadline = return_date.getFullYear() + '-' + ('0' + (return_date.getMonth() + 1)).slice(-2) + '-' + ('0' + return_date.getDate()).slice(-2);
+        $("#rental_date").find('td.active').filter(function () {
+            return $(this).data('date') <= deadline && $(this).data('date') >= $(td).data('date');
+        }).removeClass('active').addClass('check');
 
         $("#rental-year").text(rental_date.getFullYear() + '年');
         $("#rental-date").text(rental_date.getMonth() + 1 + '月' + rental_date.getDate() + '日');
