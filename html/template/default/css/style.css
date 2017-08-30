@@ -3346,7 +3346,6 @@ fieldset[disabled] .btn-link:focus {
         display: table-cell;
         padding: 16px;
         text-align: center;
-        background: #F4F3F0;
         overflow-x:hidden;
         font-weight: bold;
     }
@@ -4464,4 +4463,30 @@ fieldset[disabled] .btn-link:focus {
     padding-left: 16px;
     padding-right: 16px;
   }
+  #cart_item_list{
+    border: solid 1px #ccc;
+  }
+  #cart_product ul li {
+    display: table-cell;
+    vertical-align: top;
+    width: calc( calc(100% - 50%) / 4);
+    padding: 32px;
+    margin-bottom: 16px;
+    border-bottom: solid 1px #f1f1f1;
+  }
+  #cart_product ul li img{
+    height: auto;
+  }
+  #cart_product ol{
+    display: table;
+    width: 84%;
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9em;
+  }
+  #cart_product ol li:nth-child(1) span{ background:#95de7d; color:#fff;}
+  #cart_product ol li:nth-child(2) span{ background:#89bdf9; color:#fff;}
+  #cart_product ol li:nth-child(3) span{ background:#a28ddd; color:#fff;}
+
 }
