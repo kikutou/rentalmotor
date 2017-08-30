@@ -389,16 +389,16 @@ class ProductController extends AbstractController
                 $Categories = $form->get('Category')->getData();
                 $categoriesIdList = array();
                 foreach ($Categories as $Category) {
-                    foreach ($Category->getPath() as $ParentCategory) {
-                        if (!isset($categoriesIdList[$ParentCategory->getId()])) {
-                            $ProductCategory = $this->createProductCategory($Product, $ParentCategory, $count);
-                            $app['orm.em']->persist($ProductCategory);
-                            $count++;
-                            /* @var $Product \Eccube\Entity\Product */
-                            $Product->addProductCategory($ProductCategory);
-                            $categoriesIdList[$ParentCategory->getId()] = true;
-                        }
-                    }
+//                    foreach ($Category->getPath() as $ParentCategory) {
+//                        if (!isset($categoriesIdList[$ParentCategory->getId()])) {
+//                            $ProductCategory = $this->createProductCategory($Product, $ParentCategory, $count);
+//                            $app['orm.em']->persist($ProductCategory);
+//                            $count++;
+//                            /* @var $Product \Eccube\Entity\Product */
+//                            $Product->addProductCategory($ProductCategory);
+//                            $categoriesIdList[$ParentCategory->getId()] = true;
+//                        }
+//                    }
                     if (!isset($categoriesIdList[$Category->getId()])) {
                         $ProductCategory = $this->createProductCategory($Product, $Category, $count);
                         $app['orm.em']->persist($ProductCategory);

@@ -510,4 +510,7 @@ class Category extends \Eccube\Entity\AbstractEntity
         }
         return $this->Creator;
     }
+
+    public function getCategory()
+    {}
 }

@@ -211,7 +211,7 @@ class CartService
      */
     public function addProduct($productClassId, $quantity = 1, $rental_date = null)
     {
-        $quantity += $this->getProductQuantity($productClassId);
+//        $quantity += $this->getProductQuantity($productClassId);
         $this->setProductQuantity($productClassId, $quantity, $rental_date);
 
         return $this;
