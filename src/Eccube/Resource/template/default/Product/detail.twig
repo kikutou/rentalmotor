@@ -109,6 +109,11 @@ function rentalDate(td) {
         $("#return-date").text(return_date.getMonth() + 1 + '月' + return_date.getDate() + '日');
     })
 }
+
+function addFavorite() {
+    $("input[name='rental_date']").val("{{ 'now'|date('Y-m-d') }}");
+    return true;
+}
 </script>
 
 {% endblock %}
@@ -192,7 +197,7 @@ function rentalDate(td) {
 
                                 {% if BaseInfo.option_favorite_product == 1 %}
                                     {% if is_favorite == false %}
-                                        <button type="submit" id="favorite" class="btn btn-main">お気に入りに追加</button>
+                                        <button type="submit" id="favorite" class="btn btn-main" onclick="return addFavorite();">お気に入りに追加</button>
                                     {% else %}
                                         <a class="btn btn-main" disabled="disabled">お気に入りに追加済みです</a>
                                     {% endif %}
