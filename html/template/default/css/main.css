@@ -413,6 +413,12 @@ article.top-catch .catch-copy div .btn:hover{
   background:#fff;
   border:solid 1px #fa3c3c;
 }
+#topicpath{
+  height:200px;
+  background:#eee url(../img/default/top-catch01.jpg);
+  background-size:cover;
+  background-position: center center;
+}
 @media screen and (max-width:640px){
   article.top-catch .catch-copy{
     top:0;
@@ -524,6 +530,9 @@ section.item-list-wrap{
 section.item-list-wrap div{
   vertical-align: top;
   float: left;
+}
+#item_list{
+  width: calc(100% - 240px);
 }
 section.item-list-wrap div.search{
   width:240px;
