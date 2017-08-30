@@ -73,27 +73,27 @@ Eccube\Entity\Questionnaire:
                 default: '0'
     manyToOne:
         Question1:
-            targetEntity: Eccube\Entity\Master\Question1
+            targetEntity: Eccube\Entity\Master\QuestionnaireQuestion1
             joinColumn:
                 name: question1
                 referencedColumnName: id
         Question2:
-            targetEntity: Eccube\Entity\Master\Question2
+            targetEntity: Eccube\Entity\Master\QuestionnaireQuestion2
             joinColumn:
                 name: question2
                 referencedColumnName: id
         Question4:
-            targetEntity: Eccube\Entity\Master\Question4
+            targetEntity: Eccube\Entity\Master\QuestionnaireQuestion4
             joinColumn:
                 name: question4
                 referencedColumnName: id
         Question5:
-            targetEntity: Eccube\Entity\Master\Question5
+            targetEntity: Eccube\Entity\Master\QuestionnaireQuestion5
             joinColumn:
                 name: question5
                 referencedColumnName: id
         Question6:
-            targetEntity: Eccube\Entity\Master\Question6
+            targetEntity: Eccube\Entity\Master\QuestionnaireQuestion6
             joinColumn:
                 name: question6
                 referencedColumnName: id

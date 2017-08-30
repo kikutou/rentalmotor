@@ -29,6 +29,9 @@ class Version20170829211532 extends AbstractMigration
         $table->addColumn('customer_id', 'integer', array('NotNull' => true));
         $table->addForeignKeyConstraint($schema->getTable('dtb_customer'), array('customer_id'), array('customer_id'));
 
+        $table->addColumn('order_id', 'integer', array('NotNull' => true));
+        $table->addForeignKeyConstraint($schema->getTable('dtb_order'), array('order_id'), array('order_id'));
+
         $table->addColumn('question1', 'smallint', array('NotNull' => true));
         $table->addForeignKeyConstraint($schema->getTable('mtb_questionnaire_question1'), array('question1'), array('id'));
         $table->addColumn('question1_note', 'text', array('NotNull' => false));
