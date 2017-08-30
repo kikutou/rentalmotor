@@ -82,18 +82,22 @@ class EntryType extends AbstractType
             ->add('password', 'repeated_password')
 
             ->add('category_1_1', 'choice', array(
+                'label' => 'メーカー',
                 'choices' => $level1,
                 'required' => false
             ))
             ->add('category_1_2', 'choice', array(
+                'label' => '排気量',
                 'choices' => $level2,
                 'required' => false
             ))
             ->add('category_1_3', 'choice', array(
+                'label' => '車種',
                 'choices' => $level3,
                 'required' => false
             ))
             ->add('category_1_4', 'choice', array(
+                'label' => '年式',
                 'choices' => $level4,
                 'required' => false
             ))

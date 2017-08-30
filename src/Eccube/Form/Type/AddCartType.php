@@ -73,6 +73,12 @@ class AddCartType extends AbstractType
                     new Assert\Regex(array('pattern' => '/^\d+$/')),
                 ),
             ))
+            ->add('rental_date', 'hidden', array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Regex(array('pattern' => '/^\d{4}-\d{2}-\d{2}$/')),
+                )
+            ))
             ->add('product_class_id', 'hidden', array(
                 'data' => count($ProductClasses) === 1 ? $ProductClasses[0]->getId() : '',
                 'constraints' => array(
@@ -81,22 +87,22 @@ class AddCartType extends AbstractType
             ));
 
         if ($Product->getStockFind()) {
-            $builder
-                ->add('quantity', 'integer', array(
-                    'data' => 1,
-                    'attr' => array(
-                        'min' => 1,
-                        'maxlength' => $this->config['int_len'],
-                    ),
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\GreaterThanOrEqual(array(
-                            'value' => 1,
-                        )),
-                        new Assert\Regex(array('pattern' => '/^\d+$/')),
-                    ),
-                ))
-            ;
+//            $builder
+//                ->add('quantity', 'integer', array(
+//                    'data' => 1,
+//                    'attr' => array(
+//                        'min' => 1,
+//                        'maxlength' => $this->config['int_len'],
+//                    ),
+//                    'constraints' => array(
+//                        new Assert\NotBlank(),
+//                        new Assert\GreaterThanOrEqual(array(
+//                            'value' => 1,
+//                        )),
+//                        new Assert\Regex(array('pattern' => '/^\d+$/')),
+//                    ),
+//                ))
+//            ;
             if ($Product && $Product->getProductClasses()) {
                 if (!is_null($Product->getClassName1())) {
                     $builder->add('classcategory_id1', 'choice', array(

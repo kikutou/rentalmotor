@@ -15,6 +15,7 @@ class Version20170828162113 extends AbstractMigration
 
     /**
      * @param Schema $schema
+     * @return bool
      */
     public function up(Schema $schema)
     {

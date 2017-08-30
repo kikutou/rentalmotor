@@ -89,6 +89,32 @@ $(function(){
         }
     });
 });
+
+function rentalDate(td) {
+    $.when($("#rental_date").find('td.check').removeClass('check').addClass('active')).then(function () {
+        $(td).removeClass('active').addClass('check');
+        $("input[name='rental_date']").val($(td).data('date'));
+        $("#add-cart").prop('disabled', false);
+
+        var rental_date = new Date($(td).data('date'));
+        var achieve_date = new Date(rental_date);
+        achieve_date.setDate(rental_date.getDate() + 2);
+        var return_date = new Date(rental_date);
+        return_date.setDate(rental_date.getDate() + 14);
+
+        $("#rental-year").text(rental_date.getFullYear() + '年');
+        $("#rental-date").text(rental_date.getMonth() + 1 + '月' + rental_date.getDate() + '日');
+        $("#achieve-year").text(achieve_date.getFullYear() + '年');
+        $("#achieve-date").text(achieve_date.getMonth() + 1 + '月' + achieve_date.getDate() + '日');
+        $("#return-year").text(return_date.getFullYear() + '年');
+        $("#return-date").text(return_date.getMonth() + 1 + '月' + return_date.getDate() + '日');
+    })
+}
+
+function addFavorite() {
+    $("input[name='rental_date']").val("{{ 'now'|date('Y-m-d') }}");
+    return true;
+}
 </script>
 
 {% endblock %}
@@ -172,7 +198,7 @@ $(function(){
 
                                 {% if BaseInfo.option_favorite_product == 1 %}
                                     {% if is_favorite == false %}
-                                        <button type="submit" id="favorite" class="btn btn-main">お気に入りに追加</button>
+                                        <button type="submit" id="favorite" class="btn btn-main" onclick="return addFavorite();">お気に入りに追加</button>
                                     {% else %}
                                         <a class="btn btn-main" disabled="disabled">お気に入りに追加済みです</a>
                                     {% endif %}
@@ -199,12 +225,13 @@ $(function(){
                         <h3>レンタル希望日を選択</h3>
                         <div>
                             <a class="scroll-left" href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                            <div>
+                            <div id="rental_date">
                                 <ul>
+                                    <!-- class="active"は、選択ができるもの。 class="check"は現在レンタル希望日としてチェックを付けている日 -->
+                                    {% for month,days in rental_date %}
                                     <li>
                                         <div class="calendar-box">
-                                            <!-- class="active"は、選択ができるもの。 class="check"は現在レンタル希望日としてチェックを付けている日 -->
-                                            <h4>8月</h4>
+                                            <h4>{{ month }}月</h4>
                                             <table>
                                                 <tr>
                                                     <th><span>日</span></th>
@@ -215,176 +242,19 @@ $(function(){
                                                     <th><span>金</span></th>
                                                     <th><span>土</span></th>
                                                 </tr>
-                                                <tr>
-                                                    <td><span></span></td>
-                                                    <td><span></span></td>
-                                                    <td><span>1</span></td>
-                                                    <td><span>2</span></td>
-                                                    <td><span>3</span></td>
-                                                    <td><span>4</span></td>
-                                                    <td class="active"><span>5</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="check"><span>6</span></td>
-                                                    <td class="check"><span>7</span></td>
-                                                    <td class="check"><span>8</span></td>
-                                                    <td class="check"><span>9</span></td>
-                                                    <td class="check"><span>10</span></td>
-                                                    <td class="check"><span>11</span></td>
-                                                    <td class="check"><span>12</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="check"><span>13</span></td>
-                                                    <td class="check"><span>14</span></td>
-                                                    <td class="check"><span>15</span></td>
-                                                    <td class="check"><span>16</span></td>
-                                                    <td class="check"><span>17</span></td>
-                                                    <td class="check"><span>18</span></td>
-                                                    <td class="check"><span>19</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>20</span></td>
-                                                    <td><span>21</span></td>
-                                                    <td><span>22</span></td>
-                                                    <td><span>23</span></td>
-                                                    <td><span>24</span></td>
-                                                    <td><span>25</span></td>
-                                                    <td><span>26</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>27</span></td>
-                                                    <td class="active"><span>28</span></td>
-                                                    <td class="active"><span>29</span></td>
-                                                    <td class="active"><span>30</span></td>
-                                                    <td class="active"><span>31</span></td>
-                                                    <td><span></span></td>
-                                                    <td><span></span></td>
-                                                </tr>
+                                                {% for day in days %}
+                                                    <tr>
+                                                        {% for date in day %}
+                                                            <td{% if date['active'] %} class="active" onclick="rentalDate(this);"{% endif %}{% if date['date'] != '' %} data-date="{{ date['date'] }}"{% endif %}>
+                                                                <span>{{ date['day'] }}</span>
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                {% endfor %}
                                             </table>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="calendar-box">
-                                            <h4>9月</h4>
-                                            <table>
-                                                <tr>
-                                                    <th><span>日</span></th>
-                                                    <th><span>月</span></th>
-                                                    <th><span>火</span></th>
-                                                    <th><span>水</span></th>
-                                                    <th><span>木</span></th>
-                                                    <th><span>金</span></th>
-                                                    <th><span>土</span></th>
-                                                </tr>
-                                                <tr>
-                                                    <td><span></span></td>
-                                                    <td><span></span></td>
-                                                    <td><span>1</span></td>
-                                                    <td><span>2</span></td>
-                                                    <td><span>3</span></td>
-                                                    <td><span>4</span></td>
-                                                    <td><span>5</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>6</span></td>
-                                                    <td class="active"><span>7</span></td>
-                                                    <td class="active"><span>8</span></td>
-                                                    <td class="active"><span>9</span></td>
-                                                    <td class="active"><span>10</span></td>
-                                                    <td class="active"><span>11</span></td>
-                                                    <td class="active"><span>12</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>13</span></td>
-                                                    <td class="active"><span>14</span></td>
-                                                    <td class="active"><span>15</span></td>
-                                                    <td class="active"><span>16</span></td>
-                                                    <td class="active"><span>17</span></td>
-                                                    <td class="active"><span>18</span></td>
-                                                    <td class="active"><span>19</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>20</span></td>
-                                                    <td class="active"><span>21</span></td>
-                                                    <td class="active"><span>22</span></td>
-                                                    <td class="active"><span>23</span></td>
-                                                    <td class="active"><span>24</span></td>
-                                                    <td class="active"><span>25</span></td>
-                                                    <td class="active"><span>26</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>27</span></td>
-                                                    <td class="active"><span>28</span></td>
-                                                    <td class="active"><span>29</span></td>
-                                                    <td class="active"><span>30</span></td>
-                                                    <td class="active"><span>31</span></td>
-                                                    <td><span></span></td>
-                                                    <td><span></span></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="calendar-box">
-                                            <h4>10月</h4>
-                                            <table>
-                                                <tr>
-                                                    <th><span>日</span></th>
-                                                    <th><span>月</span></th>
-                                                    <th><span>火</span></th>
-                                                    <th><span>水</span></th>
-                                                    <th><span>木</span></th>
-                                                    <th><span>金</span></th>
-                                                    <th><span>土</span></th>
-                                                </tr>
-                                                <tr>
-                                                    <td><span></span></td>
-                                                    <td><span></span></td>
-                                                    <td class="active"><span>1</span></td>
-                                                    <td class="active"><span>2</span></td>
-                                                    <td class="active"><span>3</span></td>
-                                                    <td class="active"><span>4</span></td>
-                                                    <td class="active"><span>5</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>6</span></td>
-                                                    <td class="active"><span>7</span></td>
-                                                    <td class="active"><span>8</span></td>
-                                                    <td class="active"><span>9</span></td>
-                                                    <td class="active"><span>10</span></td>
-                                                    <td class="active"><span>11</span></td>
-                                                    <td class="active"><span>12</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>13</span></td>
-                                                    <td class="active"><span>14</span></td>
-                                                    <td class="active"><span>15</span></td>
-                                                    <td class="active"><span>16</span></td>
-                                                    <td class="active"><span>17</span></td>
-                                                    <td class="active"><span>18</span></td>
-                                                    <td class="active"><span>19</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>20</span></td>
-                                                    <td class="active"><span>21</span></td>
-                                                    <td class="active"><span>22</span></td>
-                                                    <td class="active"><span>23</span></td>
-                                                    <td class="active"><span>24</span></td>
-                                                    <td class="active"><span>25</span></td>
-                                                    <td class="active"><span>26</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="active"><span>27</span></td>
-                                                    <td class="active"><span>28</span></td>
-                                                    <td class="active"><span>29</span></td>
-                                                    <td class="active"><span>30</span></td>
-                                                    <td class="active"><span>31</span></td>
-                                                    <td><span></span></td>
-                                                    <td><span></span></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <a class="scroll-right" href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
@@ -399,19 +269,22 @@ $(function(){
                                 <li>
                                     <div class="inner-box">
                                         <h4>発送希望日</h4>
-                                        2017年<span>8月6日</span>
+                                        <span id="rental-year">----年</span>
+                                        <span id="rental-date">--月--日</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="inner-box">
                                         <h4>到着予定日</h4>
-                                        2017年<span>8月6日</span>
+                                        <span id="achieve-year">----年</span>
+                                        <span id="achieve-date">--月--日</span>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="inner-box">
                                         <h4>返却日</h4>
-                                        2017年<span>8月6日</span>
+                                        <span id="return-year">----年</span>
+                                        <span id="return-date">--月--日</span>
                                     </div>
                                 </li>
                             </ul>
@@ -423,7 +296,7 @@ $(function(){
                         <div>
                             <a href="#Notes">注意事項</a>をご確認ください。
                             {% if Product.stock_find %}
-                                <button class="btn btn-main" type="submit" id="add-cart">カートに追加</button>
+                                <button class="btn btn-main" type="submit" id="add-cart" disabled="disabled">カートに追加</button>
                             {% else %}
                                 <button class="btn btn-main" type="button" disabled="disabled">ただいま品切れ中です</button>
                             {% endif %}

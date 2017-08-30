@@ -330,6 +330,8 @@ class ShoppingController extends AbstractController
         $app['session']->set($this->sessionCustomerAddressKey, array());
 
         log_info('購入処理完了', array($orderId));
+        
+        
 
         return $app->render('Shopping/complete.twig', array(
             'orderId' => $orderId,

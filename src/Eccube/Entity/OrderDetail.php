@@ -505,4 +505,32 @@ class OrderDetail extends \Eccube\Entity\AbstractEntity
     {
         return $this->class_name2;
     }
+    /**
+     * @var \DateTime
+     */
+    private $rental_date;
+
+
+    /**
+     * Set rental_date
+     *
+     * @param \DateTime $rentalDate
+     * @return OrderDetail
+     */
+    public function setRentalDate($rentalDate)
+    {
+        $this->rental_date = $rentalDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get rental_date
+     *
+     * @return \DateTime 
+     */
+    public function getRentalDate()
+    {
+        return $this->rental_date;
+    }
 }

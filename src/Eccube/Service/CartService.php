@@ -206,12 +206,13 @@ class CartService
      *
      * @param  string $productClassId
      * @param  integer $quantity
-     * @return \Eccube\Service\CartService
+     * @param null|\DateTime $rental_date
+     * @return CartService
      */
-    public function addProduct($productClassId, $quantity = 1)
+    public function addProduct($productClassId, $quantity = 1, $rental_date = null)
     {
         $quantity += $this->getProductQuantity($productClassId);
-        $this->setProductQuantity($productClassId, $quantity);
+        $this->setProductQuantity($productClassId, $quantity, $rental_date);
 
         return $this;
     }
@@ -233,10 +234,11 @@ class CartService
     /**
      * @param  \Eccube\Entity\ProductClass|integer $ProductClass
      * @param  integer $quantity
-     * @return \Eccube\Service\CartService
+     * @param null|\DateTime $rental_date
+     * @return CartService
      * @throws CartException
      */
-    public function setProductQuantity($ProductClass, $quantity)
+    public function setProductQuantity($ProductClass, $quantity, $rental_date)
     {
         if (!$ProductClass instanceof ProductClass) {
             $ProductClass = $this->entityManager
@@ -309,7 +311,8 @@ class CartService
                 ->setClassName('Eccube\Entity\ProductClass')
                 ->setClassId((string)$ProductClass->getId())
                 ->setPrice($ProductClass->getPrice02IncTax())
-                ->setQuantity($quantity);
+                ->setQuantity($quantity)
+                ->setRentalDate($rental_date);
 
             $this->cart->setCartItem($CartItem);
         }
