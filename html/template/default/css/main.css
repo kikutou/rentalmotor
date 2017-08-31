@@ -532,6 +532,7 @@ section.item-list-wrap div{
   float: left;
 }
 #item_list{
+  text-align: center;
   width: calc(100% - 240px);
 }
 section.item-list-wrap div.search{

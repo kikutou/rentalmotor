@@ -199,15 +199,15 @@ $(function() {
                                                 <br>{{ orderDetail.productClass.classCategory2.className }}：{{ orderDetail.productClass.classCategory2 }}
                                             {% endif %}
                                         </dd>
-                                        <dd id="cart_box_list__price--{{ loop.index }}" class="item_price">{{ orderDetail.priceIncTax|price }} × {{ orderDetail.quantity|number_format }}</dd>
-                                        <dd id="cart_box_list__subtotal--{{ loop.index }}" class="item_subtotal">小計：{{ orderDetail.totalPrice|price }}</dd>
+                                        <dd id="cart_box_list__price--{{ loop.index }}" class="item_price" style="display: none;">{{ orderDetail.priceIncTax|price }} × {{ orderDetail.quantity|number_format }}</dd>
+                                        <dd id="cart_box_list__subtotal--{{ loop.index }}" class="item_subtotal">{{ orderDetail.totalPrice|price }}</dd>
                                     </dl>
                                 </div>
                             </div><!--/item_box-->
                             {% endfor %}
                         </div>
                     </div><!--/cart_item-->
-                    <p><a id="confirm_box__quantity_edit_button" href="{{ url('cart') }}" class="btn btn-default btn-sm">数量を変更または削除する</a></p>
+                    <p style="display: none;"><a id="confirm_box__quantity_edit_button" href="{{ url('cart') }}" class="btn btn-default btn-sm">数量を変更または削除する</a></p>
                     <h2 class="heading02">お客様情報</h2>
                     <div id="customer_detail_box" class="column is-edit">
                         <p id="customer_detail_box__customer_address" class="address"><span class="customer-edit customer-name01">{{ Order.name01 }}</span> <span class="customer-edit customer-name02">{{ Order.name02 }}</span> 様<br>
@@ -240,8 +240,8 @@ $(function() {
                     {% for shipping in Order.shippings %}
                         {% set idx = loop.index0 %}
                         <div id="shipping_confirm_box--{{ idx }}" class="column is-edit">
-                            <h3>お届け先{% if Order.multiple %}({{ loop.index }}){% endif %}</h3>
-                            <div id="shipping_confirm_box__body--{{ idx }}" class="cart_item table">
+                            <h3 style="display: none;">お届け先{% if Order.multiple %}({{ loop.index }}){% endif %}</h3>
+                            <div id="shipping_confirm_box__body--{{ idx }}" class="cart_item table" style="display: none;">
                                 <div id="shipping_confirm_box__list--{{ idx }}" class="tbody">
                                 {% for shipmentItem in shipping.shipmentItems %}
                                     <div id="shipping_confirm_box__item--{{ idx }}_{{ shipmentItem.id }}" class="item_box tr">
@@ -269,13 +269,13 @@ $(function() {
                             <p id="shopping_confirm_box__shipping_address_detail--{{ idx }}" class="address">{{ shipping.name01 }} {{ shipping.name02 }} 様<br>
                             〒{{ shipping.zip01 }}-{{ shipping.zip02 }} {{ shipping.pref }}{{ shipping.addr01 }}{{ shipping.addr02 }}<br>
                             {{ shipping.tel01 }}-{{ shipping.tel02 }}-{{ shipping.tel03 }}</p>
-                            <div id="shopping_confirm_box__shipping_delivery--{{ idx }}" class="form-inline form-group">
+                            <div id="shopping_confirm_box__shipping_delivery--{{ idx }}" class="form-inline form-group" style="display: none;">
                                 <label>配送方法</label>
                                 {{ form_widget(form.shippings[idx].delivery, {'attr': {'class': 'delivery'}}) }}
                                 {{ form_errors(form.shippings[idx].delivery) }}
                             </div>
 
-                            <div id="shopping_confirm_box__shipping_delivery_date_time--{{ idx }}" class="form-inline form-group">
+                            <div id="shopping_confirm_box__shipping_delivery_date_time--{{ idx }}" class="form-inline form-group" style="display: none;">
                                 <label>お届け日</label>
                                 {{ form_widget(form.shippings[idx].shippingDeliveryDate) }}<br class="sp">
                                 <label>お届け時間</label>
@@ -294,8 +294,8 @@ $(function() {
                         <div><a id="shopping_confirm_box__button_edit_multiple"  href="{{ url('shopping_shipping_multiple_change') }}" class="btn btn-default btn-sm btn-shipping-multiple">お届け先を追加する</a></div>
                     {% endif %}
 
-                    <h2 class="heading02">お支払方法</h2>
-                    <div id="payment_list" class="column">
+                    <h2 class="heading02" style="display: none;">お支払方法</h2>
+                    <div id="payment_list" class="column" style="display: none;">
                         <div id="payment_list__body" class="form-group">
                             <ul id="payment_list__list" class="payment_list">
                             {% if form.payment is empty %}
