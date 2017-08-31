@@ -208,6 +208,21 @@ class Product extends \Eccube\Entity\AbstractEntity
         return max($this->stocks);
     }
 
+    public function getStock()
+    {
+        $total = 0;
+        foreach ($this->stocks as $stock) {
+            if (is_null($stock)) {
+                $total = null;
+                break;
+            }
+
+            $total += $stock;
+        }
+
+        return $total;
+    }
+
     /**
      * Get StockUnlimited min
      *
@@ -1020,5 +1035,25 @@ class Product extends \Eccube\Entity\AbstractEntity
         return $this->ProductTag;
     }
 
+    /**
+     * 表示するカテゴリー
+     *
+     * @return array
+     */
+    public function getDisplayCategories()
+    {
+        $categories = array();
+        /** @var \Eccube\Entity\ProductCategory $ProductCategory */
+        foreach ($this->getProductCategories()->toArray() as $ProductCategory) {
+            $Category = $ProductCategory->getCategory();
+            $string = array($Category->getName());
+            while ($Category = $Category->getParent()) {
+                array_unshift($string, $Category->getName());
+            }
 
+            $categories[] = implode(' ', $string);
+        }
+
+        return $categories;
+    }
 }
