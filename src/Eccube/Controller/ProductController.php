@@ -315,24 +315,12 @@ class ProductController
 
         $rental_date = $app['eccube.service.datetime']->getRentalDate();
 
-        $categories = array();
-        /** @var \Eccube\Entity\ProductCategory $ProductCategory */
-        foreach ($Product->getProductCategories()->toArray() as $ProductCategory) {
-            $Category = $ProductCategory->getCategory();
-            $string = array($Category->getName());
-            while ($Category = $Category->getParent()) {
-                array_unshift($string, $Category->getName());
-            }
-
-            $categories[] = implode(' ', $string);
-        }
-
         return $app->render('Product/detail.twig', array(
             'title' => $this->title,
             'subtitle' => $Product->getName(),
             'form' => $form->createView(),
             'Product' => $Product,
-            'categories' => $categories,
+            'categories' => $Product->getDisplayCategories(),
             'is_favorite' => $is_favorite,
             'rental_date' => $rental_date
         ));

@@ -77,78 +77,85 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             {% endif %}
         </form>
     </div>
-    <article class = "wrap">
-      <h2>moto-Liv 取り扱い純正マフラー</h2>
-        <section class="item-list-wrap">
-        <form>
-          <div class="search">
-            <h3>メーカーを選択</h3>
-            <ul class="maker">
-              <li><input type="radio" name="maker" id="honda"><label for="honda"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-honda.png" alt="ホンダ" width="169" height="26" /></label></li>
-              <li><input type="radio" name="maker" id="suzuki"><label for="suzuki"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-suzuki.png" alt="スズキ" width="160" height="29" /></label></li>
-              <li><input type="radio" name="maker" id="yamaha"><label for="yamaha"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-yamaha.png" alt="ヤマハ" width="115" height="25" /></label></li>
-              <li><input type="radio" name="maker" id="kawasaki"><label for="kawasaki"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-kawasaki.png" alt="カワサキ" width="152" height="24" /></label></li>
-            </ul>
-            <h3>排気量を選択</h3>
-            <ul class="displacement">
-              <li>
-                <input type="checkbox" name="displacement" id="50">50cc
-              </li>
-              <li>
-                <input type="checkbox" name="displacement" id="51">51〜125cc
-              </li>
-              <li>
-                <input type="checkbox" name="displacement" id="126">126〜250cc
-              </li>
-              <li>
-                <input type="checkbox" name="displacement" id="251">251〜400cc
-                <ol>
-                  <li><input type="checkbox" name="displacement">YZF-R25</li>
-                </ol>
-              </li>
-              <li>
-                <input type="checkbox" name="model-name" id="401">401cc〜
-              </li>
-            </ul>
-          </div>
-          <!-- ▼item_list▼ -->
-          <div id="item_list">
-                  {% for Product in pagination %}
-                      <div id="result_list_box--{{ Product.id }}" class="col-sm-3 col-xs-6">
-                          <div id="result_list__item--{{ Product.id }}" class="product_item">
-                              <a href="{{ url('product_detail', {'id': Product.id}) }}">
-                                  <div id="result_list__image--{{ Product.id }}" class="item_photo">
-                                      <img src="{{ app.config.front_urlpath }}/img/items/08_CBR1000RR_RedBlk.jpg">
-                                  </div>
-                                  <dl id="result_list__detail--{{ Product.id }}">
-                                      <dt id="result_list__name--{{ Product.id }}" class="item_name">{{ Product.name }}</dt>
-                                      {% if Product.description_list %}
-                                          <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
-                                      {% endif %}
-                                      {% if Product.hasProductClass %}
-                                          {% if Product.getPrice02Min == Product.getPrice02Max %}
-                                          <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                              {{ Product.getPrice02IncTaxMin|price }}
-                                          </dd>
-                                          {% else %}
-                                          <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                              {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
-                                          </dd>
-                                          {% endif %}
-                                      {% else %}
-                                          <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">{{ Product.getPrice02IncTaxMin|price }}</dd>
-                                      {% endif %}
-                                  </dl>
-                              </a>
-                          </div>
-                      </div>
-                  {% endfor %}
+        <article class = "wrap">
+            <h2>moto-Liv 取り扱い純正マフラー</h2>
+            <section class="item-list-wrap">
+                <form>
+                    <div class="search">
+                        <h3>メーカーを選択</h3>
+                        <ul class="maker">
+                            <li><input type="radio" name="maker" id="honda"><label for="honda"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-honda.png" alt="ホンダ" width="169" height="26" /></label></li>
+                            <li><input type="radio" name="maker" id="suzuki"><label for="suzuki"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-suzuki.png" alt="スズキ" width="160" height="29" /></label></li>
+                            <li><input type="radio" name="maker" id="yamaha"><label for="yamaha"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-yamaha.png" alt="ヤマハ" width="115" height="25" /></label></li>
+                            <li><input type="radio" name="maker" id="kawasaki"><label for="kawasaki"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-kawasaki.png" alt="カワサキ" width="152" height="24" /></label></li>
+                        </ul>
+                        <h3>排気量を選択</h3>
+                        <ul class="displacement">
+                            <li>
+                                <input type="checkbox" name="displacement" id="50">50cc
+                            </li>
+                            <li>
+                                <input type="checkbox" name="displacement" id="51">51〜125cc
+                            </li>
+                            <li>
+                                <input type="checkbox" name="displacement" id="126">126〜250cc
+                            </li>
+                            <li>
+                                <input type="checkbox" name="displacement" id="251">251〜400cc
+                                <ol>
+                                    <li><input type="checkbox" name="displacement">YZF-R25</li>
+                                </ol>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="model-name" id="401">401cc〜
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ▼item_list▼ -->
+                    <div id="item_list">
+                        {% for Product in pagination %}
+                            <div id="result_list_box--{{ Product.id }}" class="col-sm-3 col-xs-6">
+                                <div id="result_list__item--{{ Product.id }}" class="product_item">
+                                    <a href="{{ url('product_detail', {'id': Product.id}) }}">
+                                        <div id="result_list__image--{{ Product.id }}" class="item_photo">
+                                            <img src="{{ app.config.front_urlpath }}/img/items/08_CBR1000RR_RedBlk.jpg">
+                                        </div>
+                                        <dl id="result_list__detail--{{ Product.id }}">
+                                            <dt id="result_list__name--{{ Product.id }}" class="item_name">{{ Product.name }}</dt>
+                                            {% if Product.description_list %}
+                                                <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
+                                            {% endif %}
+                                            {% if Product.hasProductClass %}
+                                                {% if Product.getPrice02Min == Product.getPrice02Max %}
+                                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                                        {{ Product.getPrice02IncTaxMin|price }}
+                                                    </dd>
+                                                {% else %}
+                                                    <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                                        {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
+                                                    </dd>
+                                                {% endif %}
+                                            {% else %}
+                                                <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">{{ Product.getPrice02IncTaxMin|price }}</dd>
+                                            {% endif %}
+                                            <dt>在庫：
+                                                {% if Product.stock is null %}
+                                                    無制限
+                                                {% else %}
+                                                    {{ Product.stock }}
+                                                {% endif %}
+                                            </dt>
+                                        </dl>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-          </div>
-          <!-- ▲item_list▲ -->
-        </form>
-      </section>
-    </article>
+                    </div>
+                    <!-- ▲item_list▲ -->
+                </form>
+            </section>
+        </article>
 
     {% if pagination.totalItemCount > 0 %}
         {% include "pagination.twig" with { 'pages' : pagination.paginationData } %}
