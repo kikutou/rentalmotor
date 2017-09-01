@@ -22,13 +22,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <div class="logo"><img src="{{ app.config.front_urlpath }}/img/default/moto-liv-logo.png"></div>
 <nav>
     <ul>
-        <li><a href="#">ご利用ガイド</a></li>
-        <li><a href="#">よくある質問</a></li>
+        <li><a href="{{ url('help_about') }}">当サイトについて</a></li>
         <li><a href="{{ url('help_agreement') }}">利用規約</a></li>
-        <li><a href="#">プライバシーポリシー</a></li>
-        <li><a href="#">特定商取引に基づく表記</a></li>
-        <li><a href="#">運営会社</a></li>
-        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="{{ url('help_privacy') }}">プライバシーポリシー</a></li>
+        <li><a href="{{ url('help_tradelaw') }}">特定商取引法に基づく表記</a></li>
+        <li><a href="{{ url('contact') }}">お問い合わせ</a></li>
     </ul>
 </nav>
 <div class="copyrights">
