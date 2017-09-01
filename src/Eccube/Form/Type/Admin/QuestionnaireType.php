@@ -44,7 +44,6 @@ class QuestionnaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $config = $this->config;
 
         $builder
             ->add('question1', 'question1', array(
@@ -59,13 +58,7 @@ class QuestionnaireType extends AbstractType
                 'years' => range(date('Y'), date('Y') + $this->config['question3_max']),
                 'widget' => 'choice',
                 'format' => 'yyyy-MM-dd',
-                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
-                'constraints' => array(
-                    new Assert\LessThanOrEqual(array(
-                        'value' => date('Y-m-d'),
-                        'message' => 'form.type.select.selectisfuturedate',
-                    )),
-                )
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--')
             ))
             ->add('question4', 'question4', array(
                 'required' => true,
