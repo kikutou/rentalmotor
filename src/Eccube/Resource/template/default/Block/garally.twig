@@ -43,14 +43,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         $.getJSON( "{{ url('api') }}", function( data, status ) {
             $.each( data, function( key, val ) {
                 arr = val.split(",");
-                $("#item_list").append("<div class='col-sm-4 col-xs-12'>" +
+                $("#item_list").append("<div class='col-sm-4 col-xs-12' >" +
                         "<div class='pickup_item'>" +
                         "<a href='"+arr[2]+"'>" +
                         "<div class='item_photo'>" +
                         "<img src='"+arr[0]+"'>" +
                         "</div>" +
                         "<dl>" +
-                        "<dd class='item_comment'>"+arr[1]+"</dd>" +
+                        "<dd class='item_comment' style='height:100px;'>"+arr[1]+"</dd>" +
                         "</dl></a></div></div>");
                 //$("#insimage").append("<li class='col-sm-2 col-xs-4' style='height: 245px;'><a target='_blank' class='item_photo' href='"+ arr[2] +"'><img src='"+ arr[0] +"' >"+arr[1]+"</a>");
 
