@@ -33,4 +33,35 @@ class TopController extends AbstractController
     {
         return $app->render('index.twig');
     }
+
+    public function api()
+    {
+        $insJson = $this->getHTTPS("https://www.instagram.com/justin/media/");
+        $insStr = json_decode($insJson);
+        $insImageArr = array();
+        $insTextArr = array();
+        $inslinkArr = array();
+        for($i=0; $i<12; $i++){
+            $insImageArr[$i] =  $insStr->{'items'}[$i]->images->low_resolution->url;
+            $insTextArr[$i] = $insStr->{'items'}[$i]->caption->text;
+            $inslinkArr[$i] = $insStr->{'items'}[$i]->link;
+            $outputArr[$i] = $insImageArr[$i].",".$insTextArr[$i].",".$inslinkArr[$i];
+        }
+        //$outputArr = array_merge($insImageArr, $insTextArr, $inslinkArr);
+        echo json_encode($outputArr);
+        exit();
+        //return $app->render('../api.twig');
+    }
+
+    private function getHTTPS($url) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
 }
