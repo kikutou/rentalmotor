@@ -1531,4 +1531,14 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
         return $this;
     }
+
+    /**
+     * Remove CustomerCategories
+     *
+     * @param \Eccube\Entity\CustomerCategory $customerCategories
+     */
+    public function removeCustomerCategory(\Eccube\Entity\CustomerCategory $customerCategories)
+    {
+        $this->CustomerCategories->removeElement($customerCategories);
+    }
 }

@@ -41,6 +41,7 @@ class Question6Type extends AbstractType
             // todo toStringがない？
             'property' => 'name',
             'empty_value' => false,
+            'expanded' => true
         ));
     }
 

@@ -53,10 +53,13 @@ Eccube\Entity\Questionnaire:
         question6_note_admin:
             type: text
             nullable: true
-        question7:
-            type: text
-            nullable: false
         question7_note_admin:
+            type: text
+            nullable: true
+        question8:
+            type: text
+            nullable: true
+        question8_note_admin:
             type: text
             nullable: true
         create_date:
@@ -97,9 +100,19 @@ Eccube\Entity\Questionnaire:
             joinColumn:
                 name: question6
                 referencedColumnName: id
+        Question7:
+            targetEntity: Eccube\Entity\Master\QuestionnaireQuestion7
+            joinColumn:
+                name: question7
+                referencedColumnName: id
         Customer:
             targetEntity: Eccube\Entity\Customer
             joinColumn:
                 name: customer_id
                 referencedColumnName: customer_id
+        Order:
+            targetEntity: Eccube\Entity\Order
+            joinColumn:
+                name: order_id
+                referencedColumnName: order_id
     lifecycleCallbacks: {  }

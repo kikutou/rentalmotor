@@ -119,6 +119,11 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
      */
     private $Customer;
 
+    /**
+     * @var \Eccube\Entity\Order
+     */
+    private $Order;
+
 
     /**
      * Get id
@@ -363,12 +368,12 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Set question7
      *
-     * @param string $question7
+     * @param \Eccube\Entity\Master\QuestionnaireQuestion7 $Question7
      * @return Questionnaire
      */
-    public function setQuestion7($question7)
+    public function setQuestion7($Question7)
     {
-        $this->question7 = $question7;
+        $this->Question7 = $Question7;
 
         return $this;
     }
@@ -376,11 +381,11 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Get question7
      *
-     * @return string 
+     * @return \Eccube\Entity\Master\QuestionnaireQuestion7
      */
     public function getQuestion7()
     {
-        return $this->question7;
+        return $this->Question7;
     }
 
     /**
@@ -611,5 +616,89 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     public function getCustomer()
     {
         return $this->Customer;
+    }
+
+    /**
+     * Set Order
+     *
+     * @param \Eccube\Entity\Order $order
+     * @return Questionnaire
+     */
+    public function setOrder(\Eccube\Entity\Order $order = null)
+    {
+        $this->Order = $order;
+    
+        return $this;
+    }
+
+    /**
+     * Get Order
+     *
+     * @return \Eccube\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->Order;
+    }
+    /**
+     * @var string
+     */
+    private $question8;
+
+    /**
+     * @var string
+     */
+    private $question8_note_admin;
+
+    /**
+     * @var \Eccube\Entity\Master\QuestionnaireQuestion7
+     */
+    private $Question7;
+
+
+    /**
+     * Set question8
+     *
+     * @param string $question8
+     * @return Questionnaire
+     */
+    public function setQuestion8($question8)
+    {
+        $this->question8 = $question8;
+    
+        return $this;
+    }
+
+    /**
+     * Get question8
+     *
+     * @return string 
+     */
+    public function getQuestion8()
+    {
+        return $this->question8;
+    }
+
+    /**
+     * Set question8_note_admin
+     *
+     * @param string $question8NoteAdmin
+     * @return Questionnaire
+     */
+    public function setQuestion8NoteAdmin($question8NoteAdmin)
+    {
+        $this->question8_note_admin = $question8NoteAdmin;
+    
+        return $this;
+    }
+
+    /**
+     * Get question8_note_admin
+     *
+     * @return string 
+     */
+    public function getQuestion8NoteAdmin()
+    {
+        return $this->question8_note_admin;
     }
 }

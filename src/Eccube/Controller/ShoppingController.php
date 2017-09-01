@@ -304,11 +304,51 @@ class ShoppingController extends AbstractController
 
     /**
      * 購入完了画面表示
+     * @param Application $app
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function complete(Application $app, Request $request)
     {
         // 受注IDを取得
         $orderId = $app['session']->get($this->sessionOrderKey);
+
+        $form = null;
+        if ($app->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $Customer = $app->user();
+
+            if (!$app['eccube.repository.questionnaire']->findby(['Customer' => $Customer])) {
+                // form作成
+                /** @var \Symfony\Component\Form\FormBuilderInterface $builder */
+                $builder = $app['form.factory']->createBuilder('questionnaire');
+
+                $form = $builder->getForm();
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    /** @var \Eccube\Entity\Questionnaire $Questionnaire */
+                    $Questionnaire = $form->getData();
+
+                    $Questionnaire
+                        ->setCustomer($Customer)
+                        ->setOrder($app['eccube.repository.order']->find($orderId));
+
+                    $app['orm.em']->persist($Questionnaire);
+                    $app['orm.em']->flush();
+
+                    $app['session']->remove($this->sessionOrderKey);
+
+                    return $app->redirect($app->url('mypage'));
+                }
+
+                $form = $form->createView();
+            }
+        }
+
+        if (is_null($orderId)) {
+            return $app->redirect($app->url('homepage'));
+        }
 
         $event = new EventArgs(
             array(
@@ -323,18 +363,21 @@ class ShoppingController extends AbstractController
         }
 
         // 受注に関連するセッションを削除
-        $app['session']->remove($this->sessionOrderKey);
+//        $app['session']->remove($this->sessionOrderKey);
         $app['session']->remove($this->sessionMultipleKey);
         // 非会員用セッション情報を空の配列で上書きする(プラグイン互換性保持のために削除はしない)
         $app['session']->set($this->sessionKey, array());
         $app['session']->set($this->sessionCustomerAddressKey, array());
 
         log_info('購入処理完了', array($orderId));
-        
-        
+
+        if (is_null($form)) {
+            $app['session']->remove($this->sessionOrderKey);
+        }
 
         return $app->render('Shopping/complete.twig', array(
             'orderId' => $orderId,
+            'form' => $form
         ));
     }
 

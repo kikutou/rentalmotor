@@ -23,6 +23,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% set body_class = 'cart_page' %}
 
+{% block javascript %}
+<script>
+    $(function () {
+        var question1_note = $("#questionnaire_question1_note");
+        var question4_note = $("#questionnaire_question4_note");
+        var question5_note = $("#questionnaire_question5_note");
+
+        question1_note.prop('disabled', true);
+        question4_note.prop('disabled', true);
+        question5_note.prop('disabled', true);
+
+        $("input[name='questionnaire[question1]']").change(function () {
+            question1_note.prop('disabled', $(this).val() !== '5')
+        });
+
+        $("input[name='questionnaire[question4]']").change(function () {
+            question4_note.prop('disabled', $(this).val() !== '5')
+        })
+
+        $("input[name='questionnaire[question5]']").change(function () {
+            question5_note.prop('disabled', $(this).val() !== '4')
+        })
+    })
+</script>
+{% endblock %}
+
 {% block main %}
     <h1 class="page-heading">ご注文完了</h1>
     <div id="complete_wrap" class="container-fluid">
@@ -57,13 +83,52 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         万一、ご確認メールが届かない場合は、トラブルの可能性もありますので大変お手数ではございますがもう一度お問い合わせいただくか、お電話にてお問い合わせくださいませ。<br />
                         今後ともご愛顧賜りますようよろしくお願い申し上げます。{% if orderId %}<br /><br /><strong>ご注文番号：{{ orderId }}</strong>{% endif %}</p>
                 </div>
-                <div id="deliveradd_input_box__top_button" class="row no-padding">
-                    <div class="btn_group col-sm-offset-4 col-sm-4">
-                        <p>
-                            <a href="{{ url('homepage') }}" class="btn btn-info btn-block">トップページへ</a>
-                        </p>
+
+                {% if form is null %}
+                    <div id="deliveradd_input_box__top_button" class="row no-padding">
+                        <div class="btn_group col-sm-offset-4 col-sm-4">
+                            <p>
+                                <a href="{{ url('homepage') }}" class="btn btn-info btn-block">トップページへ</a>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                    <div>
+                        <form method="post" action="{{ url('shopping_complete') }}">
+                            {{ form_widget(form._token) }}
+                            <div>
+                                このサイトをどこで知りましたか？<br />
+                                {{ form_widget(form.question1) }}
+                                {{ form_widget(form.question1_note) }}
+                                <br /><br />
+                                二輪車所有台数<br />
+                                {{ form_widget(form.question2) }}
+                                <br /><br />
+                                今回ご利用になったマフラーを装着予定の車輌の次回車検時期はいつですか。<br />
+                                {{ form_widget(form.question3) }}
+                                <br /><br />
+                                当サイトを友人知人にご紹介したいと思いますか。<br />
+                                {{ form_widget(form.question4) }}
+                                {{ form_widget(form.question4_note) }}
+                                <br /><br />
+                                当サイトのサービスのご利用に当たって一連の流れは分かりやすかったですか。<br />
+                                {{ form_widget(form.question5) }}
+                                {{ form_widget(form.question5_note) }}
+                                <br /><br />
+                                2週間のレンタル期間は<br />
+                                {{ form_widget(form.question6) }}
+                                <br /><br />
+                                あなたは何派ですか？<br />
+                                {{ form_widget(form.question7) }}
+                                <br /><br />
+                                当サイトへのご意見、ご感想があればお聞かせください。<br />
+                                {{ form_widget(form.question8) }}
+                            </div>
+
+                            <button class="btn btn-info btn-block" type="submit">確認</button>
+                        </form>
+                    </div>
+                {% endif %}
 
             </div><!-- /.col -->
         </div><!-- /.row -->

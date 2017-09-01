@@ -146,6 +146,9 @@ class EccubeServiceProvider implements ServiceProviderInterface
         $app['eccube.repository.customer'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Eccube\Entity\Customer');
         });
+        $app['eccube.repository.questionnaire'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Eccube\Entity\Questionnaire');
+        });
         $app['eccube.repository.news'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Eccube\Entity\News');
         });
@@ -325,6 +328,12 @@ class EccubeServiceProvider implements ServiceProviderInterface
             $types[] = new \Eccube\Form\Type\Master\MailTemplateType();
             $types[] = new \Eccube\Form\Type\Master\CategoryType();
             $types[] = new \Eccube\Form\Type\Master\TagType();
+            $types[] = new \Eccube\Form\Type\Master\Question1Type();
+            $types[] = new \Eccube\Form\Type\Master\Question2Type();
+            $types[] = new \Eccube\Form\Type\Master\Question4Type();
+            $types[] = new \Eccube\Form\Type\Master\Question5Type();
+            $types[] = new \Eccube\Form\Type\Master\Question6Type();
+            $types[] = new \Eccube\Form\Type\Master\Question7Type();
 
             $types[] = new \Eccube\Form\Type\CustomerType($app); // 削除予定
 
@@ -344,6 +353,7 @@ class EccubeServiceProvider implements ServiceProviderInterface
             $types[] = new \Eccube\Form\Type\Front\ContactType($app['config']);
             $types[] = new \Eccube\Form\Type\Front\NonMemberType($app['config']);
             $types[] = new \Eccube\Form\Type\Front\ShoppingShippingType();
+            $types[] = new \Eccube\Form\Type\Front\QuestionnaireType($app['config']);
             $types[] = new \Eccube\Form\Type\Front\CustomerAddressType($app['config']);
             $types[] = new \Eccube\Form\Type\Front\ForgotType();
             $types[] = new \Eccube\Form\Type\Front\CustomerLoginType($app['session']);

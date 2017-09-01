@@ -90,27 +90,27 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     private $del_flg = '0';
 
     /**
-     * @var \Eccube\Entity\Master\Question1
+     * @var \Eccube\Entity\Master\QuestionnaireQuestion1
      */
     private $Question1;
 
     /**
-     * @var \Eccube\Entity\Master\Question2
+     * @var \Eccube\Entity\Master\QuestionnaireQuestion2
      */
     private $Question2;
 
     /**
-     * @var \Eccube\Entity\Master\Question4
+     * @var \Eccube\Entity\Master\QuestionnaireQuestion4
      */
     private $Question4;
 
     /**
-     * @var \Eccube\Entity\Master\Question5
+     * @var \Eccube\Entity\Master\QuestionnaireQuestion5
      */
     private $Question5;
 
     /**
-     * @var \Eccube\Entity\Master\Question6
+     * @var \Eccube\Entity\Master\QuestionnaireQuestion6
      */
     private $Question6;
 
@@ -118,6 +118,11 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
      * @var \Eccube\Entity\Customer
      */
     private $Customer;
+
+    /**
+     * @var \Eccube\Entity\Order
+     */
+    private $Order;
 
 
     /**
@@ -478,10 +483,10 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Set Question1
      *
-     * @param \Eccube\Entity\Master\Question1 $question1
+     * @param \Eccube\Entity\Master\QuestionnaireQuestion1 $question1
      * @return Questionnaire
      */
-    public function setQuestion1(\Eccube\Entity\Master\Question1 $question1 = null)
+    public function setQuestion1(\Eccube\Entity\Master\QuestionnaireQuestion1 $question1 = null)
     {
         $this->Question1 = $question1;
 
@@ -491,7 +496,7 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Get Question1
      *
-     * @return \Eccube\Entity\Master\Question1 
+     * @return \Eccube\Entity\Master\QuestionnaireQuestion1 
      */
     public function getQuestion1()
     {
@@ -501,10 +506,10 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Set Question2
      *
-     * @param \Eccube\Entity\Master\Question2 $question2
+     * @param \Eccube\Entity\Master\QuestionnaireQuestion2 $question2
      * @return Questionnaire
      */
-    public function setQuestion2(\Eccube\Entity\Master\Question2 $question2 = null)
+    public function setQuestion2(\Eccube\Entity\Master\QuestionnaireQuestion2 $question2 = null)
     {
         $this->Question2 = $question2;
 
@@ -514,7 +519,7 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Get Question2
      *
-     * @return \Eccube\Entity\Master\Question2 
+     * @return \Eccube\Entity\Master\QuestionnaireQuestion2 
      */
     public function getQuestion2()
     {
@@ -524,10 +529,10 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Set Question4
      *
-     * @param \Eccube\Entity\Master\Question4 $question4
+     * @param \Eccube\Entity\Master\QuestionnaireQuestion4 $question4
      * @return Questionnaire
      */
-    public function setQuestion4(\Eccube\Entity\Master\Question4 $question4 = null)
+    public function setQuestion4(\Eccube\Entity\Master\QuestionnaireQuestion4 $question4 = null)
     {
         $this->Question4 = $question4;
 
@@ -537,7 +542,7 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Get Question4
      *
-     * @return \Eccube\Entity\Master\Question4 
+     * @return \Eccube\Entity\Master\QuestionnaireQuestion4 
      */
     public function getQuestion4()
     {
@@ -547,10 +552,10 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Set Question5
      *
-     * @param \Eccube\Entity\Master\Question5 $question5
+     * @param \Eccube\Entity\Master\QuestionnaireQuestion5 $question5
      * @return Questionnaire
      */
-    public function setQuestion5(\Eccube\Entity\Master\Question5 $question5 = null)
+    public function setQuestion5(\Eccube\Entity\Master\QuestionnaireQuestion5 $question5 = null)
     {
         $this->Question5 = $question5;
 
@@ -560,7 +565,7 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Get Question5
      *
-     * @return \Eccube\Entity\Master\Question5 
+     * @return \Eccube\Entity\Master\QuestionnaireQuestion5 
      */
     public function getQuestion5()
     {
@@ -570,10 +575,10 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Set Question6
      *
-     * @param \Eccube\Entity\Master\Question6 $question6
+     * @param \Eccube\Entity\Master\QuestionnaireQuestion6 $question6
      * @return Questionnaire
      */
-    public function setQuestion6(\Eccube\Entity\Master\Question6 $question6 = null)
+    public function setQuestion6(\Eccube\Entity\Master\QuestionnaireQuestion6 $question6 = null)
     {
         $this->Question6 = $question6;
 
@@ -583,7 +588,7 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     /**
      * Get Question6
      *
-     * @return \Eccube\Entity\Master\Question6 
+     * @return \Eccube\Entity\Master\QuestionnaireQuestion6 
      */
     public function getQuestion6()
     {
@@ -611,5 +616,28 @@ class Questionnaire extends \Eccube\Entity\AbstractEntity
     public function getCustomer()
     {
         return $this->Customer;
+    }
+
+    /**
+     * Set Order
+     *
+     * @param \Eccube\Entity\Order $order
+     * @return Questionnaire
+     */
+    public function setOrder(\Eccube\Entity\Order $order = null)
+    {
+        $this->Order = $order;
+    
+        return $this;
+    }
+
+    /**
+     * Get Order
+     *
+     * @return \Eccube\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->Order;
     }
 }
