@@ -191,6 +191,19 @@ final class EccubeEvents
     // exportShipping
     const ADMIN_ORDER_CSV_EXPORT_SHIPPING = 'admin.order.csv.export.shipping';
 
+    /**
+     * Admin/Questionnaire/QuestionnaireController
+     */
+    // index
+    const ADMIN_QUESTIONNAIRE_INDEX_INITIALIZE = 'admin.questionnaire.index.initialize';
+    const ADMIN_QUESTIONNAIRE_INDEX_SEARCH = 'admin.questionnaire.index.search';
+
+    // edit
+    const ADMIN_QUESTIONNAIRE_EDIT_INDEX_INITIALIZE = 'admin.questionnaire.edit.initialize';
+    const ADMIN_QUESTIONNAIRE_EDIT_INDEX_COMPLETE = 'admin.questionnaire.edit.complete';
+
+    // delete
+    const ADMIN_QUESTIONNAIRE_DELETE_COMPLETE = 'admin.customer.delete.complete';
 
     /**
      * Admin/Product/CategoryController

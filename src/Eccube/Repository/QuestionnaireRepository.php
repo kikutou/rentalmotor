@@ -25,6 +25,7 @@
 namespace Eccube\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Eccube\Util\Str;
 
 /**
  * CsvRepository
@@ -34,4 +35,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuestionnaireRepository extends EntityRepository
 {
+
+    public function getQueryBuilderBySearchData($searchData)
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->leftJoin('q.Customer', 'c')
+            ->select('q')
+            ->andWhere('q.del_flg = 0');
+
+        if (isset($searchData['multi']) && Str::isNotBlank($searchData['multi'])) {
+            //スペース除去
+            $clean_key_multi = preg_replace('/\s+|[　]+/u', '', $searchData['multi']);
+            $id = preg_match('/^\d+$/', $clean_key_multi) ? $clean_key_multi : null;
+            $qb
+                ->andWhere('q.id = :questionnaire_id OR CONCAT(c.name01, c.name02) LIKE :name OR CONCAT(c.kana01, c.kana02) LIKE :kana OR c.email LIKE :email')
+                ->setParameter('questionnaire_id', $id)
+                ->setParameter('name', '%' . $clean_key_multi . '%')
+                ->setParameter('kana', '%' . $clean_key_multi . '%')
+                ->setParameter('email', '%' . $clean_key_multi . '%');
+        }
+
+        // Order By
+        $qb->addOrderBy('q.update_date', 'DESC');
+
+        return $qb;
+    }
 }
