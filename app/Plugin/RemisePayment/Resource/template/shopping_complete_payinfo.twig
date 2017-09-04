@@ -1,0 +1,39 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% block head %}
+<meta name="format-detection" content="telephone=no">
+{% endblock head %}
+
+{% block stylesheet %}
+<style type="text/css">
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+</style>
+{% endblock stylesheet %}
+
+{% block main %}
+<div class="row complete_parts">
+    {% if arrOther.title is defined %}
+    <h3>■{{ arrOther.title.name }}情報</h3>
+
+    <div class="form-group">
+    {% for key, item in arrOther %}
+      {% if key != "title" and key != "cv_msg" %}
+        <div class="form-group row {% if item.button == '1' %}cvs_url{% else %}cvs_line{% endif %}">
+            <label class="col-sm-4">{{ item.name }}：</label>
+            {% if item.button == '1' %}
+            <div>
+              <div><a href="{{ item.value }}" target="_blank" class="btn btn-primary btn-inline">こちらよりご確認ください</a></div>
+              <div class="cv_msg">{{ arrOther.cv_msg.value|nl2br }}</div>
+            </div>
+            {% else %}
+            <div>{{ item.value|nl2br }}</div>
+            {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
+</div>
+{% endblock main %}

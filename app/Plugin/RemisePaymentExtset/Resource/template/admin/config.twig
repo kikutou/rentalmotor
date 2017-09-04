@@ -1,0 +1,219 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% extends 'default_frame.twig' %}
+
+{% set menus = ['store', 'plugin', 'plugin_list'] %}
+
+{% block javascript %}
+    <script type="text/javascript">
+    {{ include('RemisePayment/Resource/html/js/jquery.validate.js') }}
+    </script>
+    <script type="text/javascript">
+
+        function win_open(URL) {
+            var WIN;
+            WIN = window.open(URL);
+            WIN.focus();
+        }
+
+        $(function(){
+            // 登録ボタンを表示する
+            $('#aside_column').css("display", "block");
+            $('#java_script_alert_message').css("display", "none");
+
+            // 入力チェック
+            remise_valitation();
+        })
+
+        // 入力チェックの登録
+        function remise_valitation() {
+            $.validator.addMethod("selectCheck", function(value, element, origin){
+                return origin != value;
+            });
+            $('form').validate({
+                rules: {
+                    "config[extset_host_id]" :{
+                        required: true,
+                        number: true,
+                        minlength: 8,
+                        maxlength: 8,
+                    },
+                    "config[extset_url]" :{
+                        required: true,
+                    },
+                },
+                messages: {
+                    "config[extset_host_id]" :{
+                        required: "※ ホスト番号が入力されていません。",
+                        number: "※ホスト番号は7桁の数字です",
+                        minlength: "※ ホスト番号は{0}桁の数字です。",
+                        maxlength: "※ ホスト番号は{0}桁の数字です。"
+                    },
+                    "config[extset_url]" :{
+                        required: "※ 決済情報送信先URLが入力されていません。",
+                    },
+                },
+                errorPlacement: function(error, element) {
+                    var objName = element.attr("name");
+                    var errId = objName.replace(/\[\]/g, "").replace(/\[/g, "_").replace(/\]/g, "_") + "err";
+                    $('#' + errId).empty();
+                    error.appendTo('#' + errId);
+                }
+            });
+            $('form').data("validator").settings.ignore = "input[type='hidden']";
+        }
+        function remise_valitation_ext() {
+            var valid = true;
+            $('#base_info').find("input").each(function(){
+                if ($(this).rules()["required"]) {
+                    if (!$('form').validate().element(this)) {
+                        valid = false;
+                    }
+                }
+            });
+            return valid;
+        }
+
+        function submitcheck() {
+            var check = remise_valitation_ext();
+            if (check) {
+                document.form1.submit();
+            }
+        }
+
+    </script>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+{% block main %}
+<style type="text/css"><!--
+ul.notice {
+    list-style:none;
+    margin-left:14px;
+}
+ul.notice li:before {
+    content: '※';
+    margin-left:-14px;
+}
+.error {
+    margin-top: 3px;
+    font-size: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #DE5D50;
+}
+--></style>
+
+    <noscript>
+        <div class="row" id="java_script_alert_message" style="display: block;">
+            <div class="alert alert-danger alert-dismissable">
+                <!-- HTML の読み込みに失敗しました。お手数ですがページの再読み込みを実行してください。 -->
+                JavaScript を有効にしてご利用下さい。
+            </div>
+        </div>
+    </noscript>
+
+    <div class="row" id="aside_wrap">
+        <form name="form1" role="form" novalidate class="form-horizontal" id="point_form" method="post" action="">
+            {{ form_widget(form._token) }}
+            <div class="col-md-9">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">
+                            本プラグインについて
+                            <div class="flR"><a href="#" class="btn btn-info" style="padding: 3px 12px;" onClick="win_open('http://www.remise.jp/data/ec-cube/');" > 設定マニュアルはこちら</a></div>
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3">バージョン番号</label>
+                            <div class="col-sm-3">{{ version }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 拡張セット設定 -->
+                <div class="box" id="base_info">
+                    <div class="box-header">
+                        <h3 class="box-title">拡張セット設定</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">加盟店コード</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" style="background-color: #eeeeee;" value="{{ code }}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">ホスト番号　　<span class="label label-danger">必須</span></label>
+
+                            <div class="col-sm-3 {% if form.extset_host_id.vars.errors is not empty %}has-error{% endif %}">
+                                {{ form_widget(form.extset_host_id) }}
+                                <div style="clear: both;" id="config_extset_host_id_err">
+                                    {{ form_errors(form.extset_host_id) }}
+                                </div>
+                            </div>
+                            <div class="text-primary col-sm-9 col-sm-offset-3 small" style="clear: both;">
+                                ルミーズ加盟店バックヤードシステムにて、拡張セット専用のホストを作成いただき、そのホスト番号を入力してください。
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">結果通知URL　<span class="label label-danger">必須</span></label>
+
+                            <div class="col-sm-9" style="word-break:break-all;">
+                                <input type="text" class="form-control" style="background-color: #f9f89f;" value="{{ recv_url }}" readonly>
+                            </div>
+                            <div class="text-danger col-sm-9 col-sm-offset-3 small"  style="clear: both;">
+                                ルミーズ加盟店バックヤードシステムにて拡張セット専用に作成いただいたホストの「カード決済設定」タブ -「結果通知URL」に、上記URLを設定してください。
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">決済情報送信先URL　<span class="label label-danger">必須</span></label>
+
+                            <div class="col-sm-9 {% if form.extset_url.vars.errors is not empty %}has-error{% endif %}">
+                                {{ form_widget(form.extset_url, { 'attr': {'placeholder': 'https://'} }) }}
+                                <div style="clear: both;" id="config_extset_url_err">
+                                    {{ form_errors(form.extset_url) }}
+                                </div>
+                            </div>
+                            <div class="text-primary col-sm-9 col-sm-offset-3 small" style="clear: both;">
+                                「設定情報連絡票」に記載の「カード決済情報送信先URL-拡張セット用」を設定してください。
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                 <div id="detail__back_button" class="row hidden-xs hidden-sm">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
+                        <p><a href="{{ url('admin_store_plugin') }}">一覧に戻る</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" id="aside_column" style="display: none;">
+                <div class="col_inner">
+                    <div class="box no-header">
+                        <div class="box-body" >
+                            <div class="row text-center">
+                                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0" >
+                                    <button class="btn btn-primary btn-block btn-lg" onclick="submitcheck();">
+                                        設定を登録
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

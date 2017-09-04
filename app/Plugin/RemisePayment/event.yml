@@ -1,0 +1,39 @@
+# [管理者画面]トップ：表示イベント前処理
+eccube.event.render.admin_homepage.before:
+    - [onRenderAdminHomepageBefore, NORMAL]
+
+# [管理者画面]受注情報：編集イベント前処理
+eccube.event.render.admin_order_edit.before:
+    - [onRenderAdminOrderEditBefore, NORMAL]
+
+# [管理者画面]会員情報：編集イベント前処理
+eccube.event.render.admin_customer_edit.before:
+    - [onRenderAdminCustomerEditBefore, NORMAL]
+
+# [管理者画面]支払方法設定：編集イベント前処理
+eccube.event.render.admin_setting_shop_payment_edit.before:
+    - [onRenderAdminSettingShopPaymentEdit, NORMAL]
+
+# [管理者画面]支払方法設定：編集初期イベント処理
+admin.setting.shop.payment.edit.initialize:
+    - [onAdminSettingShopPaymentEditInitialize, NORMAL]
+
+# ご注文内容のご確認：表示イベント前処理
+eccube.event.render.shopping.before:
+    - [onRenderShoppingBefore, NORMAL]
+
+# カード決済リダイレクト：表示イベント前処理
+eccube.event.render.remise_shopping_payment.before:
+    - [onRenderShoppingPaymentBefore, NORMAL]
+
+# ご注文完了：表示イベント前処理
+eccube.event.render.shopping_complete.before:
+    - [onRenderShoppingCompleteBefore, NORMAL]
+
+# ご注文内容のご確認：コントローラーイベント前処理
+eccube.event.controller.shopping_confirm.before:
+    - [onControllerShoppingConfirmBefore, NORMAL]
+
+# マイページ－会員情報編集：表示イベント前処理
+eccube.event.render.mypage_change.before:
+    - [onRenderMypageChangeBefore, NORMAL]

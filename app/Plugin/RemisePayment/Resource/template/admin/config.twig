@@ -1,0 +1,561 @@
+{#
+Copyright(c) 2015 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% extends 'default_frame.twig' %}
+
+{% set menus = ['store', 'plugin', 'plugin_list'] %}
+
+{% block javascript %}
+    <script type="text/javascript">
+    {{ include('RemisePayment/Resource/html/js/jquery.validate.js') }}
+    </script>
+    <script type="text/javascript">
+
+        function win_open(URL) {
+            var WIN;
+            WIN = window.open(URL);
+            WIN.focus();
+        }
+
+        $(function(){
+            // 登録ボタンを表示する
+            $('#aside_column').css("display", "block");
+            $('#java_script_alert_message').css("display", "none");
+
+            {% if is_eccube_ver_lower308 == true %}
+                // メッセージ表示
+                $('#wrapper').removeClass("sidebar-open");
+                $('.logo').css("text-align", "left");
+                $('.bt_toggle').remove();
+                $('#sitename').remove();
+                $('.navbar-menu').remove();
+
+                $(window).off("load");
+                $(window).off("resize");
+
+                {% if complete == '1' %}
+                    alert("ルミーズ決済プラグインの登録が完了しました。");
+                    opener.$('.alert-success').parent().remove();
+                    var completeMsg = '<div class="row">'
+                            + '<div class="alert alert-success alert-dismissable">'
+                            + '<button type="button" class="close" data-dismiss="alert"><span class="alert-close" aria-hidden="true">&times;</span></button>'
+                            + '<svg class="cb cb-info-circle"> <use xlink:href="#cb-info-circle" /></svg> 登録が完了しました。'
+                            + '</div>'
+                            + '</div>';
+                    opener.$('.container-fluid > div:first').before(completeMsg);
+                    window.close();
+                {% endif%}
+            {% endif %}
+
+            // 入力チェック
+            remise_valitation();
+
+            // ご利用の決済方法
+            var tabs = new Array();
+            $('[name="config[use_payment][]"]').each(function(){
+                if ($(this).prop("checked")) {
+                    if ($(this).val() == "1") {
+                        tabs.push("tab_card");
+                    } else if ($(this).val() == "2") {
+                        tabs.push("tab_multi");
+                    }
+                }
+            });
+            if (tabs.length == 1) $('#' + tabs[0]).click();
+            use_payment_check();
+            $('[name="config[use_payment][]"]').on('click', function() {
+                 use_payment_check();
+            });
+
+            // ペイクイックチェック設定
+            payquickcheck();
+            $('#config_payquick').change(function(){
+                payquickcheck();
+            });
+
+            $('input[type="checkbox"]').on('click', function() {
+                 $('form').validate().element(this);
+            });
+        })
+
+        // 入力チェックの登録
+        function remise_valitation() {
+            $.validator.addMethod("selectCheck", function(value, element, origin){
+                return origin != value;
+            });
+            $('form').validate({
+                rules: {
+                    "config[code]" :{
+                        required: true,
+                        minlength: 8,
+                        maxlength: 8,
+                    },
+                    "config[host_id]" :{
+                        required: true,
+                        number: true,
+                        minlength: 8,
+                        maxlength: 8,
+                    },
+                    "config[use_payment][]" :{
+                        required: true,
+                    },
+
+                    "config[credit_url]" :{
+                        required: {
+                            depends: function (element) { return $('#config_use_payment_0').is(':checked'); }
+                        },
+                    },
+                    "config[job]" :{
+                        required: {
+                            depends: function (element) { return $('#config_use_payment_0').is(':checked'); }
+                        },
+                    },
+                    "config[payquick]" :{
+                        required: {
+                            depends: function (element) { return $('#config_use_payment_0').is(':checked'); }
+                        },
+                    },
+
+                    "config[cvs_url]" :{
+                        required: {
+                            depends: function (element) { return $('#config_use_payment_1').is(':checked'); }
+                        },
+                    },
+                    "config[pay_date]" :{
+                        required: {
+                            depends: function (element) { return $('#config_use_payment_1').is(':checked'); }
+                        },
+                    },
+                    "config[receiptmail_flg]" :{
+                        required: {
+                            depends: function (element) { return $('#config_use_payment_1').is(':checked'); }
+                        },
+                    },
+                },
+                messages: {
+                    "config[code]" :{
+                        required: "※ 加盟店コードが入力されていません。",
+                        minlength: "※ 加盟店コードは{0}桁の文字列です。",
+                        maxlength: "※ 加盟店コードは{0}桁の文字列です。"
+                    },
+                    "config[host_id]" :{
+                        required: "※ ホスト番号が入力されていません。",
+                        number: "※ホスト番号は7桁の数字です",
+                        minlength: "※ ホスト番号は{0}桁の数字です。",
+                        maxlength: "※ ホスト番号は{0}桁の数字です。"
+                    },
+                    "config[use_payment][]" :{
+                        required: "※ ご利用の決済方法が選択されていません。",
+                    },
+
+                    "config[credit_url]" :{
+                        required: "※ 決済情報送信先URLが入力されていません。",
+                    },
+                    "config[job]" :{
+                        required: "※ 処理区分が選択されていません。",
+                    },
+                    "config[payquick]" :{
+                        required: "※ ペイクイックの利用有無が選択されていません。",
+                    },
+
+                    "config[cvs_url]" :{
+                        required: "※ 決済情報送信先URLが入力されていません。",
+                    },
+                    "config[pay_date]" :{
+                        required: "※ 支払期限が選択されていません。",
+                    },
+                    "config[receiptmail_flg]" :{
+                        required: "※ 入金お知らせメールの利用有無が選択されていません。",
+                    },
+                },
+                errorPlacement: function(error, element) {
+                    var objName = element.attr("name");
+                    var errId = objName.replace(/\[\]/g, "").replace(/\[/g, "_").replace(/\]/g, "_") + "err";
+                    $('#' + errId).empty();
+                    error.appendTo('#' + errId);
+                }
+            });
+            $('form').data("validator").settings.ignore = "input[type='hidden']";
+        }
+        function remise_valitation_ext() {
+            var valid = true;
+            $('#base_info').find("input").each(function(){
+                if ($(this).rules()["required"]) {
+                    if (!$('form').validate().element(this)) {
+                        valid = false;
+                    }
+                }
+            });
+            var errTab = "";
+            $('ul.nav-tabs li a').each(function(){
+                var tabId = $(this).attr("id");
+                var tabContentsId = $(this).attr("href");
+                $(tabContentsId).find("input").each(function(){
+                    if ($(this).rules()["required"]) {
+                        if (!$('form').validate().element(this)) {
+                            if (errTab.length == 0) errTab = tabId;
+                            valid = false;
+                        }
+                    }
+                });
+                $(tabContentsId).find("select").each(function(){
+                    if ($(this).rules()["required"]) {
+                        if (!$('form').validate().element(this)) {
+                            if (errTab.length == 0) errTab = tabId;
+                            valid = false;
+                        }
+                    }
+                });
+            });
+            if (errTab.length != 0) $('#' + errTab).click();
+            return valid;
+        }
+
+        function submitcheck() {
+            var check = remise_valitation_ext();
+            if (check) {
+                document.form1.submit();
+            }
+        }
+
+        function use_payment_check() {
+            $('[name="config[use_payment][]"]').each(function(){
+                var tagId = "";
+                if ($(this).val() == "1") {
+                    tagId = "tab_card_content";
+                } else if ($(this).val() == "2") {
+                    tagId = "tab_multi_content";
+                }
+                if (tagId.length != 0) {
+                    if ($(this).prop("checked")) {
+                        $('#' + tagId).css("opacity", "1");
+                        $('#' + tagId).find("input").each(function(){
+                            $(this).prop("disabled", false);
+                        });
+                        $('#' + tagId).find("select").each(function(){
+                            $(this).prop("disabled", false);
+                        });
+                    }
+                    else {
+                        $('#' + tagId).css("opacity", "0.4");
+                        $('#' + tagId).find("input").each(function(){
+                            $(this).prop("disabled", true);
+                        });
+                        $('#' + tagId).find("select").each(function(){
+                            $(this).prop("disabled", true);
+                        });
+                    }
+                }
+            });
+        }
+
+        function payquickcheck(){
+            if ($('[name="config[payquick]"]:checked').val() == "1") {
+                $('#cardmethod').show("normal");
+                $('[name="config[use_cardmethod][]"]').rules("add", {
+                    required: {
+                        depends: function (element) { return $('#config_use_payment_0').is(':checked'); }
+                    },
+                    messages: {
+                        required: "※ 支払方法が選択されておりません。"
+                    }
+                });
+            } else {
+                $('#cardmethod').hide("normal");
+                $('[name="config[use_cardmethod][]"]').prop("checked", false);
+                $('[name="config[use_cardmethod][]"]').rules("remove");
+            }
+        }
+
+    </script>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+{% block main %}
+<style type="text/css"><!--
+ul.notice {
+    list-style:none;
+    margin-left:14px;
+}
+ul.notice li:before {
+    content: '※';
+    margin-left:-14px;
+}
+.error {
+    margin-top: 3px;
+    font-size: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #DE5D50;
+}
+--></style>
+
+    <noscript>
+        <div class="row" id="java_script_alert_message" style="display: block;">
+            <div class="alert alert-danger alert-dismissable">
+                <!-- HTML の読み込みに失敗しました。お手数ですがページの再読み込みを実行してください。 -->
+                JavaScript を有効にしてご利用下さい。
+            </div>
+        </div>
+    </noscript>
+
+    <div class="row" id="aside_wrap">
+        <form name="form1" role="form" novalidate class="form-horizontal" id="point_form" method="post" action="">
+            {{ form_widget(form._token) }}
+            <div class="col-md-9">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">
+                            本プラグインについて
+                            <div class="flR"><a href="#" class="btn btn-info" style="padding: 3px 12px;" onClick="win_open('http://www.remise.jp/data/ec-cube/');" > 設定マニュアルはこちら</a></div>
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required ">お知らせ</label>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    ルミーズ決済プラグインをご利用頂く為には、ユーザ様ご自身で
+                                    ルミーズ株式会社とご契約を行っていただく必要があります。
+                                    お申し込みにつきましては、下記のページから、お申し込みを行ってください。<br />
+                                    <a href="#" class="btn btn-info" onClick="win_open('http://www.remise.jp/');" > ルミーズ株式会社オフィシャルサイト</a><br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">バージョン番号</label>
+
+                            <div class="col-sm-3">
+                               {{ version }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 基本設定 -->
+                <div class="box" id="base_info">
+                    <div class="box-header">
+                        <h3 class="box-title">基本設定</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">加盟店コード　<span class="label label-danger">必須</span></label>
+
+                            <div class="row">
+                                <div class="col-sm-3 {% if form.code.vars.errors is not empty %}has-error{% endif %}">
+                                    {{ form_widget(form.code, { 'attr': {'placeholder': 'RMS00000'} }) }}
+                                    <div style="clear: both;" id="config_code_err">
+                                        {{ form_errors(form.code) }}
+                                    </div>
+                                </div>
+                                <div class="text-primary col-sm-9 col-sm-offset-3 small" style="clear: both;">
+                                    「設定情報連絡票」に記載の「加盟店コード」を設定してください。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">ホスト番号　　<span class="label label-danger">必須</span></label>
+
+                            <div class="row">
+                                <div class="col-sm-3 {% if form.host_id.vars.errors is not empty %}has-error{% endif %}">
+                                    {{ form_widget(form.host_id) }}
+                                    <div style="clear: both;" id="config_host_id_err">
+                                        {{ form_errors(form.host_id) }}
+                                    </div>
+                                </div>
+                                <div class="text-primary col-sm-9 col-sm-offset-3 small" style="clear: both;">
+                                    ルミーズ加盟店バックヤードシステムにて初期設定後、発番されるホスト番号を入力してください。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label required">ご利用の決済方法　<span class="label label-danger">必須</span></label>
+
+                            <div class="col-sm-9">
+                                {{ form_widget(form.use_payment) }}
+                                <div style="clear: both;" id="config_use_payment_err">
+                                    {{ form_errors(form.use_payment) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <div class="box">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a id="tab_card" href="#tab_card_content" data-toggle="tab"><h3 class="box-title" style="font-size:14px;">カード決済設定</h3></a>
+                        </li>
+                        <li>
+                            <a id="tab_multi" href="#tab_multi_content" data-toggle="tab"><h3 class="box-title" style="font-size:14px;">マルチ決済設定</h3></a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- カード決済設定 -->
+                        <div id="tab_card_content" class="box-body tab-pane fade in active" style="border-top: none;">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">結果通知URL　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9" style="word-break:break-all;">
+                                    <input type="text" class="form-control" style="background-color: #f9f89f;" value="{{ recv_url }}" readonly>
+                                </div>
+                                <div class="text-danger col-sm-9 col-sm-offset-3 small"  style="clear: both;">
+                                    上記URLをルミーズ加盟店バックヤードシステムの「各種設定」-「ホスト設定」-「カード決済設定」タブ -「結果通知URL」に設定してください。
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required ">決済情報送信先URL　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9 {% if form.credit_url.vars.errors is not empty %}has-error{% endif %}">
+                                    [PC用またはPC（スマートフォン）用]
+                                    {{ form_widget(form.credit_url, { 'attr': {'placeholder': 'https://'} }) }}
+                                    <div style="clear: both;" id="config_credit_url_err">
+                                        {{ form_errors(form.credit_url) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">処理区分　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9 {% if form.job.vars.errors is not empty %}has-error{% endif %}">
+                                    {{ form_widget(form.job) }}
+                                    <div style="clear: both;" id="config_job_err">
+                                        {{ form_errors(form.job) }}
+                                    </div>
+                                </div>
+                                <div class="text-primary col-sm-9 col-sm-offset-3" style="clear: both;">
+                                    <ul class="notice small">
+                                        <li>
+                                            AUTH：
+                                            与信枠を確保します。後で実売上処理が必要です。
+                                        </li>
+                                        <li>
+                                            CAPTURE：
+                                            売上処理を行います。
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">ペイクイック　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9 {% if form.payquick.vars.errors is not empty %}has-error{% endif %}">
+                                    {{ form_widget(form.payquick) }}
+                                    <div style="clear: both;" id="config_payquick_err">
+                                        {{ form_errors(form.payquick) }}
+                                    </div>
+                                </div>
+                                <div class="text-primary col-sm-9 col-sm-offset-3 small" style="clear: both;">
+                                    「利用する」を選択した場合、2回目以降のお買い物で、カード情報入力画面を省略できます。
+                                </div>
+                            </div>
+                            <div class="form-group" id="cardmethod">
+                                <label class="col-sm-3 control-label required">支払方法　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.use_cardmethod) }}
+                                    <div style="clear: both;" id="config_use_cardmethod_err">
+                                        {{ form_errors(form.use_cardmethod) }}
+                                    </div>
+                                </div>
+                                <div class="text-primary col-sm-9 col-sm-offset-3 small" style="clear: both;">
+                                    ペイクイック「利用する」を選択した場合、ご契約済の「支払方法」を選択してください。
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /#tab_card_content -->
+
+                        <!-- マルチ決済設定 -->
+                        <div id="tab_multi_content" class="box-body tab-pane fade" style="border-top: none;">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">収納情報通知URL　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9" style="word-break:break-all;">
+                                    <input type="text" class="form-control" style="background-color: #f9f89f;" value="{{ acpt_url }}" readonly>
+                                </div>
+                                <div class="text-danger col-sm-9 col-sm-offset-3 small"  style="clear: both;">
+                                    上記URLをルミーズ加盟店バックヤードシステムの「各種設定」-「マルチ決済設定」-「収納情報通知URL」に設定してください。
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">決済情報送信先URL　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9 {% if form.cvs_url.vars.errors is not empty %}has-error{% endif %}">
+                                    [PC用またはPC（スマートフォン）用]
+                                    {{ form_widget(form.cvs_url, { 'attr': {'placeholder': 'https://'} }) }}
+                                    <div style="clear: both;" id="config_cvs_url_err">
+                                        {{ form_errors(form.cvs_url) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">支払期限　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-2 {% if form.pay_date.vars.errors is not empty %}has-error{% endif %}">
+                                    {{ form_widget(form.pay_date) }}
+                                </div>
+                                <div class="col-sm-9 col-sm-offset-3" style="clear: both;">
+                                    <div style="clear: both;" id="config_pay_date_err">
+                                        {{ form_errors(form.pay_date) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label required">入金お知らせメール　<span class="label label-danger">必須</span></label>
+
+                                <div class="col-sm-9">
+                                    <div class="{% if form.receiptmail_flg.vars.errors is not empty %}has-error{% endif %}">
+                                        {{ form_widget(form.receiptmail_flg) }}
+                                        <div style="clear: both;" id="config_receiptmail_flg_err">
+                                            {{ form_errors(form.receiptmail_flg) }}
+                                        </div>
+                                    </div>
+                                    <div class="text-primary small" style="clear: both;">
+                                        ルミーズより収納情報通知があった際に入金に関するお知らせメールが顧客宛て(Bcc:管理者)に送信されます。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /#tab_multi_content -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+
+                {% if is_eccube_ver_lower308 == false %} 
+                 <div id="detail__back_button" class="row hidden-xs hidden-sm">
+                    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 text-center btn_area">
+                        <p><a href="{{ url('admin_store_plugin') }}">一覧に戻る</a></p>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="col-md-3" id="aside_column" style="display: none;">
+                <div class="col_inner">
+                    <div class="box no-header">
+                        <div class="box-body" >
+                            <div class="row text-center">
+                                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0" >
+                                    <button class="btn btn-primary btn-block btn-lg" onclick="submitcheck();" >
+                                        設定を登録
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+<div class="">
+    <h2 class="heading02">カードご利用情報</h2>
+    <div class="column">
+        <div class="form-group">
+            <ul class="payment_list list-group">
+            {% if payquick and payquick.card %}
+            <li class="payquick_info">
+                <div class="row">
+                    <div class="card_info col-sm-5">
+                        カード番号：************{{ payquick.card }}
+                        {% if payquick.expire %}
+                        <br>有効期限　：{{ payquick.expire | slice(0, 2) }}月 {{ payquick.expire | slice(2, 2) }}年
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div>
+                    {{ form_widget(form.payquick_check) }}
+                    {{ form_errors(form.payquick_check) }}
+                </div>
+            </li>
+            <li class="payquick_info">
+                <label>お支払情報</label>
+                <div>
+                    {{ form_widget(form.payquick_method) }}
+                    {{ form_errors(form.payquick_method) }}
+                </div>
+            </li>
+            {% endif %}
+            <li>
+                <div>
+                    {{ form_widget(form.card_check) }}
+                    {{ form_errors(form.card_check) }}
+                    <input type="hidden" name="remise_payquick[customer_id]" value="{{ customer_id }}">
+                </div>
+                <div class="payquick_caution" style="display:{% if payquick and payquick.card %}none{% else %}block{% endif %};">
+                    登録を行うと、次回のお買い物からクレジットカード情報の入力を省略することができます。<br>
+                    カード情報は当サイトには保持しません。
+                </div>
+            </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% block javascript %}
+    <script>
+        $(function(){
+            {% if payquick and payquick.card %}
+            if (!$("input[name='remise_payquick[payquick_method]']").is(':checked')) {
+                // 自動で先頭のラジオボタンにチェックを付ける
+                $("#remise_payquick_payquick_method_0").prop("checked", true);
+            }
+            {% endif %}
+            $("input[name='remise_payquick[payquick_check]']").change(function() {
+                payquick_check();
+            })
+            payquick_check();
+        })
+        function payquick_check(){
+            var isChecked = $('#remise_payquick_payquick_check_0').prop('checked');
+            if (isChecked == true) {
+                $("#remise_payquick_card_check_0").prop("checked",true);
+                $("#remise_payquick_card_check_0").prop("disabled", true);
+            } else {
+                $("#remise_payquick_card_check_0").prop("disabled", false);
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block css %}
+<style type="text/css"><!--
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+--></style>
+{% endblock %}

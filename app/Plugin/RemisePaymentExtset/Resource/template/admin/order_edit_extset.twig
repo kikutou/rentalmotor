@@ -1,0 +1,50 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% block javascript %}
+<script type="text/javascript">
+{{ include('RemisePaymentExtset/Resource/html/js/remise_extset.js') }}
+</script>
+{% endblock javascript %}
+
+{% if readCss == "1" %}
+{% block stylesheet %}
+<style type="text/css">
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+</style>
+{% endblock stylesheet %}
+{% endif %}
+
+{% block main %}
+<dl class="dl-horizontal order_list">
+    <dd class="form-group btn_area">
+{%  if RemiseResult.memo06 == app['config']['state_auth'] %}
+        <ul>
+            <li style="width:initial; width:-moz-initial;"><button type="submit" class="btn btn-default" id="remise-job-sales"  name="mode" value="register">売上を行う</button></li>
+            <li style="width:initial; width:-moz-initial;"><button type="submit" class="btn btn-default" id="remise-job-return" name="mode" value="register">キャンセルを行う</button></li>
+            <li style="width:initial; width:-moz-initial;"><button type="submit" class="btn btn-default" id="remise-job-change" name="mode" value="register">金額変更を行う{% if Order.payment_total != payment_total %}({{ payment_total|price }} → {{ Order.payment_total|price }}){% endif %}</button></li>
+        </ul>
+
+{%  elseif RemiseResult.memo06 == app['config']['state_sales'] or RemiseResult.memo06 == app['config']['state_capture'] %}
+        <ul>
+            <li style="width:initial; width:-moz-initial;"><button type="submit" class="btn btn-default" id="remise-job-return" name="mode" value="register">キャンセルを行う</button></li>
+            <li style="width:initial; width:-moz-initial;"><button type="submit" class="btn btn-default" id="remise-job-change" name="mode" value="register">金額変更を行う{% if Order.payment_total != payment_total %}({{ payment_total|price }} → {{ Order.payment_total|price }}){% endif %}</button></li>
+        </ul>
+
+{%   endif %}
+    </dd>
+</dl>
+<input type="hidden" id="remise-payment-total-change" name="remise-payment-total-change" value="{{ (Order.payment_total != payment_total) ? 1 : 0 }}">
+<input type="hidden" id="remise-extset-job" name="remise-extset-job" value="">
+<input type="hidden" id="remise-payment-total" name="remise-payment-total" value="{{ Order.payment_total }}">
+<input type="hidden" id="remise-point-plugin" name="remise-point-plugin" value="{{ pointPlugin }}">
+<div id="dialog-area">
+    <div id="dialog-overlay"></div>
+    <div id="dialog-box">
+       <div class="dialog-content">
+          <div id="dialog-message">只今、処理中です。<br />しばらくお待ちください。</div>
+       </div>
+    </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,63 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% block stylesheet %}
+<style type="text/css">
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+</style>
+{% endblock stylesheet %}
+
+{% block javascript %}
+<script type="text/javascript">//<![CDATA[
+$(function(){
+    $('.del_payquick').click(function(){
+        if (!confirm("ペイクイック情報を削除します。よろしいですか？")) return;
+
+        $(location).attr('href', $(this).data('action'));
+    });
+});
+//]]></script>
+{% endblock javascript %}
+
+{% block main %}
+<div class="box accordion admin_customer_edit">
+    <div class="box-header toggle">
+        <h3 class="box-title">ルミーズ　ペイクイック情報<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></h3>
+    </div>
+    <div class="box-body accpanel">
+        <div class="table_list">
+            <div class="table-responsive with-border">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>カード番号</th>
+                            <th>有効期限</th>
+                            <th>登録日</th>
+                            <th>削除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payquick in payquicks %}
+                        <tr>
+                            <td>
+                              ************{{ payquick.card }}
+                            </td>
+                            <td>
+                              {{ payquick.expire | slice(0, 2) }}月 {{ payquick.expire | slice(2, 2) }}年
+                            </td>
+                            <td>
+                              {{ payquick.payquickDate|date_format }}
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-default del_payquick" data-action="{{ url }}/{{ payquick.payquick_no }}">削除</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

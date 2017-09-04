@@ -1,0 +1,22 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% if arrOther.title is defined %}
+************************************************
+　{{ arrOther.title.name }}情報
+************************************************
+
+{% for key, item in arrOther %}
+{%     if key != "title" %}
+{# 支払方法説明 #}
+{%         if key == "cv_msg" %}
+{{ item.value }}
+{# 他の項目 #}
+{%         else %}
+{{ item.name }}：{{ item.value }}
+{%         endif %}
+{%     endif %}
+{% endfor %}
+
+{% endif %}

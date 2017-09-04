@@ -1,0 +1,11 @@
+# [管理者画面]受注情報：一覧フォーム処理
+Admin/Order/index.twig:
+    - [onRenderAdminOrderIndex, NORMAL]
+
+# [管理者画面]受注情報：編集イベント前処理
+eccube.event.render.admin_order_edit.before:
+    - [onRenderAdminOrderEditBefore, NORMAL]
+
+# [管理者画面]受注情報：コントローラーイベント前処理
+eccube.event.controller.admin_order_edit.before:
+    - [onAdminControllerOrderEditIndexBefore, NORMAL]

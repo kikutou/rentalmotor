@@ -1,0 +1,19 @@
+# プラグイン名
+name: "RemisePayment拡張セット"
+
+# バージョン
+version: 1.0.3
+
+# プラグインコード
+code: RemisePaymentExtset
+
+# イベントファイル名
+event: RemiseEvent
+
+# イベント以外のロジック読込みファイル
+service:
+    - RemiseServiceProvider
+
+# テーブル定義ファイル配置先
+orm.path:
+    - /Resource/doctrine

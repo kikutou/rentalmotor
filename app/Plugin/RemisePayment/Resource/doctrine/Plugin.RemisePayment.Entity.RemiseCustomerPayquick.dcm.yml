@@ -1,0 +1,58 @@
+Plugin\RemisePayment\Entity\RemiseCustomerPayquick:
+    type: entity
+    table: plg_remise_customer_payquick
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseCustomerPayquickRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: customer_id
+        payquick_no:
+            type: smallint
+            nullable: false
+            unsigned: false
+            id: true
+    fields:
+        old_payquick_id:
+            type: text
+            nullable: true
+        old_card:
+            type: text
+            nullable: true
+        old_expire:
+            type: text
+            nullable: true
+        old_cardbrand:
+            type: text
+            nullable: true
+        old_payquick_date:
+            type: datetime
+            nullable: true
+        payquick_id:
+            type: text
+            nullable: true
+        card:
+            type: text
+            nullable: false
+        expire:
+            type: text
+            nullable: false
+        cardbrand:
+            type: text
+            nullable: false
+        payquick_date:
+            type: datetime
+            nullable: false
+        payquick_flg:
+            type: text
+            nullable: false
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }

@@ -1,0 +1,24 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+<td id="result_list_main__payment_credit--{{ Order.id }}">
+{% if Order.memo06 %}
+{%   if Order.memo06 == app['config']['state_auth'] %}
+    {{ app['config']['state_auth_name'] }}<br />
+    <input type="checkbox" id="credit-check-{{ Order.id }}" name="credit-check-{{ Order.id }}" value="{{ Order.id }}">売上を行う
+{%   elseif Order.memo06 == app['config']['state_sales'] %}
+    {{ app['config']['state_sales_name'] }}
+{%   elseif Order.memo06 == app['config']['state_capture'] %}
+    {{ app['config']['state_capture_name'] }}
+{%   elseif Order.memo06 == app['config']['state_void'] %}
+    {{ app['config']['state_void_name'] }}
+{%   elseif Order.memo06 == app['config']['state_return'] %}
+    {{ app['config']['state_return_name'] }}
+{%   else %}
+    {{ app['config']['state_other_name'] }}
+{%   endif %}
+{% else %}
+    {{ app['config']['state_other_name'] }}
+{% endif %}
+</td>

@@ -1,0 +1,28 @@
+Plugin\RemisePayment\Entity\RemiseCardMethod:
+    type: entity
+    table: plg_remise_card_method
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseCardMethodRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: card_method_id
+    fields:
+        code:
+            type: integer
+            nullable: false
+            column: card_method_code
+        name:
+            type: text
+            nullable: false
+            column: card_method_name
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }
