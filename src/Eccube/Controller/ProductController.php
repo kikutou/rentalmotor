@@ -316,7 +316,7 @@ class ProductController
             $is_favorite = $app['eccube.repository.customer_favorite_product']->isFavorite($Customer, $Product);
         }
 
-        $rental_date = $app['eccube.service.datetime']->getRentalDate();
+        $rental_date = $app['eccube.service.datetime']->getRentalDate($Product);
 
         return $app->render('Product/detail.twig', array(
             'title' => $this->title,

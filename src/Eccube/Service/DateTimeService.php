@@ -38,7 +38,11 @@ class DateTimeService
         $this->app = $app;
     }
 
-    public function getRentalDate()
+    /**
+     * @param \Eccube\Entity\Product|null $Product
+     * @return array
+     */
+    public function getRentalDate(\Eccube\Entity\Product $Product = null)
     {
         $now = new \DateTime();
         $rental = array();
@@ -62,7 +66,11 @@ class DateTimeService
             }
 
             $active = true;
-            if ($date < $now || $week === '0' || $week === '6') {
+            if (
+                $date <= $now
+                || $week === '0' || $week === '6'
+                || (!is_null($Product) && $date < $Product->getStartDate())
+            ) {
                 $active = false;
             }
             $group[] = array('date' => $date->format('Y-m-d'), 'day' => $date->format('j'), 'active' => $active);

@@ -16,6 +16,9 @@ Eccube\Entity\Product:
             type: text
             nullable: false
             length: 65535
+        start_date:
+            type: datetime
+            nullable: true
         note:
             type: text
             nullable: true
