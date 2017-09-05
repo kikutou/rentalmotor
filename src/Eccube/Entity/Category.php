@@ -511,6 +511,36 @@ class Category extends \Eccube\Entity\AbstractEntity
         return $this->Creator;
     }
 
-    public function getCategory()
-    {}
+    public function getKana()
+    {
+        $kana = '';
+        if ($this->level === 1) {
+            switch ($this->name) {
+                case 'YAMAHA':
+                    $kana = 'ヤマハ';
+                    break;
+                case 'Kawasaki':
+                    $kana = 'カワサキ';
+                    break;
+                case 'HONDA':
+                    $kana = 'ホンダ';
+                    break;
+                case 'SUZUKI':
+                    $kana = 'スズキ';
+                    break;
+            }
+        }
+
+        return $kana;
+    }
+
+    public function getAncestor()
+    {
+        $Category = $this;
+        while ($Category->Parent) {
+            $Category = $Category->Parent;
+        }
+
+        return $Category;
+    }
 }

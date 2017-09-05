@@ -189,6 +189,8 @@ class ProductController
 
         $Category = $searchForm->get('category_id')->getData();
 
+        $Makers = $app['eccube.repository.category']->findBy(['level' => 1]);
+
         return $app->render('Product/list.twig', array(
             'subtitle' => $this->getPageTitle($searchData),
             'pagination' => $pagination,
@@ -197,6 +199,7 @@ class ProductController
             'order_by_form' => $orderByForm->createView(),
             'forms' => $forms,
             'Category' => $Category,
+            'Makers' => $Makers
         ));
     }
 

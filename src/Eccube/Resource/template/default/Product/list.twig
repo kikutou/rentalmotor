@@ -24,29 +24,55 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% set body_class = 'product_page' %}
 
 {% block javascript %}
-    <script>
-        // 並び順を変更
-        function fnChangeOrderBy(orderby) {
-            eccube.setValue('orderby', orderby);
-            eccube.setValue('pageno', 1);
-            eccube.submitForm();
-        }
+<script>
+    // 並び順を変更
+    function fnChangeOrderBy(orderby) {
+        eccube.setValue('orderby', orderby);
+        eccube.setValue('pageno', 1);
+        eccube.submitForm();
+    }
 
-        // 表示件数を変更
-        function fnChangeDispNumber(dispNumber) {
-            eccube.setValue('disp_number', dispNumber);
-            eccube.setValue('pageno', 1);
-            eccube.submitForm();
-        }
-        // 商品表示BOXの高さを揃える
-        $(window).load(function() {
-            $('.product_item').matchHeight();
+    // 表示件数を変更
+    function fnChangeDispNumber(dispNumber) {
+        eccube.setValue('disp_number', dispNumber);
+        eccube.setValue('pageno', 1);
+        eccube.submitForm();
+    }
+    // 商品表示BOXの高さを揃える
+    $(window).load(function() {
+        $('.product_item').matchHeight();
+    });
+
+    $(function () {
+        var displacement = $("#displacement");
+        displacement.find('li').mouseover(function () {
+            $(this).children('ol').show();
         });
-    </script>
+
+        displacement.mouseleave(function () {
+            $(this).find('ol').hide();
+        })
+    })
+</script>
 {% endblock %}
 
+{% macro tree(Category) %}
+    <li>
+        <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
+            {{ Category.name }}
+        </a>
+        {% if Category.children|length > 0 %}
+            <ol style="display: none;">
+                {% for ChildCategory in Category.children %}
+                    {{ _self.tree(ChildCategory) }}
+                {% endfor %}
+            </ol>
+        {% endif %}
+    </li>
+{% endmacro %}
+
 {% block main %}
-    {% if search_form.category_id.vars.errors|length == 0 %}
+{% if search_form.category_id.vars.errors|length == 0 %}
     <form name="form1" id="form1" method="get" action="?">
         {{ form_widget(search_form) }}
     </form>
@@ -57,7 +83,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <div id="result_info_box" class="row">
         <form name="page_navi_top" id="page_navi_top" action="?">
             {% if pagination.totalItemCount > 0 %}
-
                 {% for f in disp_number_form.getIterator %}
                     {% if f.vars.name matches '[^plg*]' %}
                         {{ form_label(f) }}
@@ -78,82 +103,71 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         </form>
     </div>
     <article class = "wrap">
-      <h2>moto-Liv 取り扱い純正マフラー</h2>
+        <h2>moto-Liv 取り扱い純正マフラー</h2>
         <section class="item-list-wrap">
-        <form>
-          <div class="search">
-            <h3>メーカーを選択</h3>
-            <ul class="maker">
-              <li><input type="radio" name="maker" id="honda"><label for="honda"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-honda.png" alt="ホンダ" width="169" height="26" /></label></li>
-              <li><input type="radio" name="maker" id="suzuki"><label for="suzuki"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-suzuki.png" alt="スズキ" width="160" height="29" /></label></li>
-              <li><input type="radio" name="maker" id="yamaha"><label for="yamaha"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-yamaha.png" alt="ヤマハ" width="115" height="25" /></label></li>
-              <li><input type="radio" name="maker" id="kawasaki"><label for="kawasaki"><img src="{{ app.config.front_urlpath }}/img/default/logo-b-kawasaki.png" alt="カワサキ" width="152" height="24" /></label></li>
-            </ul>
-            <h3>排気量を選択</h3>
-            <ul class="displacement">
-              <li>
-                <input type="checkbox" name="displacement" id="50">50cc
-              </li>
-              <li>
-                <input type="checkbox" name="displacement" id="51">51〜125cc
-              </li>
-              <li>
-                <input type="checkbox" name="displacement" id="126">126〜250cc
-              </li>
-              <li>
-                <input type="checkbox" name="displacement" id="251">251〜400cc
-                <ol>
-                  <li><input type="checkbox" name="displacement">YZF-R25</li>
-                </ol>
-              </li>
-              <li>
-                <input type="checkbox" name="model-name" id="401">401cc〜
-              </li>
-            </ul>
-          </div>
-          <!-- ▼item_list▼ -->
-          <div id="item_list">
-                  {% for Product in pagination %}
-                      <div id="result_list_box--{{ Product.id }}" class="col-sm-3 col-xs-6">
-                          <div id="result_list__item--{{ Product.id }}" class="product_item">
-                              <a href="{{ url('product_detail', {'id': Product.id}) }}">
-                                  <div id="result_list__image--{{ Product.id }}" class="item_photo">
-                                      <img src="{{ app.config.image_save_urlpath }}/{{ Product.MainListImage|no_image_product }}">
-                                  </div>
-                                  <dl id="result_list__detail--{{ Product.id }}">
-                                      <dt id="result_list__name--{{ Product.id }}" class="item_name">{{ Product.name }}</dt>
-                                      {% if Product.description_list %}
-                                          <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
-                                      {% endif %}
-                                      {% if Product.hasProductClass %}
-                                          {% if Product.getPrice02Min == Product.getPrice02Max %}
-                                          <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                              {{ Product.getPrice02IncTaxMin|price }}
-                                          </dd>
-                                          {% else %}
-                                          <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
-                                              {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
-                                          </dd>
-                                          {% endif %}
-                                      {% else %}
-                                          <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">{{ Product.getPrice02IncTaxMin|price }}</dd>
-                                      {% endif %}
-                                  </dl>
-                              </a>
-                          </div>
-                      </div>
-                  {% endfor %}
+            <div class="search">
+                <h3>メーカーを選択</h3>
+                <ul class="maker">
+                    {% for Maker in Makers %}
+                        <li>
+                            <input type="radio" name="maker" id="{{ Maker.name|lower }}" {% if Maker.id == Category.Ancestor.id %}checked{% endif %}>
+                            <label for="{{ Maker.name|lower }}">
+                                <a href="{{ url('product_list') }}?category_id={{ Maker.id }}">
+                                    <img src="{{ app.config.front_urlpath }}/img/default/logo-b-{{ Maker.name|lower }}.png" alt="{{ Maker.kana }}" width="169" height="26" />
+                                </a>
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h3>排気量を選択</h3>
+                <ul class="displacement" id="displacement">
+                    {% for Displacement in Category.Ancestor.children %}
+                        {{ _self.tree(Displacement) }}
+                    {% endfor %}
+                </ul>
+            </div>
 
+            <!-- ▼item_list▼ -->
+            <div id="item_list">
+                {% for Product in pagination %}
+                    <div id="result_list_box--{{ Product.id }}" class="col-sm-3 col-xs-6">
+                        <div id="result_list__item--{{ Product.id }}" class="product_item">
+                            <a href="{{ url('product_detail', {'id': Product.id}) }}">
+                                <div id="result_list__image--{{ Product.id }}" class="item_photo">
+                                    <img src="{{ app.config.image_save_urlpath }}/{{ Product.MainListImage|no_image_product }}">
+                                </div>
+                                <dl id="result_list__detail--{{ Product.id }}">
+                                    <dt id="result_list__name--{{ Product.id }}" class="item_name">{{ Product.name }}</dt>
+                                    {% if Product.description_list %}
+                                        <dd id="result_list__description_list--{{ Product.id }}" class="item_comment">{{ Product.description_list|raw|nl2br }}</dd>
+                                    {% endif %}
+                                    {% if Product.hasProductClass %}
+                                        {% if Product.getPrice02Min == Product.getPrice02Max %}
+                                            <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                                {{ Product.getPrice02IncTaxMin|price }}
+                                            </dd>
+                                        {% else %}
+                                            <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">
+                                                {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
+                                            </dd>
+                                        {% endif %}
+                                    {% else %}
+                                        <dd id="result_list__price02_inc_tax--{{ Product.id }}" class="item_price">{{ Product.getPrice02IncTaxMin|price }}</dd>
+                                    {% endif %}
+                                </dl>
+                            </a>
+                        </div>
                     </div>
-                    <!-- ▲item_list▲ -->
-                </form>
-            </section>
-        </article>
+                {% endfor %}
+            </div>
+            <!-- ▲item_list▲ -->
+        </section>
+    </article>
 
     {% if pagination.totalItemCount > 0 %}
         {% include "pagination.twig" with { 'pages' : pagination.paginationData } %}
     {% endif %}
-    {% else %}
-        <p class="errormsg text-danger">ご指定のカテゴリは存在しません。</p>
-    {% endif %}
+{% else %}
+    <p class="errormsg text-danger">ご指定のカテゴリは存在しません。</p>
+{% endif %}
 {% endblock %}
