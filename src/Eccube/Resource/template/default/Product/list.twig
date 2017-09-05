@@ -45,26 +45,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
     $(function () {
         var displacement = $("#displacement");
+        displacement.find('ol:has(span.selected)').show();
+
         displacement.find('li').mouseover(function () {
             $(this).children('ol').show();
         });
 
         displacement.mouseleave(function () {
-            $(this).find('ol').hide();
+            $(this).find('ol:not(:has(span.selected))').hide();
         })
     })
 </script>
 {% endblock %}
 
-{% macro tree(Category) %}
+{% macro tree(Category, selected_id) %}
     <li>
         <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
-            {{ Category.name }}
+            <span {% if Category.id == selected_id %}class="selected"{% endif %}>{{ Category.name }}</span>
         </a>
         {% if Category.children|length > 0 %}
             <ol style="display: none;">
                 {% for ChildCategory in Category.children %}
-                    {{ _self.tree(ChildCategory) }}
+                    {{ _self.tree(ChildCategory, selected_id) }}
                 {% endfor %}
             </ol>
         {% endif %}
@@ -122,7 +124,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 <h3>排気量を選択</h3>
                 <ul class="displacement" id="displacement">
                     {% for Displacement in Category.Ancestor.children %}
-                        {{ _self.tree(Displacement) }}
+                        {{ _self.tree(Displacement, Category.id) }}
                     {% endfor %}
                 </ul>
             </div>
