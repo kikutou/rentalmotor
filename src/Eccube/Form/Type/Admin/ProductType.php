@@ -79,6 +79,21 @@ class ProductType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ))
+            ->add('start_date', 'date', array(
+                'required' => false,
+                'label' => '販売開始日',
+                'input' => 'datetime',
+                'years' => range(date('Y'), date('Y') + 10),
+                'widget' => 'choice',
+                'format' => 'yyyy-MM-dd',
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
+                'constraints' => array(
+                    new Assert\LessThanOrEqual(array(
+                        'value' => date('Y-m-d'),
+                        'message' => 'form.type.select.selectisfuturedate',
+                    )),
+                ),
+            ))
             ->add('description_detail', 'textarea', array(
                 'label' => '商品説明',
             ))
