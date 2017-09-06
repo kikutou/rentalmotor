@@ -337,9 +337,12 @@ class ShoppingController extends AbstractController
                     $app['orm.em']->persist($Questionnaire);
                     $app['orm.em']->flush();
 
-                    $app['session']->remove($this->sessionOrderKey);
+//                    $app['session']->remove($this->sessionOrderKey);
 
-                    return $app->redirect($app->url('mypage'));
+                    return $app->render('Shopping/complete.twig', array(
+                        'orderId' => $orderId,
+                        'form' => null
+                    ));
                 }
 
                 $form = $form->createView();
@@ -347,7 +350,7 @@ class ShoppingController extends AbstractController
         }
 
         if (is_null($orderId)) {
-            return $app->redirect($app->url('homepage'));
+            throw new NotFoundHttpException();
         }
 
         $event = new EventArgs(
@@ -371,13 +374,14 @@ class ShoppingController extends AbstractController
 
         log_info('購入処理完了', array($orderId));
 
-        if (is_null($form)) {
-            $app['session']->remove($this->sessionOrderKey);
-        }
+//        if (is_null($form)) {
+//            $app['session']->remove($this->sessionOrderKey);
+//        }
 
         return $app->render('Shopping/complete.twig', array(
             'orderId' => $orderId,
-            'form' => $form
+            'form' => $form,
+            'redirect' => false
         ));
     }
 
