@@ -80,6 +80,23 @@ class EntryType extends AbstractType
             ))
             ->add('email', 'repeated_email')
             ->add('password', 'repeated_password')
+            ->add('birth', 'birthday', array(
+                'required' => true,
+                'input' => 'datetime',
+                'years' => range(date('Y'), date('Y') - $this->config['birth_max']),
+                'widget' => 'choice',
+                'format' => 'yyyy/MM/dd',
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
+                'constraints' => array(
+                    new Assert\LessThanOrEqual(array(
+                        'value' => date('Y-m-d'),
+                        'message' => 'form.type.select.selectisfuturedate',
+                    )),
+                ),
+            ))
+            ->add('sex', 'sex', array(
+                'required' => true,
+            ))
 
             ->add('category_1_1', 'choice', array(
                 'label' => 'メーカー',
