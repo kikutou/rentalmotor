@@ -200,7 +200,7 @@ $(function() {
                                             {% endif %}
                                         </dd>
                                         <dd id="cart_box_list__price--{{ loop.index }}" class="item_price" style="display: none;">{{ orderDetail.priceIncTax|price }} × {{ orderDetail.quantity|number_format }}</dd>
-                                        <dd id="cart_box_list__subtotal--{{ loop.index }}" class="item_subtotal">{{ orderDetail.totalPrice|price }}</dd>
+                                        <dd id="cart_box_list__subtotal--{{ loop.index }}" class="item_subtotal"><!--小計：-->{{ orderDetail.totalPrice|price }}</dd>
                                     </dl>
                                 </div>
                             </div><!--/item_box-->
