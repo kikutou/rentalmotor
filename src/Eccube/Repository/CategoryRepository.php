@@ -84,7 +84,7 @@ class CategoryRepository extends EntityRepository
             ->leftJoin('c2.Children', 'c3')
             ->leftJoin('c3.Children', 'c4')
             ->leftJoin('c4.Children', 'c5')
-            ->orderBy('c1.rank', 'DESC')
+            ->orderBy('c1.rank', 'ASC')
             ->addOrderBy('c2.rank', 'DESC')
             ->addOrderBy('c3.rank', 'DESC')
             ->addOrderBy('c4.rank', 'DESC')
