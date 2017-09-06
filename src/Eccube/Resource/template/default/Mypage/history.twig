@@ -237,9 +237,6 @@ $(function(){
                         <p id="summary_box__payment_total" class="total_price">
                             合計 <strong class="text-primary">{{ Order.payment_total|price }}<span class="small">税込</span></strong>
                         </p>
-                        <p id="summary_box__reorder_button">
-                            <a href="{{ url('mypage_order', {'id': Order.id }) }}" class="btn btn-primary btn-block" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">再注文する</a>
-                        </p>
                     </div>
                     {% if remessage %}
                         <p id="summary_box__message" class="text-danger">
