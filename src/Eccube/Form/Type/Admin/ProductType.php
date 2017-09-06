@@ -86,13 +86,7 @@ class ProductType extends AbstractType
                 'years' => range(date('Y'), date('Y') + 10),
                 'widget' => 'choice',
                 'format' => 'yyyy-MM-dd',
-                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
-                'constraints' => array(
-                    new Assert\LessThanOrEqual(array(
-                        'value' => date('Y-m-d'),
-                        'message' => 'form.type.select.selectisfuturedate',
-                    )),
-                ),
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--')
             ))
             ->add('description_detail', 'textarea', array(
                 'label' => '商品説明',
