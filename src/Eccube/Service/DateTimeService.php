@@ -70,6 +70,7 @@ class DateTimeService
                 $date <= $now
                 || $week === '0' || $week === '6'
                 || (!is_null($Product) && $date < $Product->getStartDate())
+                || $this->isHoliday($date)
             ) {
                 $active = false;
             }
@@ -112,5 +113,18 @@ class DateTimeService
                 $rental[$last_month][] = $group;
             }
         }
+    }
+
+    /**
+     * 日本の祝日を判断する
+     *
+     * @param \DateTime $date
+     * @return bool
+     */
+    public function isHoliday($date)
+    {
+        $url = 'https://holidays-jp.github.io/api/v1/date.json';
+
+        return array_key_exists($date->format('Y-m-d'), json_decode(file_get_contents($url), true));
     }
 }
