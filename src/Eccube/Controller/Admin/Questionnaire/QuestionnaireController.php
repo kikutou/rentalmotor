@@ -224,39 +224,39 @@ class QuestionnaireController extends AbstractController
 
     public function delete(Application $app, Request $request, $id)
     {
-//        $this->isTokenValid($app);
-//
-//        log_info('会員削除開始', array($id));
-//
-//        $session = $request->getSession();
-//        $page_no = intval($session->get('eccube.admin.customer.search.page_no'));
-//        $page_no = $page_no ? $page_no : Constant::ENABLED;
-//
-//        $Customer = $app['orm.em']
-//            ->getRepository('Eccube\Entity\Customer')
-//            ->find($id);
-//
-//        if (!$Customer) {
-//            $app->deleteMessage();
-//            return $app->redirect($app->url('admin_customer_page', array('page_no' => $page_no)).'?resume='.Constant::ENABLED);
-//        }
-//
-//        $Customer->setDelFlg(Constant::ENABLED);
-//        $app['orm.em']->persist($Customer);
-//        $app['orm.em']->flush();
-//
-//        log_info('会員削除完了', array($id));
-//
-//        $event = new EventArgs(
-//            array(
-//                'Customer' => $Customer,
-//            ),
-//            $request
-//        );
-//        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_CUSTOMER_DELETE_COMPLETE, $event);
-//
-//        $app->addSuccess('admin.customer.delete.complete', 'admin');
-//
-//        return $app->redirect($app->url('admin_customer_page', array('page_no' => $page_no)).'?resume='.Constant::ENABLED);
+        $this->isTokenValid($app);
+
+        log_info('アンケート削除開始', array($id));
+
+        $session = $request->getSession();
+        $page_no = intval($session->get('eccube.admin.questionnaire.search.page_no'));
+        $page_no = $page_no ? $page_no : Constant::ENABLED;
+
+        $Questionnaire = $app['orm.em']
+            ->getRepository('Eccube\Entity\Questionnaire')
+            ->find($id);
+
+        if (!$Questionnaire) {
+            $app->deleteMessage();
+            return $app->redirect($app->url('admin_questionnaire_page', array('page_no' => $page_no)).'?resume='.Constant::ENABLED);
+        }
+
+        $Questionnaire->setDelFlg(Constant::ENABLED);
+        $app['orm.em']->persist($Questionnaire);
+        $app['orm.em']->flush();
+
+        log_info('アンケート削除完了', array($id));
+
+        $event = new EventArgs(
+            array(
+                'Questionnaire' => $Questionnaire,
+            ),
+            $request
+        );
+        $app['eccube.event.dispatcher']->dispatch(EccubeEvents::ADMIN_QUESTIONNAIRE_DELETE_COMPLETE, $event);
+
+        $app->addSuccess('admin.questionnaire.delete.complete', 'admin');
+
+        return $app->redirect($app->url('admin_questionnaire_page', array('page_no' => $page_no)).'?resume='.Constant::ENABLED);
     }
 }

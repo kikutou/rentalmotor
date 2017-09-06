@@ -52,6 +52,56 @@ class SearchQuestionnaireType extends AbstractType
                 'constraints' => array(
                     new Assert\Length(array('max' => $config['stext_len'])),
                 ),
+            ))
+            ->add('question1', 'question1', array(
+                'label' => '問題1',
+                'expanded' => true,
+                'multiple' => true,
+            ))
+            ->add('question2', 'question2', array(
+                'label' => '問題2',
+                'expanded' => true,
+                'multiple' => true,
+            ))
+            ->add('question3_start', 'date', array(
+                'label' => '問題3',
+                'required' => false,
+                'input' => 'datetime',
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
+            ))
+            ->add('question3_end', 'date', array(
+                'label' => '問題3',
+                'required' => false,
+                'input' => 'datetime',
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
+            ))
+            ->add('question4', 'question4', array(
+                'label' => '問題1',
+                'expanded' => true,
+                'multiple' => true,
+            ))
+            ->add('question5', 'question5', array(
+                'label' => '問題5',
+                'expanded' => true,
+                'multiple' => true,
+            ))
+            ->add('question6', 'question6', array(
+                'label' => '問題6',
+                'expanded' => true,
+                'multiple' => true,
+            ))
+            ->add('question7', 'question7', array(
+                'label' => '問題7',
+                'expanded' => true,
+                'multiple' => true,
+            ))
+            ->add('question8', 'text', array(
+                'label' => '問題8',
+                'required' => false
             ));
     }
 

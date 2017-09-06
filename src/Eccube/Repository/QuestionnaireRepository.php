@@ -55,6 +55,100 @@ class QuestionnaireRepository extends EntityRepository
                 ->setParameter('email', '%' . $clean_key_multi . '%');
         }
 
+        // question1
+        if (!empty($searchData['question1']) && count($searchData['question1'])) {
+            $question1 = array();
+            foreach ($searchData['question1'] as $answer) {
+                $question1[] = $answer->getId();
+            }
+            $qb
+                ->leftJoin('q.Question1', 'q1')
+                ->andWhere($qb->expr()->in('q1.id', ':question1'))
+                ->setParameter('question1', $question1);
+        }
+
+        // question2
+        if (!empty($searchData['question2']) && count($searchData['question2'])) {
+            $question2 = array();
+            foreach ($searchData['question2'] as $answer) {
+                $question2[] = $answer->getId();
+            }
+            $qb
+                ->leftJoin('q.Question2', 'q2')
+                ->andWhere($qb->expr()->in('q1.id', ':question2'))
+                ->setParameter('question2', $question2);
+        }
+
+        // question3
+        if (!empty($searchData['question3_start']) && $searchData['question3_start']) {
+            $date = $searchData['question3_start']->format('Y-m-d H:i:s');
+            $qb
+                ->andWhere('q.question3 >= :question3_start')
+                ->setParameter('question3_start', $date);
+        }
+        if (!empty($searchData['question3_end']) && $searchData['question3_end']) {
+            $date = clone $searchData['question3_end'];
+            $date = $date->modify('+1 days')->format('Y-m-d H:i:s');
+            $qb
+                ->andWhere('q.question3 < :question3_end')
+                ->setParameter('question3_end', $date);
+        }
+
+        // question4
+        if (!empty($searchData['question4']) && count($searchData['question4'])) {
+            $question4 = array();
+            foreach ($searchData['question4'] as $answer) {
+                $question4[] = $answer->getId();
+            }
+            $qb
+                ->leftJoin('q.Question4', 'q4')
+                ->andWhere($qb->expr()->in('q1.id', ':question4'))
+                ->setParameter('question4', $question4);
+        }
+
+        // question5
+        if (!empty($searchData['question5']) && count($searchData['question5'])) {
+            $question5 = array();
+            foreach ($searchData['question5'] as $answer) {
+                $question5[] = $answer->getId();
+            }
+            $qb
+                ->leftJoin('q.Question5', 'q2')
+                ->andWhere($qb->expr()->in('q1.id', ':question5'))
+                ->setParameter('question5', $question5);
+        }
+
+        // question6
+        if (!empty($searchData['question6']) && count($searchData['question6'])) {
+            $question6 = array();
+            foreach ($searchData['question6'] as $answer) {
+                $question6[] = $answer->getId();
+            }
+            $qb
+                ->leftJoin('q.Question6', 'q2')
+                ->andWhere($qb->expr()->in('q1.id', ':question6'))
+                ->setParameter('question6', $question6);
+        }
+
+        // question7
+        if (!empty($searchData['question7']) && count($searchData['question7'])) {
+            $question7 = array();
+            foreach ($searchData['question7'] as $answer) {
+                $question7[] = $answer->getId();
+            }
+            $qb
+                ->leftJoin('q.Question7', 'q2')
+                ->andWhere($qb->expr()->in('q1.id', ':question7'))
+                ->setParameter('question7', $question7);
+        }
+
+        // question8
+        if (isset($searchData['question8']) && Str::isNotBlank($searchData['question8'])) {
+            $qb
+                ->andWhere('q.question8 LIKE :question8')
+                ->setParameter('question8', "%{$searchData['question8']}%");
+        }
+
         // Order By
         $qb->addOrderBy('q.update_date', 'DESC');
 
