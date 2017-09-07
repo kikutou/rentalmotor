@@ -102,6 +102,7 @@ class ContactController
                     $data = $event->getArgument('data');
 
                     // メール送信
+                    $app['eccube.service.mail']->sendAdminContactMail($data);
                     $app['eccube.service.mail']->sendContactMail($data);
 
                     return $app->redirect($app->url('contact_complete'));

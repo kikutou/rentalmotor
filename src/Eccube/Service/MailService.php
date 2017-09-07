@@ -213,6 +213,47 @@ class MailService
     }
 
     /**
+     * Send contact mail to admin.
+     *
+     * @param $formData お問い合わせ内容
+     */
+    public function sendAdminContactMail($formData)
+    {
+        log_info('管理者へお問い合わせメール送信開始');
+
+        $body = $this->app->renderView('Mail/contact_mail_admin.twig', array(
+            'data' => $formData,
+            'BaseInfo' => $this->BaseInfo,
+        ));
+
+        // 問い合わせ者にメール送信
+        $message = \Swift_Message::newInstance()
+            ->setSubject('お客様からのお問い合わせがきました。')
+            ->setFrom(array($this->BaseInfo->getEmail02() => $this->BaseInfo->getShopName()))
+            ->setTo($this->BaseInfo->getEmail02())
+            ->setBcc($this->BaseInfo->getEmail02())
+            ->setReplyTo($this->BaseInfo->getEmail02())
+            ->setReturnPath($this->BaseInfo->getEmail04())
+            ->setBody($body);
+
+        $event = new EventArgs(
+            array(
+                'message' => $message,
+                'formData' => $formData,
+                'BaseInfo' => $this->BaseInfo,
+            ),
+            null
+        );
+        $this->app['eccube.event.dispatcher']->dispatch(EccubeEvents::MAIL_CONTACT, $event);
+
+        $count = $this->app->mail($message);
+
+        log_info('管理者へお問い合わせ受付メール送信完了', array('count' => $count));
+
+        return $count;
+    }
+
+    /**
      * Alias of sendContactMail().
      *
      * @param $formData お問い合わせ内容
