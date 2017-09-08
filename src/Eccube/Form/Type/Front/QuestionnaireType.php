@@ -59,6 +59,10 @@ class QuestionnaireType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'invalid_message' => 'Wrong date format',
+                'attr' => array(
+                    'placeholder' => '例：1990-01-01'
+                ),
                 'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
             ))
             ->add('question4', 'question4', array(

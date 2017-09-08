@@ -99,30 +99,41 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             <div>
                                 このサイトをどこで知りましたか？<br />
                                 {{ form_widget(form.question1) }}
+                                {{ form_errors(form.question1) }}
                                 {{ form_widget(form.question1_note) }}
+                                {{ form_errors(form.question1_note) }}
                                 <br /><br />
                                 二輪車所有台数<br />
                                 {{ form_widget(form.question2) }}
+                                {{ form_errors(form.question2) }}
                                 <br /><br />
                                 今回ご利用になったマフラーを装着予定の車輌の次回車検時期はいつですか。<br />
                                 {{ form_widget(form.question3) }}
+                                {{ form_errors(form.question3) }}
                                 <br /><br />
                                 当サイトを友人知人にご紹介したいと思いますか。<br />
                                 {{ form_widget(form.question4) }}
+                                {{ form_errors(form.question4) }}
                                 {{ form_widget(form.question4_note) }}
+                                {{ form_errors(form.question4_note) }}
                                 <br /><br />
                                 当サイトのサービスのご利用に当たって一連の流れは分かりやすかったですか。<br />
                                 {{ form_widget(form.question5) }}
+                                {{ form_errors(form.question5) }}
                                 {{ form_widget(form.question5_note) }}
+                                {{ form_errors(form.question5_note) }}
                                 <br /><br />
                                 2週間のレンタル期間は<br />
                                 {{ form_widget(form.question6) }}
+                                {{ form_errors(form.question6) }}
                                 <br /><br />
                                 あなたは何派ですか？<br />
                                 {{ form_widget(form.question7) }}
+                                {{ form_errors(form.question7) }}
                                 <br /><br />
                                 当サイトへのご意見、ご感想があればお聞かせください。<br />
                                 {{ form_widget(form.question8) }}
+                                {{ form_errors(form.question8) }}
                             </div>
 
                             <button class="btn btn-info btn-block" type="submit">確認</button>
