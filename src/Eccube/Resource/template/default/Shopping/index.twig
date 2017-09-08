@@ -130,6 +130,7 @@ $(function() {
 </script>
 {% endblock javascript %}
 
+
 {% block main %}
     <h1 class="page-heading">ご注文内容のご確認</h1>
     <div id="confirm_wrap" class="container-fluid">
@@ -349,7 +350,7 @@ $(function() {
                         {% endif %}
                         <div id="summary_box__result" class="total_amount">
                             <p id="summary_box__total_amount" class="total_price">合計 <strong class="text-primary">{{ Order.total|price }}<span class="small">税込</span></strong></p>
-                            <p id="summary_box__confirm_button"><button id="order-button" type="submit" class="btn btn-primary btn-block prevention-btn prevention-mask">注文する</button></p>
+                            <p id="summary_box__confirm_button"><button id="order-button" type="submit" class="btn btn-main">注文する</button></p>
                         </div>
                     </div>
                 </div>
