@@ -259,7 +259,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                                         {{ Questionnaire.Question2.name }}
                                                     </td>
                                                     <td id="result_list_main__question3--{{ Questionnaire.id }}" class="question3">
-                                                        {{ Questionnaire.question3|date('Y-m-d') }}
+                                                        {% if Questionnaire.question3 %}
+                                                            {{ Questionnaire.question3|date('Y-m-d') }}
+                                                        {% endif %}
                                                     </td>
                                                     <td id="result_list_main__question4--{{ Questionnaire.id }}" class="question4">
                                                         {% if Questionnaire.question4_note is null %}
