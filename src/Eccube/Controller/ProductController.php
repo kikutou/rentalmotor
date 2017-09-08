@@ -189,6 +189,8 @@ class ProductController
 
         $Category = $searchForm->get('category_id')->getData();
 
+        $Makers = $app['eccube.repository.category']->findBy(['level' => 1]);
+
         return $app->render('Product/list.twig', array(
             'subtitle' => $this->getPageTitle($searchData),
             'pagination' => $pagination,
@@ -197,6 +199,7 @@ class ProductController
             'order_by_form' => $orderByForm->createView(),
             'forms' => $forms,
             'Category' => $Category,
+            'Makers' => $Makers
         ));
     }
 
@@ -313,7 +316,7 @@ class ProductController
             $is_favorite = $app['eccube.repository.customer_favorite_product']->isFavorite($Customer, $Product);
         }
 
-        $rental_date = $app['eccube.service.datetime']->getRentalDate();
+        $rental_date = $app['eccube.service.datetime']->getRentalDate($Product);
 
         return $app->render('Product/detail.twig', array(
             'title' => $this->title,

@@ -1,0 +1,28 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+<li id="result_list_main__extsetcard" class="dropdown">
+    <a id="result_list_main__extsetcard_toggle" class="dropdown-toggle" data-toggle="dropdown">Remise一括処理<svg class="cb cb-angle-down icon_down"> <use xlink:href="#cb-angle-down" /></svg></a>
+    <ul class="dropdown-menu">
+        <li><a href="#" id="selectCheckCreditSalesSubmit">一括売上処理</a></li>
+    </ul>
+    <style type="text/css">
+    {{ include('RemisePayment/Resource/html/css/remise.css') }}
+    </style>
+    <script type="text/javascript">
+    {{ include('RemisePaymentExtset/Resource/html/js/remise_extset_list.js') }}
+    </script>
+    <form id="remise_form" method="post" action="{{ url('remise_admin_order_sales') }}">
+        <input type="hidden" id="credit-orders" name="credit-orders" value="">
+        <input type="hidden" id="point-plugin" name="point-plugin" value="{{ pointPlugin }}">
+    </form>
+    <div id="dialog-area">
+        <div id="dialog-overlay"></div>
+        <div id="dialog-box">
+           <div class="dialog-content">
+              <div id="dialog-message">只今、処理中です。<br />しばらくお待ちください。</div>
+           </div>
+        </div>
+    </div>
+</li>

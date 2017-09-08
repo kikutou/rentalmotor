@@ -113,6 +113,12 @@ class AdminControllerProvider implements ControllerProviderInterface
         $c->match('/order/mail_complete', '\Eccube\Controller\Admin\Order\MailController::complete')->bind('admin_order_mail_complete');
         $c->match('/order/mail/view', '\Eccube\Controller\Admin\Order\MailController::view')->bind('admin_order_mail_view');
 
+        // questionnaire
+        $c->match('/questionnaire', '\Eccube\Controller\Admin\Questionnaire\QuestionnaireController::index')->bind('admin_questionnaire');
+        $c->match('/questionnaire/page/{page_no}', '\Eccube\Controller\Admin\Questionnaire\QuestionnaireController::index')->assert('page_no', '\d+')->bind('admin_questionnaire_page');
+        $c->match('/questionnaire/{id}/edit', '\Eccube\Controller\Admin\Questionnaire\QuestionnaireController::edit')->assert('id', '\d+')->bind('admin_questionnaire_edit');
+        $c->delete('/questionnaire/{id}/delete', '\Eccube\Controller\Admin\Questionnaire\QuestionnaireController::delete')->assert('id', '\d+')->bind('admin_questionnaire_delete');
+
         // content
         // deprecated /content/ 3.1 delete. use /content/news
         $c->match('/content', '\Eccube\Controller\Admin\Content\ContentsController::index')->bind('admin_content');

@@ -49,29 +49,33 @@ class QuestionnaireType extends AbstractType
     {
         $builder
             ->add('question1', 'question1', array(
-                'required' => true,
+                'required' => false,
             ))
             ->add('question2', 'question2', array(
-                'required' => true,
+                'required' => false,
             ))
             ->add('question3', 'date', array(
-                'required' => true,
+                'required' => false,
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'invalid_message' => 'Wrong date format',
+                'attr' => array(
+                    'placeholder' => '例：1990-01-01'
+                ),
                 'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
             ))
             ->add('question4', 'question4', array(
-                'required' => true,
+                'required' => false,
             ))
             ->add('question5', 'question5', array(
-                'required' => true,
+                'required' => false,
             ))
             ->add('question6', 'question6', array(
-                'required' => true,
+                'required' => false,
             ))
             ->add('question7', 'question7', array(
-                'required' => true,
+                'required' => false,
             ))
             ->add('question8', 'textarea', array(
                 'required' => false,

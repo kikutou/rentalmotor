@@ -1,0 +1,38 @@
+Plugin\RemisePayment\Entity\RemiseMultiPayinfo:
+    type: entity
+    table: plg_remise_multi_payinfo
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseMultiPayinfoRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: payinfo_id
+    fields:
+        pay_no1_label:
+            type: text
+            nullable: true
+        pay_no2_label:
+            type: text
+            nullable: true
+        telno_label:
+            type: text
+            nullable: true
+        dsk_label:
+            type: text
+            nullable: true
+        message:
+            type: text
+            nullable: true
+        note:
+            type: text
+            nullable: true
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }

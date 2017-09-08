@@ -1,0 +1,41 @@
+Plugin\RemisePayment\Entity\RemiseMultiPayway:
+    type: entity
+    table: plg_remise_multi_payway
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseMultiPaywayRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: payway_id
+    fields:
+        code:
+            type: text
+            nullable: false
+            column: cvs_code
+        way:
+            type: text
+            nullable: false
+            column: cvs_way
+        name:
+            type: text
+            nullable: false
+            column: cvs_name
+        payinfo_id:
+            type: integer
+            nullable: false
+            unsigned: false
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+Plugin\RemisePayment\Entity\RemiseMailTemplate:
+    type: entity
+    table: plg_remise_mail_template
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseMailTemplateRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: mail_template_id
+    fields:
+        type:
+            type: smallint
+            nullable: false
+            unsigned: false
+            column: template_type
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }

@@ -38,7 +38,11 @@ class DateTimeService
         $this->app = $app;
     }
 
-    public function getRentalDate()
+    /**
+     * @param \Eccube\Entity\Product|null $Product
+     * @return array
+     */
+    public function getRentalDate(\Eccube\Entity\Product $Product = null)
     {
         $now = new \DateTime();
         $rental = array();
@@ -62,7 +66,12 @@ class DateTimeService
             }
 
             $active = true;
-            if ($date < $now || $week === '0' || $week === '6') {
+            if (
+                $date <= $now
+                || $week === '0' || $week === '6'
+                || (!is_null($Product) && $date < $Product->getStartDate())
+                || $this->isHoliday($date)
+            ) {
                 $active = false;
             }
             $group[] = array('date' => $date->format('Y-m-d'), 'day' => $date->format('j'), 'active' => $active);
@@ -104,5 +113,18 @@ class DateTimeService
                 $rental[$last_month][] = $group;
             }
         }
+    }
+
+    /**
+     * 日本の祝日を判断する
+     *
+     * @param \DateTime $date
+     * @return bool
+     */
+    public function isHoliday($date)
+    {
+        $url = 'https://holidays-jp.github.io/api/v1/date.json';
+
+        return array_key_exists($date->format('Y-m-d'), json_decode(file_get_contents($url), true));
     }
 }

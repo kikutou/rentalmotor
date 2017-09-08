@@ -1,0 +1,37 @@
+Plugin\RemisePayment\Entity\RemiseOrderStatus:
+    type: entity
+    table: plg_remise_order_status
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseOrderStatusRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: status_id
+    fields:
+        type:
+            type: smallint
+            nullable: false
+            unsigned: false
+            column: status_type
+        status_name:
+            type: text
+            nullable: false
+        status_color:
+            type: text
+        customer_status_name:
+            type: text
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }

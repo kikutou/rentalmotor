@@ -1,0 +1,41 @@
+{#
+Copyright(c) 2015 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% extends  'default_frame.twig' %}
+
+{% block stylesheet %}
+<style type="text/css">
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+</style>
+{% endblock stylesheet %}
+
+{% block javascript %}
+    <script type="text/javascript">
+    {{ include('RemisePayment/Resource/html/js/remise.js') }}
+    </script>
+    <script type="text/javascript">//<![CDATA[
+        $(function(){
+            {% if tpl_onload %}
+            {{ tpl_onload }}
+            {% endif%}
+        });
+    //]]></script>
+{% endblock javascript %}
+
+{% block main %}
+
+    <form name="form1" id="form1" method="post" action="{{ send_url }}" autocomplete="off" {{ form_enctype(form) }}>
+        {% for key, item in arrSendData %}
+        <input type="hidden" name="{{ key|nl2br }}" value="{{ item|nl2br }}">
+        {% endfor %}
+    </form>
+
+    <div id="dialog-overlay"></div>
+    <div id="dialog-box">
+       <div class="dialog-content">
+          <div id="dialog-message">只今、処理中です。<br />しばらくお待ちください。</div>
+       </div>
+    </div>
+
+{% endblock main %}

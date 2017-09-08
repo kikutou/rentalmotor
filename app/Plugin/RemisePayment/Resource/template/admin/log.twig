@@ -1,0 +1,88 @@
+{#
+Copyright(c) 2015 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% extends 'default_frame.twig' %}
+
+{% set menus = ['setting', 'system', 'plg_remise_log'] %}
+
+{% block title %}システム設定{% endblock %}
+{% block sub_title %}Remise ログ表示{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Remise ログ表示</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box">
+                    <form name="form1" id="form1" method="post">
+                        {{ form_widget(form._token) }}
+
+                        <ul class="nav nav-tabs">
+                            <li {% if init_tab == "1" %}class="active"{% endif %}>
+                                <a id="tab_card" href="#tab_card_content" data-toggle="tab"><h3 class="box-title" style="font-size:14px;">カード決済ログ</h3></a>
+                            </li>
+                            <li {% if init_tab == "2" %}class="active"{% endif %}>
+                                <a id="tab_multi" href="#tab_multi_content" data-toggle="tab"><h3 class="box-title" style="font-size:14px;">マルチ決済ログ</h3></a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- カード決済 -->
+                            <div id="tab_card_content" class="box-body tab-pane fade {% if init_tab == "1" %}in active{% endif %}" style="border-top: none;">
+                                <div class="lead">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            {{ form_widget(form.card_files, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            直近の{{ form_widget(form.card_count, {'id': 'line-max', 'attr': {'class': 'form-control'}}) }}ブロックを
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="log_load" value="1" class="btn btn-default">読み込む</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+<textarea id="log" class="form-control" rows="20"  wrap="off" readonly>
+{% for line in card_log %}
+{{ line }}
+{% endfor %}
+</textarea>
+                                </div>
+                            </div>
+
+                            <!-- マルチ決済 -->
+                            <div id="tab_multi_content" class="box-body tab-pane fade {% if init_tab == "2" %}in active{% endif %}" style="border-top: none;">
+                                <div class="lead">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            {{ form_widget(form.multi_files, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                        <div class="form-group">
+                                            直近の{{ form_widget(form.multi_count, {'id': 'line-max', 'attr': {'class': 'form-control'}}) }}ブロックを
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="log_load" value="2" class="btn btn-default">読み込む</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+<textarea id="log" class="form-control" rows="20"  wrap="off" readonly>
+{% for line in multi_log %}
+{{ line }}
+{% endfor %}
+</textarea>
+                                </div>
+                            </div>
+                        </div><!-- /.tab-content -->
+                    </form>
+                </div><!-- /.box -->
+
+            </div><!-- /.box -->
+        </div>
+    </div>
+{% endblock %}

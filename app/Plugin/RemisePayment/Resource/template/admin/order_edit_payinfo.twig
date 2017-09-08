@@ -1,0 +1,105 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% block head %}
+<meta name="format-detection" content="telephone=no">
+{% endblock head %}
+
+{% block javascript %}
+<script type="text/javascript">
+{{ include('RemisePayment/Resource/html/js/remise_admin.js') }}
+</script>
+{% endblock javascript %}
+
+{% block stylesheet %}
+<style type="text/css">
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+</style>
+{% endblock stylesheet %}
+
+{% block main %}
+<dl class="dl-horizontal admin_order_edit">
+    <dt>ルミーズ決済情報</dt>
+
+    <dd class="form-group">
+        {# カード決済情報 #}
+        {% if arrForm.payment_type == config.remise_payment_credit %}
+        <div class="form-group row card_line">
+            <label class="col-sm-4">トランザクションID：</label>
+            <div>{{ arrForm.payment_tranid }}</div>
+        </div>
+        <div class="form-group row card_line">
+            <label class="col-sm-4">処理日　：</label>
+            <div>{{ arrForm.payment_credit_date|date("Y/m/d") }}</div>
+        </div>
+        <div class="form-group row card_line">
+            <label class="col-sm-4">処理区分：</label>
+            <div>
+            {% if arrForm.payment_job == app['config']['state_auth'] %}
+                {{ app['config']['state_auth_name'] }}
+            {% elseif arrForm.payment_job == app['config']['state_sales'] %}
+                {{ app['config']['state_sales_name'] }}
+            {% elseif arrForm.payment_job == app['config']['state_capture'] %}
+                {{ app['config']['state_capture_name'] }}
+            {% elseif arrForm.payment_job == app['config']['state_void'] %}
+                {{ app['config']['state_void_name'] }}
+            {% elseif arrForm.payment_job == app['config']['state_return'] %}
+                {{ app['config']['state_return_name'] }}
+            {% endif %}
+            </div>
+        </div>{# カード決済情報 #}
+
+        {# マルチ決済情報 #}
+        {% elseif arrForm.payment_type == config.remise_payment_multi %}
+        <div class="form-group row multi_line">
+            <label class="col-sm-4">収納状況：</label>
+            <div>
+            {% if arrForm.receipt == "" %}
+                未
+            {% else %}
+                済
+            {% endif %}
+            </div>
+        </div>
+        {% if arrForm.receipt != "" %}
+        <div class="form-group row multi_line">
+            <label class="col-sm-4">収納日　：</label>
+            <div>{{ arrForm.receipt|slice(0, 4) }}/{{ arrForm.receipt|slice(4, 2) }}/{{ arrForm.receipt|slice(6, 2) }}</div>
+        </div>
+        {% endif %}
+        <div class="form-group row multi_line">
+            <label class="col-sm-4">ジョブID：</label>
+            <div>{{ arrForm.payment_tranid }}</div>
+        </div>
+
+        <div class="form-group">
+            <div class="box accordion">
+                <div class="box-header toggle active">
+                    <button type="button" class="btn btn-default btn-inline">お支払情報詳細</button>
+                </div><!-- /.box-header -->
+                <div class="box-body accpanel form-group">
+                {% for key, item in arrForm.payment_how_info %}
+                  {% if key != "title" and key != "cv_msg" %}
+                    <div class="form-group row {% if item.button == '1' %}cvs_url{% else %}cvs_line{% endif %}">
+                        <label class="col-sm-4">{{ item.name }}：</label>
+                        {% if item.button == '1' %}
+                        <div>
+                          <div>{{ item.value|nl2br }}</div>
+                          <div class="cv_msg">{{ arrForm.payment_how_info.cv_msg.value|nl2br }}</div>
+                        </div>
+                        {% else %}
+                        <div>{{ item.value|nl2br }}</div>
+                        {% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>{# マルチ決済情報 #}
+        {% endif %}
+    </dd>
+</dl>
+<input type="hidden" id="remise-order-status" name="remise-order-status" value="{{ orderStatus }}">
+<input type="hidden" id="remise-order-payment" name="remise-order-payment" value="{{ orderPayment }}">
+{% endblock main %}

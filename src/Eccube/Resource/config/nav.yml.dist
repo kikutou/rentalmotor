@@ -43,6 +43,15 @@
       - id: customer_edit
         name: 会員登録
         url: admin_customer_new
+- id: questionnaire
+  name: アンケート管理
+  has_child: true
+  url: admin_questionnaire
+  icon: cb-question
+  child:
+      - id: questionnaire_master
+        name: アンケートマスター
+        url: admin_questionnaire
 
 - id: content
   name: コンテンツ管理

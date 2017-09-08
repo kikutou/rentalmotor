@@ -1,0 +1,24 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% block javascript %}
+<script type="text/javascript">//<![CDATA[
+$(function(){
+    $('.copy_payment').click(function(){
+        if (!confirm("支払方法を複製します。よろしいですか？")) return;
+
+        $(location).attr('href', $(this).data('action'));
+    });
+});
+//]]></script>
+{% endblock javascript %}
+
+{% block main %}
+<div class="row"><br /></div>
+<div class="row text-center">
+    <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+        <button type="button" class="btn btn-primary btn-block btn-lg copy_payment" data-action="{{ url }}">支払方法複製</button>
+    </div>
+</div>
+{% endblock main %}

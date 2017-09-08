@@ -157,14 +157,18 @@ function addFavorite() {
                 <article class="wrap">
                     <section class="item-detail">
                         <ul>
-                            <li>
-                                {% if Product.ProductImage|length > 0 %}
-                                    {% for ProductImage in Product.ProductImage %}
-                                        <div id="detail_image_box__item--{{ loop.index }}"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></div>
-                                    {% endfor %}
-                                {% else %}
-                                    <div id="detail_image_box__item"><img src="{{ app.config.image_save_urlpath }}/{{ ''|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></div>
-                                {% endif %}
+                            <li id="detail_image_box__slides" class="slides">
+                                <div id="item_photo_area" class="col-sm-6">
+                                    <div id="detail_image_box__slides" class="slides">
+                                        {% if Product.ProductImage|length > 0 %}
+                                            {% for ProductImage in Product.ProductImage %}
+                                                <div id="detail_image_box__item--{{ loop.index }}"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div id="detail_image_box__item"><img src="{{ app.config.image_save_urlpath }}/{{ ''|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></div>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </li>
                             <li>
                                 <h3>商品名</h3>
@@ -212,19 +216,9 @@ function addFavorite() {
                                     {% endif %}
                                 {% endif %}
 
-                                <a class="btn btn-sub" href="#">お問い合わせ</a>
+                                <a class="btn btn-sub" href="{{ url('contact') }}">お問い合わせ</a>
                             </li>
                         </ul>
-
-                        <ol>
-                            {% if Product.ProductImage|length > 0 %}
-                                {% set checked = true %}
-                                {% for ProductImage in Product.ProductImage %}
-                                    <li {% if checked %}class="check"{% endif %}><a href="#"><img src="{{ app.config.image_save_urlpath }}/{{ ProductImage|no_image_product }}" alt="{{ Product.name }}" width="897" height="867" /></a></li>
-                                    {% set checked = false %}
-                                {% endfor %}
-                            {% endif %}
-                        </ol>
                     </section>
                 </article>
 

@@ -1,0 +1,34 @@
+Plugin\RemisePayment\Entity\RemisePaymentMethod:
+    type: entity
+    table: plg_remise_payment_methods
+    repositoryClass: Plugin\RemisePayment\Repository\RemisePaymentMethodRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: payment_id
+    fields:
+        type:
+            type: smallint
+            nullable: false
+            unsigned: false
+            column: pay_type
+        name:
+            type: text
+            nullable: false
+            column: pay_name
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+
+    lifecycleCallbacks: {  }

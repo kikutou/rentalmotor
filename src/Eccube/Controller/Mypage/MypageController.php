@@ -173,6 +173,8 @@ class MypageController extends AbstractController
      */
     public function order(Application $app, Request $request, $id)
     {
+        return $app->redirect($app->url('cart'));
+
         $this->isTokenValid($app);
 
         log_info('再注文開始', array($id));

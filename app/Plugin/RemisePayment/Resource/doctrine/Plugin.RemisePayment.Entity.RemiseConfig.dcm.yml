@@ -1,0 +1,37 @@
+Plugin\RemisePayment\Entity\RemiseConfig:
+    type: entity
+    table: plg_remise_config
+    repositoryClass: Plugin\RemisePayment\Repository\RemiseConfigRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            column: plugin_id
+            generator:
+                strategy: AUTO
+    fields:
+        code:
+            type: text
+            nullable: false
+            column: plugin_code
+        name:
+            type: text
+            nullable: false
+            column: plugin_name
+        info:
+            type: text
+            nullable: true
+        del_flg:
+            type: smallint
+            nullable: false
+            unsigned: false
+            default: '0'
+        create_date:
+            type: datetime
+            nullable: false
+        update_date:
+            type: datetime
+            nullable: false
+    lifecycleCallbacks: {  }

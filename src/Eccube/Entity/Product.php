@@ -1056,4 +1056,32 @@ class Product extends \Eccube\Entity\AbstractEntity
 
         return $categories;
     }
+    /**
+     * @var \DateTime
+     */
+    private $start_date;
+
+
+    /**
+     * Set start_date
+     *
+     * @param \DateTime $startDate
+     * @return Product
+     */
+    public function setStartDate($startDate)
+    {
+        $this->start_date = $startDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get start_date
+     *
+     * @return \DateTime 
+     */
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
 }

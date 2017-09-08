@@ -1,0 +1,71 @@
+{#
+Copyright(c) 2016 REMISE Corporation. All Rights Reserved.
+http://www.remise.jp/
+#}
+{% block stylesheet %}
+<style type="text/css">
+{{ include('RemisePayment/Resource/html/css/remise.css') }}
+</style>
+{% endblock stylesheet %}
+
+{% block javascript %}
+<script type="text/javascript">//<![CDATA[
+$(function(){
+{% if delflg == "1" %}
+    alert("カードご利用情報を削除しました。");
+{% elseif delflg == "2" %}
+    alert("カードご利用情報の削除に失敗しました。");
+{% endif %}
+
+    $('.del_payquick').click(function(){
+        if (!confirm("カードご利用情報を削除します。よろしいですか？")) return;
+
+        $(location).attr('href', $(this).data('action'));
+    });
+});
+//]]></script>
+{% endblock javascript %}
+
+{% block main %}
+{% if payquicks %}
+<div class="dl_table not_required mypage_payquick">
+    <dl>
+        <dt><label class="control-label">カードご利用情報</label></dt>
+        <dd>
+            <div class="form-group form-inline">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>カード番号</th>
+                            <th>有効期限</th>
+                            <th>登録日</th>
+                            <th>削除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payquick in payquicks %}
+                        <tr>
+                            <td>
+                              ************{{ payquick.card }}
+                            </td>
+                            <td>
+                              {{ payquick.expire | slice(0, 2) }}月 {{ payquick.expire | slice(2, 2) }}年
+                            </td>
+                            <td>
+                              {{ payquick.payquickDate|date_format }}
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-default del_payquick" data-action="{{ url }}/{{ payquick.payquick_no }}">削除</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </dd>
+    </dl>
+</div>
+{% endif %}
+{% endblock main %}

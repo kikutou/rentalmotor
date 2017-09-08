@@ -330,16 +330,26 @@ class ShoppingController extends AbstractController
                     /** @var \Eccube\Entity\Questionnaire $Questionnaire */
                     $Questionnaire = $form->getData();
 
-                    $Questionnaire
-                        ->setCustomer($Customer)
-                        ->setOrder($app['eccube.repository.order']->find($orderId));
+                    for ($i = 1; $i <= 8; $i++) {
+                        $method = 'getQuestion'.$i;
+                        if (!is_null($Questionnaire->$method())) {
+                            $Questionnaire
+                                ->setCustomer($Customer)
+                                ->setOrder($app['eccube.repository.order']->find($orderId));
 
-                    $app['orm.em']->persist($Questionnaire);
-                    $app['orm.em']->flush();
+                            $app['orm.em']->persist($Questionnaire);
+                            $app['orm.em']->flush();
 
-                    $app['session']->remove($this->sessionOrderKey);
+                            break;
+                        }
+                    }
 
-                    return $app->redirect($app->url('mypage'));
+//                    $app['session']->remove($this->sessionOrderKey);
+
+                    return $app->render('Shopping/complete.twig', array(
+                        'orderId' => $orderId,
+                        'form' => null
+                    ));
                 }
 
                 $form = $form->createView();
@@ -347,7 +357,7 @@ class ShoppingController extends AbstractController
         }
 
         if (is_null($orderId)) {
-            return $app->redirect($app->url('homepage'));
+            throw new NotFoundHttpException();
         }
 
         $event = new EventArgs(
@@ -371,13 +381,14 @@ class ShoppingController extends AbstractController
 
         log_info('購入処理完了', array($orderId));
 
-        if (is_null($form)) {
-            $app['session']->remove($this->sessionOrderKey);
-        }
+//        if (is_null($form)) {
+//            $app['session']->remove($this->sessionOrderKey);
+//        }
 
         return $app->render('Shopping/complete.twig', array(
             'orderId' => $orderId,
-            'form' => $form
+            'form' => $form,
+            'redirect' => false
         ));
     }
 

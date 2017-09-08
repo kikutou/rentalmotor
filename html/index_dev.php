@@ -30,13 +30,14 @@ use Symfony\Component\Yaml\Yaml;
 
 $allow = array(
     '127.0.0.1',
+    '61.194.148.170',
     'fe80::1',
     '::1',
 );
 
 if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-    || !in_array(@$_SERVER['REMOTE_ADDR'], $allow)
+//    || !in_array(@$_SERVER['REMOTE_ADDR'], $allow)
 ) {
     header('HTTP/1.0 403 Forbidden');
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');

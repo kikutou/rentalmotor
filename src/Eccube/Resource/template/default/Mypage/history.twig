@@ -101,11 +101,11 @@ $(function(){
                                                 / {{ OrderDetail.classcategory_name2 }}
                                             {% endif %}
                                         </dd>
-                                        <dd id="detail_list__price_inc_tax--{{ OrderDetail.id }}" class="item_price">
+                                        <dd id="detail_list__price_inc_tax--{{ OrderDetail.id }}" class="item_price" style="display: none;">
                                             {{ OrderDetail.price_inc_tax|price }} × {{ OrderDetail.quantity|number_format }}
                                         </dd>
                                         <dd id="detail_list__total_price--{{ OrderDetail.id }}" class="item_subtotal">
-                                            小計：{{ OrderDetail.total_price|price }}
+                                            <!--小計：-->{{ OrderDetail.total_price|price }}
                                         </dd>
                                         {% if OrderDetail.product and OrderDetail.price_inc_tax != OrderDetail.productClass.price02IncTax %}
                                             <dd id="detail_list__price02_inc_tax--{{ OrderDetail.id }}" class="text-danger">
@@ -143,7 +143,7 @@ $(function(){
                                             </div>
                                             <dl id="shipping_list__shipment_detail--{{ Shipping.id }}_{{ shipmentItem.product.id }}" class="item_detail">
                                                 <dt id="shipping_list__shipment_product_name--{{ Shipping.id }}_{{ shipmentItem.product.id }}" class="item_name text-default">
-                                                    {{ shipmentItem.productName }} ×{{ shipmentItem.quantity }}
+                                                    {{ shipmentItem.productName }} <!--×{{ shipmentItem.quantity }}-->
                                                 </dt>
                                                 <dd id="shipping_list__shipment_class_category--{{ Shipping.id }}_{{ shipmentItem.product.id }}" class="item_pattern small">
                                                     {% if shipmentItem.productClass.classCategory1 %}
@@ -166,7 +166,7 @@ $(function(){
                             〒{{ Shipping.zip01 }}-{{ Shipping.zip02 }}　{{ Shipping.Pref }}{{ Shipping.addr01 }}{{ Shipping.addr02 }}<br>
                             {{ Shipping.tel01 }}-{{ Shipping.tel02 }}-{{ Shipping.tel03 }}
                         </p>
-                        <p id="shipping_list__delivery--{{ Shipping.id }}">
+                        <p id="shipping_list__delivery--{{ Shipping.id }}" style="display: none;">
                             配送方法：　{{ Shipping.shipping_delivery_name }}{{ Shipping.shipping_delivery_fee ? '（＋' ~ Shipping.shipping_delivery_fee|price ~ '）' : '' }}<br>
                             お届け日：　{{ Shipping.shipping_delivery_date|date_format|default('指定なし') }}<br>
                             お届け時間：　{{ Shipping.shipping_delivery_time|default('指定なし') }}
@@ -236,9 +236,6 @@ $(function(){
                     <div id="summary_box__summary" class="total_amount">
                         <p id="summary_box__payment_total" class="total_price">
                             合計 <strong class="text-primary">{{ Order.payment_total|price }}<span class="small">税込</span></strong>
-                        </p>
-                        <p id="summary_box__reorder_button">
-                            <a href="{{ url('mypage_order', {'id': Order.id }) }}" class="btn btn-primary btn-block" {{ csrf_token_for_anchor() }} data-method="put" data-confirm="false">再注文する</a>
                         </p>
                     </div>
                     {% if remessage %}
