@@ -330,12 +330,19 @@ class ShoppingController extends AbstractController
                     /** @var \Eccube\Entity\Questionnaire $Questionnaire */
                     $Questionnaire = $form->getData();
 
-                    $Questionnaire
-                        ->setCustomer($Customer)
-                        ->setOrder($app['eccube.repository.order']->find($orderId));
+                    for ($i = 1; $i <= 8; $i++) {
+                        $method = 'getQuestion'.$i;
+                        if (!is_null($Questionnaire->$method())) {
+                            $Questionnaire
+                                ->setCustomer($Customer)
+                                ->setOrder($app['eccube.repository.order']->find($orderId));
 
-                    $app['orm.em']->persist($Questionnaire);
-                    $app['orm.em']->flush();
+                            $app['orm.em']->persist($Questionnaire);
+                            $app['orm.em']->flush();
+
+                            break;
+                        }
+                    }
 
 //                    $app['session']->remove($this->sessionOrderKey);
 
