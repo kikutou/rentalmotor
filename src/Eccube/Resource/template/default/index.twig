@@ -46,13 +46,17 @@ $(function(){
         <section class="catch-copy">
             <div>
                 <h2>今の愛車に乗り続ける為に<br />パーツレンタルという新しい選択肢</h2>
+                {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-main" href="#advance">商品検索</a>
+                {% else %}
                 <a class="btn btn-main" href="{{ url('entry') }}">新規会員登録はこちら</a>
+                {% endif %}
             </div>
         </section>
     </article>
 
     <article class="wrap"><!-- top-pr -->
-        <section class="advance">
+        <section class="advance" id = "advance">
             <ul>
                 <li><a href = "{{ url('product_list') }}?category_id=9"><img src="{{ app.config.front_urlpath }}/img/default/logo-l-honda.png" alt="HONDA" width="502" height="412" /></a></li>
                 <li><a href = "{{ url('product_list') }}?category_id=7"><img src="{{ app.config.front_urlpath }}/img/default/logo-l-yamaha.png" alt="YAMAHA" width="502" height="412" /></a></li>
