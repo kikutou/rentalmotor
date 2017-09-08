@@ -34,7 +34,7 @@ Eccube\Entity\Questionnaire:
             nullable: true
         question3:
             type: datetime
-            nullable: false
+            nullable: true
         question3_note_admin:
             type: text
             nullable: true
