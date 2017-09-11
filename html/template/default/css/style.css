@@ -86,6 +86,7 @@ article:after{
 }
 .fb{ background:#315096; display: block; }
 .tw{ background:#55acee; display: block;}
+.insta{ background:#3F729B; display: block;}
 
 .yen:after{
     content:" 円";
