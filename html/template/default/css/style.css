@@ -570,9 +570,11 @@ section.item-list-wrap div.item-list{
     padding-left:16px;
 }
 @media screen and (max-width:640px){
-    section.item-list-wrap div{
+    section.item-list-wrap div,
+    section.item-list-wrap div.search{
         float: none;
         width:100% !important;
+        margin-bottom:0.5em;
     }
 }
 
