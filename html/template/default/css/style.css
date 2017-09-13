@@ -75,7 +75,7 @@ article:after{
   padding-right:0;
   padding-bottom:0;
   padding-left:0;
-  
+
 }
 
 
@@ -1305,7 +1305,7 @@ article.wrap .go2payment a:hover{
 .pickup_item .item_photo{
   border:solid 1px #000;
   height:180px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 .pickup_item .item_comment{
   font-size:0.75em;

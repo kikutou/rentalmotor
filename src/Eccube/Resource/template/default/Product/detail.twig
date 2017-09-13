@@ -47,6 +47,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <script>
 $(function(){
+
+  // ▼王宏博 2017.9.13▼
+  $("#notes-check").click(function(){
+
+    if($("#notes-check").prop("checked") && ($(".rental_date_check").hasClass("rental_date_check"))){
+      $("#add-cart").prop('disabled', false);
+    }else{
+      $("#add-cart").prop('disabled', true);
+    }
+  });
+  // ▲王宏博 2017.9.13▲
+
     $('.carousel').slick({
         infinite: false,
         speed: 300,
@@ -77,10 +89,23 @@ $(function(){
     $('#favorite').click(function() {
         $('#mode').val('add_favorite');
     });
-
+    //▼王宏博 2017.9.13▼
     $('#add-cart').click(function() {
+      if($(this).prop("disabled")) {
+        if( !( $(".rental_date_check").hasClass("rental_date_check") ) ) {
+          alert("発送希望日を選択してください。");
+        } else {
+          if ( !$("#notes-check").prop("checked") ) {
+            alert("注意事項をご確認ください。 ");
+          }
+        }
+        return false;
+      } else {
         $('#mode').val('add_cart');
+        return true;
+      }
     });
+    // ▲王宏博 2017.9.13▲
 
     // bfcache無効化
     $(window).bind('pageshow', function(event) {
@@ -88,6 +113,20 @@ $(function(){
             location.reload(true);
         }
     });
+    //▼王宏博 2017.9.13▼
+    $('.inner-box').bind('DOMNodeInserted', function() {
+        $("#rental-year").parent().css("background-color","#95de7d");
+        $("#achieve-year").parent().css("background-color","#89bdf9");
+        $("#return-year").parent().css("background-color","#a28ddd");
+        $(".active").css("background","#fff");
+        $(".inactive").css("background","#ececec");
+        $(".check").css("background","#49f1ff");
+        $(".rental_date_check").css("background","#95de7d");
+        $(".achieve_date_check").css("background","#89bdf9");
+        $(".return_date_check").css("background","#a28ddd");
+
+    });
+    // ▲王宏博 2017.9.13▲
 });
 
 function rentalDate(td) {
@@ -98,13 +137,46 @@ function rentalDate(td) {
         var return_date = new Date(rental_date);
         return_date.setDate(rental_date.getDate() + 14);
 
+        //▼王宏博 2017.9.13▼
         $("input[name='rental_date']").val($(td).data('date'));
-        $("#add-cart").prop('disabled', false);
+        if($("#notes-check").prop("checked")){
+            $("#add-cart").prop('disabled', false);
+        }else{
+            $("#add-cart").prop('disabled', true);
+        }
+        // ▲王宏博 2017.9.13▲
 
         var deadline = return_date.getFullYear() + '-' + ('0' + (return_date.getMonth() + 1)).slice(-2) + '-' + ('0' + return_date.getDate()).slice(-2);
         $("#rental_date").find('td.active').filter(function () {
             return $(this).data('date') <= deadline && $(this).data('date') >= $(td).data('date');
         }).removeClass('active').addClass('check');
+
+
+        //▼王宏博 2017.9.13▼
+
+        $("#rental_date").find('td.rental_date_check').removeClass('rental_date_check');
+        $("#rental_date").find('td.achieve_date_check').removeClass('achieve_date_check');
+        $("#rental_date").find('td.return_date_check').removeClass('return_date_check');
+
+        $("#rental_date").find('td.inactive').removeClass('inactive').addClass("inactive");
+
+        var rental_date_format = rental_date.getFullYear() + '-' + ('0' + (rental_date.getMonth() + 1)).slice(-2) + '-' + ('0' + rental_date.getDate()).slice(-2);
+        $("#rental_date").find('td.check').filter(function () {
+            return $(this).data('date') == rental_date_format;
+        }).addClass('rental_date_check');
+
+        var achieve_date_format = achieve_date.getFullYear() + '-' + ('0' + (achieve_date.getMonth() + 1)).slice(-2) + '-' + ('0' + achieve_date.getDate()).slice(-2);
+        $("#rental_date").find('td').filter(function () {
+            return $(this).data('date') == achieve_date_format;
+        }).addClass('achieve_date_check');
+
+        var return_date_format = return_date.getFullYear() + '-' + ('0' + (return_date.getMonth() + 1)).slice(-2) + '-' + ('0' + return_date.getDate()).slice(-2);
+        $("#rental_date").find('td').filter(function () {
+            return $(this).data('date') == return_date_format;
+        }).addClass('return_date_check');
+
+        // ▲王宏博 2017.9.13▲
+
 
         $("#rental-year").text(rental_date.getFullYear() + '年');
         $("#rental-date").text(rental_date.getMonth() + 1 + '月' + rental_date.getDate() + '日');
@@ -119,6 +191,8 @@ function addFavorite() {
     $("input[name='rental_date']").val("{{ 'now'|date('Y-m-d') }}");
     return true;
 }
+
+
 </script>
 
 {% endblock %}
@@ -248,7 +322,8 @@ function addFavorite() {
                                                 {% for day in days %}
                                                     <tr>
                                                         {% for date in day %}
-                                                            <td{% if date['active'] %} class="active" onclick="rentalDate(this);"{% endif %}{% if date['date'] != '' %} data-date="{{ date['date'] }}"{% endif %}>
+                                                            <td{% if date['active'] %} class="active" onclick="rentalDate(this);"{% else %} class="inactive" {% endif %}
+                                                            {% if date['date'] != '' %} data-date="{{ date['date'] }}"{% endif %}>
                                                                 <span>{{ date['day'] }}</span>
                                                             </td>
                                                         {% endfor %}
@@ -297,7 +372,7 @@ function addFavorite() {
                 <article class="wrap">
                     <section class="go-next">
                         <div>
-                            <a href="#Notes">注意事項</a>をご確認ください。
+                            <input type = "checkbox" id = "notes-check"><a href="#Notes">注意事項</a>をご確認ください。
                             {% if Product.stock_find %}
                                 <button class="btn btn-main" type="submit" id="add-cart" disabled="disabled">カートに追加</button>
                             {% else %}
