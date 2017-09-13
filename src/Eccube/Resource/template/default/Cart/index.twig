@@ -111,7 +111,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                                 <p class="item-price">
                                                     <span class="yen">{{ CartItem.price|number_format }}</span>（税込） / 2週間
                                                 </p>
-                                                <p class="item-stock">
+                                                <p class="item-stock" style="display: none;">
                                                     <span>在庫：
                                                         {% if ProductClass.stock is null %}
                                                             無制限
@@ -121,7 +121,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                                     </span>
                                                 </p>
                                             </li>
-                                            <li>小計<span>{{ CartItem.total_price|number_format }}</span></li>
+                                            <li>小計<span>{{ CartItem.total_price|number_format }}</span>（税込）</li>
                                         </ul>
                                         <ol>
                                             <li><span>発送希望日</span> {{ CartItem.rental_date|date('Y年m月d日') }}</li>

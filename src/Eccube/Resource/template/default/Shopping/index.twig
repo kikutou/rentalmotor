@@ -319,6 +319,9 @@ $(function() {
                         {{ form_widget(form.message, {'attr': {'placeholder': 'お問い合わせ事項がございましたら、こちらにご入力ください。(3000文字まで)', 'rows': '6'}}) }}
                         {{ form_errors(form.message) }}
                     </div>
+                    <div style = "margin-top: 30px;">
+                        <a class="btn btn-main" href="{{ path('cart') }}">カート画面へ戻る</a>
+                    </div>
                     <div class="extra-form column">
                         {% for f in form.getIterator %}
                             {% if f.vars.name matches '[^plg*]' %}
