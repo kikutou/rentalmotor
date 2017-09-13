@@ -38,6 +38,7 @@ dl, dt, dd, li{
 }
 img {
     max-width: 100%;
+    height:auto;
 }
 
 /* svg icon */
@@ -4480,11 +4481,16 @@ fieldset[disabled] .btn-link:focus {
   }
   #cart_product ol{
     display: table;
-    width: 84%;
+    width: 100%;
+    font-size:1.1em !important;
+    border:solid 1px #cacaca;
     margin-top: 16px;
     margin-left: auto;
     margin-right: auto;
     font-size: 0.9em;
+  }
+  #cart_product ol span{
+    display: block;
   }
   #cart_product ol li:nth-child(1) span{ background:#95de7d; color:#fff;}
   #cart_product ol li:nth-child(2) span{ background:#89bdf9; color:#fff;}
