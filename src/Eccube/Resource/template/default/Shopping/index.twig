@@ -136,6 +136,23 @@ $(function() {
     <div id="confirm_wrap" class="container-fluid">
         <div id="confirm_flow_box" class="row">
             <div id="confirm_flow_box__body" class="col-md-12">
+                <article class="wrap">
+                    <section class="steps">
+                        <ul>
+                            <li><div><span>1.商品の確認</span></div></li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="active"><div><span>2.ご注文内容の確認</span></div></li>
+                                <li><div><span>3.完了</span></div></li>
+                            {% else %}
+                                <li><div><span>2.お客様情報</span></div></li>
+                                <li class="active"><div><span>3.ご注文内容の確認</span></div></li>
+                                <li><div><span>4.完了</span></div></li>
+                            {% endif %}
+                        </ul>
+                    </section>
+                </article>
+
+{#
                 {% if is_granted('ROLE_USER') %}
                 <div id="confirm_flow_box__flow_state" class="flowline step3">
                 {% else %}
@@ -153,6 +170,8 @@ $(function() {
                     {% endif %}
                     </ul>
                 </div>
+#}
+
                 {% for error in app.session.flashbag.get('eccube.front.error')  %}
                     <div id="confirm_flow_box__message" class="message">
                         <p class="errormsg bg-danger">
