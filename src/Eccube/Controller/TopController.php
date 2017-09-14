@@ -36,14 +36,15 @@ class TopController extends AbstractController
 
     public function api()
     {
-        $insJson = $this->getHTTPS("https://www.instagram.com/snufkin_on_the_road/media/");
+        $insJson = $this->getHTTPS("https://www.instagram.com/motoliv.jp/media/");
         $insStr = json_decode($insJson);
+
         $insImageArr = array();
         $insTextArr = array();
         $inslinkArr = array();
         for($i=0; $i<12; $i++){
             $insImageArr[$i] =  $insStr->{'items'}[$i]->images->low_resolution->url;
-            $insTextArr[$i] = $insStr->{'items'}[$i]->caption->text;
+            $insTextArr[$i] = $insStr->{'items'}[$i]->caption?$insStr->{'items'}[$i]->caption->text:"";
             $inslinkArr[$i] = $insStr->{'items'}[$i]->link;
             $outputArr[$i] = $insImageArr[$i].",".$insTextArr[$i].",".$inslinkArr[$i];
         }
