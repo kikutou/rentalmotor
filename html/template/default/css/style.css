@@ -382,6 +382,26 @@ article.top-catch{
     background:#fcfcfc;
     height:600px;
 }
+article.top-catch a.left,
+article.top-catch a.right{
+  position: absolute;
+  color:rgba(0,0,0,50);
+  font-size:2em;
+  top:46%;
+  cursor:move;
+}
+article.top-catch a.left:hover,
+article.top-catch a.right:hover{
+  color:rgba(0,0,0,10);
+}
+article.top-catch a.left{
+  left:1%;
+}
+article.top-catch a.right{
+  right:1%;
+}
+
+
 article.top-catch ul{
     width:100%;
     height:600px;
@@ -679,6 +699,18 @@ section.item-list-wrap div.item-list ul li img{
     section.item-list-wrap div.item-list ul li img{
         border:none;
     }
+}
+/*上が使われていないようなので、上書き*/
+section.item-list-wrap div .item_photo{
+  border:solid 1px #f1f1f1;
+  height:160px;
+  overflow: hidden;
+}
+@media screen and (max-width:640px){
+  section.item-list-wrap div .item_photo{
+    height:auto;
+    overflow: visible;
+  }
 }
 
 
