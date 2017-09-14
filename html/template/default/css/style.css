@@ -1290,8 +1290,17 @@ article.wrap .go2payment a:hover{
 }
 
 /* product */
-.selected {
-    background-color: #985f0d;
+.displacement li a,
+.displacement li a span{
+  display: block;
+}
+.displacement li a span{
+  padding:4px;
+}
+
+
+.displacement .selected {
+    background-color: #f2f2f2;
 }
 
 
