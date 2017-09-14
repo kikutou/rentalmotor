@@ -131,6 +131,11 @@ article:after{
 article .btn{
     max-width:480px;
 }
+@media screen and (max-width:640px){
+  .btn-main , .btn-sub{
+    width:100%;
+  }
+}
 
 
 /*
@@ -822,9 +827,10 @@ article.wrap .item-detail ul li a.btn:first-child{
     margin-right:16px;
 }
 @media screen and (max-width:640px){
-    article.wrap .item-detail ul li a.btn{
-        width:49%;
-        min-width:auto;
+    article.wrap .item-detail ul li a.btn,
+    article.wrap .item-detail ul li button.btn{
+      display: inline-block;
+      width:100%;
     }
 }
 
@@ -906,8 +912,19 @@ article.wrap .calendar div > div ul li{
 @media screen and (max-width:640px){
     article.wrap .calendar div > div ul li:nth-child(2),
     article.wrap .calendar div > div ul li:nth-child(3){
-        display: none;
+        display: block;
     }
+    article.wrap .calendar div > div ul li{
+      display: block;
+      vertical-align: top;
+      text-align: center;
+      padding:8px;
+  }
+    article.wrap .calendar div .scroll-left,
+    article.wrap .calendar div .scroll-right{
+      display: none;
+      margin:0;
+}
 }
 
 article.wrap .calendar div > div ul li .calendar-box{
@@ -1020,9 +1037,9 @@ article.wrap .period > div ul li div.inner-box span{
         margin:0 8px;
     }
     article.wrap .period > div ul li div.inner-box h4{
-        background:#aeb400;
+        background:#fff;
         width:30%;
-        color:#fff;
+        color:#666;
         text-align: center;
     }
     article.wrap .period > div ul li div.inner-box span{
@@ -1061,6 +1078,9 @@ article.wrap .go-next > div textarea{
     article.wrap .go-next > div textarea{
         width:100%;
         height:180px;
+    }
+    article.wrap .go-next > div .btn-main{
+    width:100%;
     }
 }
 
@@ -1310,7 +1330,7 @@ article.wrap .go2payment a:hover{
 .pickup_item{
   border:solid 1px #eee;
   margin:0 0 4px;
-  height:320px;
+  height:260px;
   overflow: hidden;
 }
 .pickup_item .item_photo{
