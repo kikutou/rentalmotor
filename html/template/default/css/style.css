@@ -131,6 +131,11 @@ article:after{
 article .btn{
     max-width:480px;
 }
+@media screen and (max-width:640px){
+  .btn-main , .btn-sub{
+    width:100%;
+  }
+}
 
 
 /*
@@ -377,6 +382,26 @@ article.top-catch{
     background:#fcfcfc;
     height:600px;
 }
+article.top-catch a.left,
+article.top-catch a.right{
+  position: absolute;
+  color:rgba(0,0,0,50);
+  font-size:2em;
+  top:46%;
+  cursor:move;
+}
+article.top-catch a.left:hover,
+article.top-catch a.right:hover{
+  color:rgba(0,0,0,10);
+}
+article.top-catch a.left{
+  left:1%;
+}
+article.top-catch a.right{
+  right:1%;
+}
+
+
 article.top-catch ul{
     width:100%;
     height:600px;
@@ -675,6 +700,18 @@ section.item-list-wrap div.item-list ul li img{
         border:none;
     }
 }
+/*上が使われていないようなので、上書き*/
+section.item-list-wrap div .item_photo{
+  border:solid 1px #f1f1f1;
+  height:160px;
+  overflow: hidden;
+}
+@media screen and (max-width:640px){
+  section.item-list-wrap div .item_photo{
+    height:auto;
+    overflow: visible;
+  }
+}
 
 
 section.item-list-wrap div.item-list ul li h3{
@@ -822,9 +859,10 @@ article.wrap .item-detail ul li a.btn:first-child{
     margin-right:16px;
 }
 @media screen and (max-width:640px){
-    article.wrap .item-detail ul li a.btn{
-        width:49%;
-        min-width:auto;
+    article.wrap .item-detail ul li a.btn,
+    article.wrap .item-detail ul li button.btn{
+      display: inline-block;
+      width:100%;
     }
 }
 
@@ -906,8 +944,19 @@ article.wrap .calendar div > div ul li{
 @media screen and (max-width:640px){
     article.wrap .calendar div > div ul li:nth-child(2),
     article.wrap .calendar div > div ul li:nth-child(3){
-        display: none;
+        display: block;
     }
+    article.wrap .calendar div > div ul li{
+      display: block;
+      vertical-align: top;
+      text-align: center;
+      padding:8px;
+  }
+    article.wrap .calendar div .scroll-left,
+    article.wrap .calendar div .scroll-right{
+      display: none;
+      margin:0;
+}
 }
 
 article.wrap .calendar div > div ul li .calendar-box{
@@ -1020,9 +1069,9 @@ article.wrap .period > div ul li div.inner-box span{
         margin:0 8px;
     }
     article.wrap .period > div ul li div.inner-box h4{
-        background:#aeb400;
+        background:#fff;
         width:30%;
-        color:#fff;
+        color:#666;
         text-align: center;
     }
     article.wrap .period > div ul li div.inner-box span{
@@ -1061,6 +1110,9 @@ article.wrap .go-next > div textarea{
     article.wrap .go-next > div textarea{
         width:100%;
         height:180px;
+    }
+    article.wrap .go-next > div .btn-main{
+    width:100%;
     }
 }
 
@@ -1290,8 +1342,17 @@ article.wrap .go2payment a:hover{
 }
 
 /* product */
-.selected {
-    background-color: #985f0d;
+.displacement li a,
+.displacement li a span{
+  display: block;
+}
+.displacement li a span{
+  padding:4px;
+}
+
+
+.displacement .selected {
+    background-color: #f2f2f2;
 }
 
 
@@ -1301,12 +1362,12 @@ article.wrap .go2payment a:hover{
 .pickup_item{
   border:solid 1px #eee;
   margin:0 0 4px;
-  height:360px;
+  height:260px;
   overflow: hidden;
 }
 .pickup_item .item_photo{
-  border:solid 1px #000;
-  height:180px;
+  border-bottom:solid 1px #aaa;
+  height:210px;
   overflow: hidden;
 }
 .pickup_item .item_comment{
@@ -1347,6 +1408,11 @@ article.wrap .go2payment a:hover{
 #deliveradd_select #deliveradd_select .btn{
   max-width:240px !important;
 }
+.ow-css.col-xs-12{
+  padding-left:0.25em;
+  padding-right:0.25em;
+}
+
 
 /*etc button*/
 #detail_box__edit_button .btn-main,
