@@ -189,6 +189,11 @@ class ProductController
 
         $Category = $searchForm->get('category_id')->getData();
 
+        $TopCategory = $Category;
+        while($TopCategory->getParent()) {
+            $TopCategory = $TopCategory->getParent();
+        }
+
         $Makers = $app['eccube.repository.category']->findBy(['level' => 1]);
 
         return $app->render('Product/list.twig', array(
@@ -199,6 +204,7 @@ class ProductController
             'order_by_form' => $orderByForm->createView(),
             'forms' => $forms,
             'Category' => $Category,
+            'TopCategory' => $TopCategory,
             'Makers' => $Makers
         ));
     }
