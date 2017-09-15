@@ -102,66 +102,99 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         <dl id="top_box__category_1">
                             <dt>バイク1</dt>
                             <dd>
-                                <div class="form-inline form-group">
-                                    メーカー：
-                                    {{ form_widget(form.category_1_1, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_1_1) }}
+                                <div class="form-group">
+                                    {#メーカー：#}
+                                    {#{{ form_widget(form.category_1_1, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_1_1) }}#}
 
-                                    排気量：
-                                    {{ form_widget(form.category_1_2, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_1_2) }}
+                                    {#排気量：#}
+                                    {#{{ form_widget(form.category_1_2, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_1_2) }}#}
+
+                                    {#車種：#}
+                                    {#{{ form_widget(form.category_1_3, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_1_3) }}#}
+
+                                    {#年式：#}
+                                    {#{{ form_widget(form.category_1_4, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_1_4) }}#}
+                                    メーカー：
+                                    {{ form_widget(form.Bike1) }}
+                                    {{ form_errors(form.Bike1) }}
 
                                     車種：
-                                    {{ form_widget(form.category_1_3, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_1_3) }}
+                                    {{ form_widget(form.bike1_model) }}
+                                    {{ form_errors(form.bike1_model) }}
 
                                     年式：
-                                    {{ form_widget(form.category_1_4, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_1_4) }}
+                                    {{ form_widget(form.bike1_year) }}
+                                    {{ form_errors(form.bike1_year) }}
                                 </div>
                             </dd>
                         </dl>
                         <dl id="top_box__category_2">
                             <dt>バイク2</dt>
                             <dd>
-                                <div class="form-inline form-group">
-                                    メーカー：
-                                    {{ form_widget(form.category_2_1, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_2_1) }}
+                                <div class="form-group">
+                                    {#メーカー：#}
+                                    {#{{ form_widget(form.category_2_1, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_2_1) }}#}
 
-                                    排気量：
-                                    {{ form_widget(form.category_2_2, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_2_2) }}
+                                    {#排気量：#}
+                                    {#{{ form_widget(form.category_2_2, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_2_2) }}#}
+
+                                    {#車種：#}
+                                    {#{{ form_widget(form.category_2_3, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_2_3) }}#}
+
+                                    {#年式：#}
+                                    {#{{ form_widget(form.category_2_4, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_2_4) }}#}
+                                    メーカー：
+                                    {{ form_widget(form.Bike2) }}
+                                    {{ form_errors(form.Bike2) }}
 
                                     車種：
-                                    {{ form_widget(form.category_2_3, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_2_3) }}
+                                    {{ form_widget(form.bike2_model) }}
+                                    {{ form_errors(form.bike2_model) }}
 
                                     年式：
-                                    {{ form_widget(form.category_2_4, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_2_4) }}
+                                    {{ form_widget(form.bike2_year) }}
+                                    {{ form_errors(form.bike2_year) }}
                                 </div>
                             </dd>
                         </dl>
                         <dl id="top_box__category_3">
                             <dt>バイク3</dt>
                             <dd>
-                                <div class="form-inline form-group">
-                                    メーカー：
-                                    {{ form_widget(form.category_3_1, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_3_1) }}
+                                <div class="form-group">
+                                    {#メーカー：#}
+                                    {#{{ form_widget(form.category_3_1, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_3_1) }}#}
 
-                                    排気量：
-                                    {{ form_widget(form.category_3_2, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_3_2) }}
+                                    {#排気量：#}
+                                    {#{{ form_widget(form.category_3_2, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_3_2) }}#}
+
+                                    {#車種：#}
+                                    {#{{ form_widget(form.category_3_3, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_3_3) }}#}
+
+                                    {#年式：#}
+                                    {#{{ form_widget(form.category_3_4, {attr : {class : 'short'}}) }}#}
+                                    {#{{ form_errors(form.category_3_4) }}#}
+                                    メーカー：
+                                    {{ form_widget(form.Bike3) }}
+                                    {{ form_errors(form.Bike3) }}
 
                                     車種：
-                                    {{ form_widget(form.category_3_3, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_3_3) }}
+                                    {{ form_widget(form.bike3_model) }}
+                                    {{ form_errors(form.bike3_model) }}
 
                                     年式：
-                                    {{ form_widget(form.category_3_4, {attr : {class : 'short'}}) }}
-                                    {{ form_errors(form.category_3_4) }}
+                                    {{ form_widget(form.bike3_year) }}
+                                    {{ form_errors(form.bike3_year) }}
                                 </div>
                             </dd>
                         </dl>

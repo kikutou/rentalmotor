@@ -78,6 +78,23 @@ class ChangeController extends AbstractController
                     $app['eccube.repository.customer']->encryptPassword($app, $Customer)
                 );
             }
+
+            if(!empty($Customer->getBike1())) {
+                if($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike1())) {
+                    $Customer->setBike1($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike1()));
+                }
+            }
+            if(!empty($Customer->getBike2())) {
+                if($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike2())) {
+                    $Customer->setBike2($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike2()));
+                }
+            }
+            if(!empty($Customer->getBike3())) {
+                if($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike3())) {
+                    $Customer->setBike3($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike3()));
+                }
+            }
+
             $app['orm.em']->flush();
 
             log_info('会員編集完了');

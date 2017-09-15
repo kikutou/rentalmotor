@@ -1,0 +1,19 @@
+Eccube\Entity\Master\CustomerBikeBrand:
+    type: entity
+    table: mtb_customer_bike_brand
+    repositoryClass: Eccube\Repository\Master\CustomerBikeBrandRepository
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: false
+            id: true
+    fields:
+        name:
+            type: text
+            nullable: true
+        rank:
+            type: smallint
+            nullable: false
+            unsigned: false
+    lifecycleCallbacks: {  }

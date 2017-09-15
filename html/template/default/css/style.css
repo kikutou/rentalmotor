@@ -509,7 +509,7 @@ section.top-pr div{
     display: table-cell;
     vertical-align: bottom;
 }
-section.top-pr div:first-child{width:*;}
+section.top-pr div:first-child{}
 section.top-pr div:last-child{
     width:130px;
     text-align: center;

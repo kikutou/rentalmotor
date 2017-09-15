@@ -32,9 +32,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CustomerType extends AbstractType
 {
     protected $config;
+    protected $app;
 
-    public function __construct($config)
+    public function __construct($config,$app = null)
     {
+        $this->app = $app;
         $this->config = $config;
     }
 
@@ -44,6 +46,12 @@ class CustomerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $config = $this->config;
+
+        $bike_brands = array('' => '');
+        foreach ($this->app['eccube.repository.customer_bike_brand']->findAll() as $bike_brand) {
+            $bike_brands[$bike_brand['id']] = $bike_brand['name'];
+        }
+
 
         $builder
             ->add('name', 'name', array(
@@ -104,6 +112,39 @@ class CustomerType extends AbstractType
                     )),
                 ),
             ))
+
+            ->add('Bike1', 'choice', array(
+                'choices' => $bike_brands,
+                'required' => false
+            ))
+            ->add('bike1_model', 'text', array(
+                'required' => false,
+            ))
+            ->add('bike1_year', 'text', array(
+                'required' => false,
+            ))
+            ->add('Bike2', 'choice', array(
+                'choices' => $bike_brands,
+                'required' => false
+            ))
+            ->add('bike2_model', 'text', array(
+                'required' => false,
+            ))
+            ->add('bike2_year', 'text', array(
+                'required' => false,
+            ))
+            ->add('Bike3', 'choice', array(
+                'choices' => $bike_brands,
+                'required' => false
+            ))
+            ->add('bike3_model', 'text', array(
+                'required' => false,
+            ))
+            ->add('bike3_year', 'text', array(
+                'required' => false,
+            ))
+
+
             ->add('password', 'repeated_password', array(
                 // 'type' => 'password',
                 'first_options'  => array(
@@ -119,6 +160,8 @@ class CustomerType extends AbstractType
                     new Assert\NotBlank(),
                 ),
             ))
+
+
             ->add('note', 'textarea', array(
                 'label' => 'SHOP用メモ',
                 'required' => false,
@@ -128,6 +171,8 @@ class CustomerType extends AbstractType
                     )),
                 ),
             ));
+
+
     }
 
     /**
