@@ -409,7 +409,31 @@ article.top-catch ul{
 article.top-catch ul li{
     width:100%;
     height:600px;
+    /*background:#eee url(../img/default/top-catch01.jpg);*/
+    background-size:cover;
+    background-position: center center;
+}
+
+#pic1{
+    width:100%;
+    height:600px;
     background:#eee url(../img/default/top-catch01.jpg);
+    background-size:cover;
+    background-position: center center;
+}
+
+#pic2{
+    width:100%;
+    height:600px;
+    background:#eee url(../img/default/top-catch02.jpg);
+    background-size:cover;
+    background-position: center center;
+}
+
+#pic3{
+    width:100%;
+    height:600px;
+    background:#eee url(../img/default/top-catch03.jpg);
     background-size:cover;
     background-position: center center;
 }
@@ -534,7 +558,7 @@ section.top-pr div{
     display: table-cell;
     vertical-align: bottom;
 }
-section.top-pr div:first-child{width:*;}
+section.top-pr div:first-child{}
 section.top-pr div:last-child{
     width:130px;
     text-align: center;

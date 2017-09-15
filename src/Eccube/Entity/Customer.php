@@ -253,6 +253,114 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
     private $category_3_3;
     private $category_3_4;
 
+    private $Bike1;
+    private $bike1_model;
+    private $bike1_year;
+
+    private $Bike2;
+    private $bike2_model;
+    private $bike2_year;
+
+    private $Bike3;
+    private $bike3_model;
+    private $bike3_year;
+
+    /**
+     * @return mixed
+     */
+    public function getBike1Model()
+    {
+        return $this->bike1_model;
+    }
+
+    /**
+     * @param mixed $bike1_model
+     */
+    public function setBike1Model($bike1_model)
+    {
+        $this->bike1_model = $bike1_model;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBike1Year()
+    {
+        return $this->bike1_year;
+    }
+
+    /**
+     * @param mixed $bike1_year
+     */
+    public function setBike1Year($bike1_year)
+    {
+        $this->bike1_year = $bike1_year;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBike2Model()
+    {
+        return $this->bike2_model;
+    }
+
+    /**
+     * @param mixed $bike2_model
+     */
+    public function setBike2Model($bike2_model)
+    {
+        $this->bike2_model = $bike2_model;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBike2Year()
+    {
+        return $this->bike2_year;
+    }
+
+    /**
+     * @param mixed $bike2_year
+     */
+    public function setBike2Year($bike2_year)
+    {
+        $this->bike2_year = $bike2_year;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBike3Model()
+    {
+        return $this->bike3_model;
+    }
+
+    /**
+     * @param mixed $bike3_model
+     */
+    public function setBike3Model($bike3_model)
+    {
+        $this->bike3_model = $bike3_model;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBike3Year()
+    {
+        return $this->bike3_year;
+    }
+
+    /**
+     * @param mixed $bike3_year
+     */
+    public function setBike3Year($bike3_year)
+    {
+        $this->bike3_year = $bike3_year;
+    }
+
     /**
      * Constructor
      */
@@ -1531,6 +1639,88 @@ class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface
 
         return $this;
     }
+
+
+    /**
+     * Set Bike1
+     *
+     * @param  \Eccube\Entity\Master\CustomerBikeBrand $bike1
+     * @return Customer
+     */
+    public function setBike1( $bike1 = null)
+    {
+        $this->Bike1 = $bike1;
+
+        return $this;
+    }
+
+    /**
+     * Get Bike1
+     *
+     * @return \Eccube\Entity\Master\CustomerBikeBrand
+     */
+    public function getBike1()
+    {
+        if($this->Bike1 instanceof \Eccube\Entity\Master\CustomerBikeBrand) {
+            return $this->Bike1->getId();
+        }
+        return $this->Bike1;
+    }
+
+
+    /**
+     * Set Bike2
+     *
+     * @param  \Eccube\Entity\Master\CustomerBikeBrand $bike2
+     * @return Customer
+     */
+    public function setBike2( $bike2 = null)
+    {
+        $this->Bike2 = $bike2;
+
+        return $this;
+    }
+
+    /**
+     * Get Bike2
+     *
+     * @return \Eccube\Entity\Master\CustomerBikeBrand
+     */
+    public function getBike2()
+    {
+        if($this->Bike2 instanceof \Eccube\Entity\Master\CustomerBikeBrand) {
+            return $this->Bike2->getId();
+        }
+        return $this->Bike2;
+    }
+
+    /**
+     * Set Bike3
+     *
+     * @param  \Eccube\Entity\Master\CustomerBikeBrand $bike3
+     * @return Customer
+     */
+    public function setBike3( $bike3 = null)
+    {
+        $this->Bike3 = $bike3;
+
+        return $this;
+    }
+
+    /**
+     * Get Bike3
+     *
+     * @return \Eccube\Entity\Master\CustomerBikeBrand
+     */
+    public function getBike3()
+    {
+        if($this->Bike3 instanceof \Eccube\Entity\Master\CustomerBikeBrand) {
+            return $this->Bike3->getId();
+        }
+        return $this->Bike3;
+    }
+
+
 
     /**
      * Remove CustomerCategories

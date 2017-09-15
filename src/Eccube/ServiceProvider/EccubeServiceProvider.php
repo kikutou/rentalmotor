@@ -146,6 +146,9 @@ class EccubeServiceProvider implements ServiceProviderInterface
         $app['eccube.repository.customer'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Eccube\Entity\Customer');
         });
+        $app['eccube.repository.customer_bike_brand'] = $app->share(function () use ($app) {
+            return $app['orm.em']->getRepository('Eccube\Entity\Master\CustomerBikeBrand');
+        });
         $app['eccube.repository.questionnaire'] = $app->share(function () use ($app) {
             return $app['orm.em']->getRepository('Eccube\Entity\Questionnaire');
         });
@@ -367,7 +370,7 @@ class EccubeServiceProvider implements ServiceProviderInterface
             $types[] = new \Eccube\Form\Type\Admin\SearchCustomerType($app['config']);
             $types[] = new \Eccube\Form\Type\Admin\SearchOrderType($app['config']);
             $types[] = new \Eccube\Form\Type\Admin\SearchQuestionnaireType($app['config']);
-            $types[] = new \Eccube\Form\Type\Admin\CustomerType($app['config']);
+            $types[] = new \Eccube\Form\Type\Admin\CustomerType($app['config'],$app);
             $types[] = new \Eccube\Form\Type\Admin\QuestionnaireType($app['config']);
             $types[] = new \Eccube\Form\Type\Admin\ClassNameType($app['config']);
             $types[] = new \Eccube\Form\Type\Admin\ClassCategoryType($app['config']);

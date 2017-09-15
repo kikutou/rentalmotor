@@ -122,7 +122,138 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             {% endfor %}
                         </dd>
                     </dl>
+
+
+
+
+
+                    <dl id="top_box__category_1">
+                        <dt>
+                            <label class="control-label">バイク1</label>
+                        </dt>
+                        <dd>
+                            <div class="form-group">
+                                {#メーカー：#}
+                                {#{{ form_widget(form.category_1_1, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_1_1) }}#}
+
+                                {#排気量：#}
+                                {#{{ form_widget(form.category_1_2, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_1_2) }}#}
+
+                                {#車種：#}
+                                {#{{ form_widget(form.category_1_3, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_1_3) }}#}
+
+                                {#年式：#}
+                                {#{{ form_widget(form.category_1_4, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_1_4) }}#}
+
+                                <div class="form-group">
+                                    {{ form_widget(form.Bike1) }}
+                                    {{ form_errors(form.Bike1) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_widget(form.bike1_model, {attr : {placeholder:'車種を記入してください'}}) }}
+                                    {{ form_errors(form.bike1_model) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_widget(form.bike1_year, {attr : {placeholder:'年式を記入してください'}}) }}
+                                    {{ form_errors(form.bike1_year) }}
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl id="top_box__category_2">
+                        <dt>
+                            <label class="control-label">バイク2</label>
+                        </dt>
+                        <dd>
+                            <div class="form-group">
+                                {#メーカー：#}
+                                {#{{ form_widget(form.category_2_1, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_2_1) }}#}
+
+                                {#排気量：#}
+                                {#{{ form_widget(form.category_2_2, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_2_2) }}#}
+
+                                {#車種：#}
+                                {#{{ form_widget(form.category_2_3, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_2_3) }}#}
+
+                                {#年式：#}
+                                {#{{ form_widget(form.category_2_4, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_2_4) }}#}
+                                <div class="form-group">
+                                    {{ form_widget(form.Bike2) }}
+                                    {{ form_errors(form.Bike2) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_widget(form.bike2_model, {attr : {placeholder:'車種を記入してください'}}) }}
+                                    {{ form_errors(form.bike2_model) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_widget(form.bike2_year, {attr : {placeholder:'年式を記入してください'}}) }}
+                                    {{ form_errors(form.bike2_year) }}
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl id="top_box__category_3">
+                        <dt>
+                            <label class="control-label">バイク3</label>
+
+                        </dt>
+                        <dd>
+                            <div class="form-group">
+                                {#メーカー：#}
+                                {#{{ form_widget(form.category_3_1, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_3_1) }}#}
+
+                                {#排気量：#}
+                                {#{{ form_widget(form.category_3_2, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_3_2) }}#}
+
+                                {#車種：#}
+                                {#{{ form_widget(form.category_3_3, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_3_3) }}#}
+
+                                {#年式：#}
+                                {#{{ form_widget(form.category_3_4, {attr : {class : 'short'}}) }}#}
+                                {#{{ form_errors(form.category_3_4) }}#}
+
+                                <div class="form-group">
+                                    {{ form_widget(form.Bike3) }}
+                                    {{ form_errors(form.Bike3) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_widget(form.bike3_model, {attr : {placeholder:'車種を記入してください'}}) }}
+                                    {{ form_errors(form.bike3_model) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_widget(form.bike3_year, {attr : {placeholder:'年式を記入してください'}}) }}
+                                    {{ form_errors(form.bike3_year) }}
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+
+
+
+
                 </div>
+
+
+
+
+
                 {% for f in form %}
                     {% if f.vars.name matches '[^plg*]' %}
                         <div class="extra-form dl_table">

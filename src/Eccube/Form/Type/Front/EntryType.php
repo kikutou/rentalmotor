@@ -46,6 +46,7 @@ class EntryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $level1 = array('' => '');
         foreach ($this->app['eccube.repository.category']->findBy(array('level' => 1)) as $category) {
             $level1[$category['id']] = $category['name'];
@@ -65,6 +66,12 @@ class EntryType extends AbstractType
         foreach ($this->app['eccube.repository.category']->findBy(array('level' => 4)) as $category) {
             $level4[$category['id']] = $category['name'];
         }
+
+        $bike_brands = array('' => '');
+        foreach ($this->app['eccube.repository.customer_bike_brand']->findAll() as $bike_brand) {
+            $bike_brands[$bike_brand['id']] = $bike_brand['name'];
+        }
+        $bike_brands[''] = 'メーカーを選択してください🔻';
 
         $builder
             ->add('name', 'name', array(
@@ -98,59 +105,89 @@ class EntryType extends AbstractType
                 'required' => true,
             ))
 
-            ->add('category_1_1', 'choice', array(
-                'label' => 'メーカー',
-                'choices' => $level1,
+//            ->add('category_1_1', 'choice', array(
+//                'label' => 'メーカー',
+//                'choices' => $level1,
+//                'required' => false
+//            ))
+//            ->add('category_1_2', 'choice', array(
+//                'label' => '排気量',
+//                'choices' => $level2,
+//                'required' => false
+//            ))
+//            ->add('category_1_3', 'choice', array(
+//                'label' => '車種',
+//                'choices' => $level3,
+//                'required' => false
+//            ))
+//            ->add('category_1_4', 'choice', array(
+//                'label' => '年式',
+//                'choices' => $level4,
+//                'required' => false
+//            ))
+//
+//            ->add('category_2_1', 'choice', array(
+//                'choices' => $level1,
+//                'required' => false
+//            ))
+//            ->add('category_2_2', 'choice', array(
+//                'choices' => $level2,
+//                'required' => false
+//            ))
+//            ->add('category_2_3', 'choice', array(
+//                'choices' => $level3,
+//                'required' => false
+//            ))
+//            ->add('category_2_4', 'choice', array(
+//                'choices' => $level4,
+//                'required' => false
+//            ))
+//
+//            ->add('category_3_1', 'choice', array(
+//                'choices' => $level1,
+//                'required' => false
+//            ))
+//            ->add('category_3_2', 'choice', array(
+//                'choices' => $level2,
+//                'required' => false
+//            ))
+//            ->add('category_3_3', 'choice', array(
+//                'choices' => $level3,
+//                'required' => false
+//            ))
+//            ->add('category_3_4', 'choice', array(
+//                'choices' => $level4,
+//                'required' => false
+//            ))
+            ->add('Bike1', 'choice', array(
+                'choices' => $bike_brands,
                 'required' => false
             ))
-            ->add('category_1_2', 'choice', array(
-                'label' => '排気量',
-                'choices' => $level2,
+            ->add('bike1_model', 'text', array(
+                'required' => false,
+            ))
+            ->add('bike1_year', 'text', array(
+                'required' => false,
+            ))
+            ->add('Bike2', 'choice', array(
+                'choices' => $bike_brands,
                 'required' => false
             ))
-            ->add('category_1_3', 'choice', array(
-                'label' => '車種',
-                'choices' => $level3,
+            ->add('bike2_model', 'text', array(
+                'required' => false,
+            ))
+            ->add('bike2_year', 'text', array(
+                'required' => false,
+            ))
+            ->add('Bike3', 'choice', array(
+                'choices' => $bike_brands,
                 'required' => false
             ))
-            ->add('category_1_4', 'choice', array(
-                'label' => '年式',
-                'choices' => $level4,
-                'required' => false
+            ->add('bike3_model', 'text', array(
+                'required' => false,
             ))
-
-            ->add('category_2_1', 'choice', array(
-                'choices' => $level1,
-                'required' => false
-            ))
-            ->add('category_2_2', 'choice', array(
-                'choices' => $level2,
-                'required' => false
-            ))
-            ->add('category_2_3', 'choice', array(
-                'choices' => $level3,
-                'required' => false
-            ))
-            ->add('category_2_4', 'choice', array(
-                'choices' => $level4,
-                'required' => false
-            ))
-
-            ->add('category_3_1', 'choice', array(
-                'choices' => $level1,
-                'required' => false
-            ))
-            ->add('category_3_2', 'choice', array(
-                'choices' => $level2,
-                'required' => false
-            ))
-            ->add('category_3_3', 'choice', array(
-                'choices' => $level3,
-                'required' => false
-            ))
-            ->add('category_3_4', 'choice', array(
-                'choices' => $level4,
-                'required' => false
+            ->add('bike3_year', 'text', array(
+                'required' => false,
             ))
 
             ->add('save', 'submit', array('label' => 'この内容で登録する'));
@@ -174,4 +211,5 @@ class EntryType extends AbstractType
         // todo entry,mypageで共有されているので名前を変更する
         return 'entry';
     }
+
 }

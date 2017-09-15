@@ -114,9 +114,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         <li>
                             <input type="radio" name="maker" id="{{ Maker.name|lower }}" {% if Maker.id == Category.Ancestor.id %}checked{% endif %}>
                             <label for="{{ Maker.name|lower }}">
-                                <a href="{{ url('product_list') }}?category_id={{ Maker.id }}">
-                                    <img src="{{ app.config.front_urlpath }}/img/default/logo-b-{{ Maker.name|lower }}.png" alt="{{ Maker.kana }}" width="169" height="26" />
-                                </a>
+                                {% if TopCategory.id == Maker.id %}
+                                    <a href="{{ url('product_list') }}?category_id={{ Maker.id }}">
+                                        <img src="{{ app.config.front_urlpath }}/img/default/logo-r-{{ Maker.name|lower }}.png" alt="{{ Maker.kana }}" width="169" height="26" />
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url('product_list') }}?category_id={{ Maker.id }}">
+                                        <img src="{{ app.config.front_urlpath }}/img/default/logo-b-{{ Maker.name|lower }}.png" alt="{{ Maker.kana }}" width="169" height="26" />
+                                    </a>
+                                {% endif %}
                             </label>
                         </li>
                     {% endfor %}

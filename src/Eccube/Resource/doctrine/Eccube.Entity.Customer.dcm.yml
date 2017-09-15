@@ -141,6 +141,25 @@ Eccube\Entity\Customer:
             unsigned: false
             options:
                 default: '0'
+        bike1_model:
+            type: text
+            nullable: true
+        bike1_year:
+            type: text
+            nullable: true
+        bike2_model:
+            type: text
+            nullable: true
+        bike2_year:
+            type: text
+            nullable: true
+        bike3_model:
+            type: text
+            nullable: true
+        bike3_year:
+            type: text
+            nullable: true
+
     manyToOne:
         Status:
             targetEntity: Eccube\Entity\Master\CustomerStatus
@@ -167,6 +186,22 @@ Eccube\Entity\Customer:
             joinColumn:
                 name: pref
                 referencedColumnName: id
+        Bike1:
+            targetEntity: Eccube\Entity\Master\CustomerBikeBrand
+            joinColumn:
+                name: bike1_brand
+                referencedColumnName: id
+        Bike2:
+            targetEntity: Eccube\Entity\Master\CustomerBikeBrand
+            joinColumn:
+                name: bike2_brand
+                referencedColumnName: id
+        Bike3:
+            targetEntity: Eccube\Entity\Master\CustomerBikeBrand
+            joinColumn:
+                name: bike3_brand
+                referencedColumnName: id
+
     oneToMany:
         CustomerCategories:
             targetEntity: Eccube\Entity\CustomerCategory
