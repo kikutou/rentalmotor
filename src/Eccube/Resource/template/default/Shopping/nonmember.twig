@@ -39,14 +39,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <div id="detail_wrap" class="container-fluid">
     <div id="detail_box__body" class="row">
         <div id="detail_box__body_inner" class="col-md-10 col-md-offset-1">
-            <div id="detail_flow_box__flow_state" class="flowline step4">
-                <ul id="detail_flow_box___flow_state_list"  class="clearfix">
-                    <li><span class="flow_number">1</span><br>カートの商品</li>
-                    <li class="active"><span class="flow_number">2</span><br>お客様情報</li>
-                    <li><span class="flow_number">3</span><br>ご注文内容確認</li>
-                    <li><span class="flow_number">4</span><br>完了</li>
-                </ul>
-            </div>
+
+                <article class="wrap">
+                    <section class="steps">
+                        <ul>
+                            <li><div><span>1.商品の確認</span></div></li>
+                                <li class="active"><div><span>2.お客様情報</span></div></li>
+                                <li><div><span>3.ご注文内容の確認</span></div></li>
+                                <li><div><span>4.完了</span></div></li>
+                        </ul>
+                    </section>
+                </article>
+
             <form method="post" action="{{ url('shopping_nonmember') }}">
                 {{ form_widget(form._token) }}
                 <div id="detail_box__body" class="dl_table">
@@ -114,10 +118,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 {% endfor %}
                 <div id="detail_box__footer" class="row no-padding">
                     <div id="detail_box__button_menu" class="btn_group col-sm-offset-4 col-sm-4">
-                        <p id="detail_box__next_button">
-                            <button type="submit" class="btn btn-primary btn-block">次へ</button>
-                        </p>
-                        <p id="detail_box__back_button"><a href="{{ url('cart') }}" class="btn btn-info btn-block">戻る</a></p>
+                        <div class="next-back-btn">
+                          <button type="submit" class="btn btn-main">次へ</button>
+                          <a href="{{ url('cart') }}" class="btn btn-sub">戻る</a>
+                        </div>
                     </div>
                 </div>
             </form>

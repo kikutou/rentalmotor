@@ -1379,6 +1379,12 @@ article.wrap .go2payment a:hover{
   .pickup_item{
     height:auto;
   }
+  .pickup_item{
+    border:solid 1px #eee;
+    margin:0 0 4px;
+    height:240px;
+    overflow: hidden;
+  }
 }
 
 /*history*/
@@ -1421,7 +1427,8 @@ article.wrap .go2payment a:hover{
 .withdraw-outer .btn-main,
 .withdraw-outer .btn-sub,
 #top_box__button_menu .btn-main,
-#top_box__button_menu .btn-sub{
+#top_box__button_menu .btn-sub,
+.next-back-btn .btn{
   margin:1em auto;
-  width:320px;
+  width:320px !important;
 }
