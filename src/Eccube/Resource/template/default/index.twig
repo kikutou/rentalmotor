@@ -25,6 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 {% block javascript %}
 <script>
+
+
 $(function(){
     $('.main_visual').slick({
         dots: true,
@@ -32,7 +34,52 @@ $(function(){
         autoplay: true,
         speed: 300
     });
+
+
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+
+        if (n > 3) {slideIndex = 1}
+        if (n < 1) {slideIndex = 3}
+
+        for(i = 1 ; i <= 3 ; i++ ) {
+
+            if(i == slideIndex) {
+                $("#pic" + i.toString()).show();
+            } else {
+                $("#pic" + i.toString()).hide();
+            }
+        }
+    }
+
+    $("#pic-left").click(function () {
+
+        plusDivs(-1);
+
+    });
+
+    $("#pic-right").click(function () {
+
+        plusDivs(+1);
+
+    });
+
+    setInterval(function(){ plusDivs(+1) }, 5000);
+
+
+
+
 });
+
+
 </script>
 {% endblock %}
 
@@ -40,7 +87,9 @@ $(function(){
     <article class="top-catch">
         <section>
             <ul>
-                <li></li>
+                <li id="pic1"></li>
+                <li id="pic2"></li>
+                <li id="pic3"></li>
             </ul>
         </section>
         <section class="catch-copy">
@@ -51,10 +100,14 @@ $(function(){
                 {% else %}
                 <a class="btn btn-main" href="{{ url('entry') }}">新規会員登録はこちら</a>
                 {% endif %}
+
+                <a class="left" id="pic-left"><i class="fa fa-chevron-circle-left"></i></a>
+                <a class="right" id="pic-right"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+
+
             </div>
         </section>
-        <a class="left" href="#"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
-        <a class="right" href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+
     </article>
 
     <article class="wrap"><!-- top-pr -->
