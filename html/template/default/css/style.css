@@ -489,6 +489,29 @@ article.top-catch .catch-copy div .btn:hover{
     background-position: center center;
 }
 @media screen and (max-width:640px){
+    article.top-catch{
+        position: relative;
+        background:#fcfcfc;
+        height:400px;
+        overflow: hidden;
+    }
+    article.top-catch ul li{
+        height:480px;
+    }
+    
+    #pic1{
+        height:480px;
+    }
+    
+    #pic2{
+        height:480px;
+    }
+    
+    #pic3{
+        height:480px;
+    }
+
+
     article.top-catch .catch-copy{
         top:0;
         left:0;
