@@ -217,7 +217,8 @@ function addFavorite() {
         <div id="detail_wrap" class="row">
 
             <!-- catch start -->
-            <article class="contents-catch privacy"><!-- ページによってclassを変更 -->
+            {% set pic_num = random(4) + 1 %}
+            <article class="contents-catch privacy" style="background:#eee url({{ app.config.front_urlpath }}/img/default/list-catch0{{ pic_num }}.jpg)  repeat scroll 0%;"><!-- ページによってclassを変更 -->
                 <section>
                     <div>
                         <h2>KAWASAKI Ninja250<!-- 車体名 --></h2>

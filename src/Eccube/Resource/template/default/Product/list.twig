@@ -79,7 +79,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         {{ form_widget(search_form) }}
     </form>
     <!-- ▼topicpath▼ -->
-    <div id="topicpath" class="row">
+    {% set pic_num = random(4) + 1 %}
+    <div id="topicpath" class="row" style="background:#eee url({{ app.config.front_urlpath }}/img/default/list-catch0{{ pic_num }}.jpg)  repeat scroll 0%;">
+
     </div>
     <!-- ▲topicpath▲ -->
     <div id="result_info_box" class="row">
