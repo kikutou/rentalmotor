@@ -24,7 +24,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% set body_class = 'front_page' %}
 
 {% block javascript %}
+
 <script>
+
+
 
 
 $(function(){
@@ -36,43 +39,43 @@ $(function(){
     });
 
 
-    var slideIndex = 1;
-    showDivs(slideIndex);
-
-
-    function plusDivs(n) {
-        showDivs(slideIndex += n);
-    }
-
-    function showDivs(n) {
-        var i;
-
-        if (n > 3) {slideIndex = 1}
-        if (n < 1) {slideIndex = 3}
-
-        for(i = 1 ; i <= 3 ; i++ ) {
-
-            if(i == slideIndex) {
-                $("#pic" + i.toString()).show();
-            } else {
-                $("#pic" + i.toString()).hide();
-            }
-        }
-    }
-
-    $("#pic-left").click(function () {
-
-        plusDivs(-1);
-
-    });
-
-    $("#pic-right").click(function () {
-
-        plusDivs(+1);
-
-    });
-
-    setInterval(function(){ plusDivs(+1) }, 5000);
+//    var slideIndex = 1;
+//    showDivs(slideIndex);
+//
+//
+//    function plusDivs(n) {
+//        showDivs(slideIndex += n);
+//    }
+//
+//    function showDivs(n) {
+//        var i;
+//
+//        if (n > 3) {slideIndex = 1}
+//        if (n < 1) {slideIndex = 3}
+//
+//        for(i = 1 ; i <= 3 ; i++ ) {
+//
+//            if(i == slideIndex) {
+//                $("#pic" + i.toString()).show("slide", { direction: "left" },1000);
+//            } else {
+//                $("#pic" + i.toString()).hide();
+//            }
+//        }
+//    }
+//
+//    $("#pic-left").click(function () {
+//
+//        plusDivs(-1);
+//
+//    });
+//
+//    $("#pic-right").click(function () {
+//
+//        plusDivs(+1);
+//
+//    });
+//
+//    setInterval(function(){ plusDivs(+1) }, 5000);
 
 
 
@@ -85,13 +88,26 @@ $(function(){
 
 {% block main %}
     <article class="top-catch">
-        <section>
-            <ul>
-                <li id="pic1"></li>
-                <li id="pic2"></li>
-                <li id="pic3"></li>
-            </ul>
-        </section>
+        {#<section>#}
+
+            <div class="main_visual">
+                <div id="pic1" class="item">
+                    {#<img src="{{ app.config.front_urlpath }}/img/top/mv01.jpg">#}
+                </div>
+                <div id="pic2" class="item">
+                    {#<img src="{{ app.config.front_urlpath }}/img/top/mv02.jpg">#}
+                </div>
+                <div id="pic3" class="item">
+                    {#<img src="{{ app.config.front_urlpath }}/img/top/mv03.jpg">#}
+                </div>
+            </div>
+
+            {#<ul>#}
+                {#<li id="pic1"></li>#}
+                {#<li id="pic2"></li>#}
+                {#<li id="pic3"></li>#}
+            {#</ul>#}
+        {#</section>#}
         <section class="catch-copy">
             <div>
                 <h2>今の愛車に乗り続ける為に<br />パーツレンタルという新しい選択肢</h2>
@@ -101,8 +117,8 @@ $(function(){
                 <a class="btn btn-main" href="{{ url('entry') }}">新規会員登録はこちら</a>
                 {% endif %}
 
-                <a class="left" id="pic-left"><i class="fa fa-chevron-circle-left"></i></a>
-                <a class="right" id="pic-right"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+                {#<a class="left" id="pic-left"><i class="fa fa-chevron-circle-left"></i></a>#}
+                {#<a class="right" id="pic-right"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>#}
 
 
             </div>
