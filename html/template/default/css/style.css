@@ -727,7 +727,7 @@ section.item-list-wrap div.item-list ul li img{
 /*上が使われていないようなので、上書き*/
 section.item-list-wrap div .item_photo{
   border:solid 1px #f1f1f1;
-  height:160px;
+  height:auto;
   overflow: hidden;
 }
 @media screen and (max-width:640px){
@@ -801,16 +801,19 @@ article.wrap .item-detail ul li{
     vertical-align: top;
 }
 article.wrap .item-detail ul li:first-child{
-    width:320px;
-    height:320px;
+    width:480px;
+    height:480px;
 }
 article.wrap .item-detail ul li:first-child img{
     width:100%;
     height:auto;
     border:solid 1px #aaa;
 }
+article.wrap .item-detail ul li:nth-child(2){
+  width:100px;
+}
 article.wrap .item-detail ul li:last-child{
-    width:calc(100% - 336px);
+    width:calc(100% - 600px);
     padding-left:16px;
 }
 @media screen and (max-width:640px){
