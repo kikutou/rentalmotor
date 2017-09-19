@@ -41,6 +41,7 @@ class ChangeController extends AbstractController
      */
     public function index(Application $app, Request $request)
     {
+        /** @var \Eccube\Entity\Customer $Customer */
         $Customer = $app->user();
         $LoginCustomer = clone $Customer;
         $app['orm.em']->detach($LoginCustomer);
@@ -79,20 +80,26 @@ class ChangeController extends AbstractController
                 );
             }
 
-            if(!empty($Customer->getBike1())) {
+            if (!empty($Customer->getBike1())) {
                 if($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike1())) {
                     $Customer->setBike1($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike1()));
                 }
+            } else {
+                $Customer->setBike1(null);
             }
-            if(!empty($Customer->getBike2())) {
+            if (!empty($Customer->getBike2())) {
                 if($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike2())) {
                     $Customer->setBike2($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike2()));
                 }
+            } else {
+                $Customer->setBike2(null);
             }
-            if(!empty($Customer->getBike3())) {
+            if (!empty($Customer->getBike3())) {
                 if($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike3())) {
                     $Customer->setBike3($app['eccube.repository.customer_bike_brand']->findOneById($Customer->getBike3()));
                 }
+            } else {
+                $Customer->setBike3(null);
             }
 
             $app['orm.em']->flush();
