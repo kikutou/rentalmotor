@@ -82,7 +82,7 @@ $(function(){
         arrows: false,
         speed: 300,
         customPaging: function(slider, i) {
-            return '<button class="thumbnail">' + $(slider.$slides[i]).find('img').prop('outerHTML') + '</button>';
+            return '<button class="thumbnail" type="button">' + $(slider.$slides[i]).find('img').prop('outerHTML') + '</button>';
         }
     });
 
