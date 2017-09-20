@@ -146,9 +146,11 @@ function rentalDate(td) {
         }
         // ▲王宏博 2017.9.13▲
 
+        var achieve_date_format = achieve_date.getFullYear() + '-' + ('0' + (achieve_date.getMonth() + 1)).slice(-2) + '-' + ('0' + achieve_date.getDate()).slice(-2);
         var deadline = return_date.getFullYear() + '-' + ('0' + (return_date.getMonth() + 1)).slice(-2) + '-' + ('0' + return_date.getDate()).slice(-2);
         $("#rental_date").find('td.active').filter(function () {
-            return $(this).data('date') <= deadline && $(this).data('date') >= $(td).data('date');
+//            return $(this).data('date') <= deadline && $(this).data('date') >= $(td).data('date');
+            return $(this).data('date') <= deadline && $(this).data('date') >= achieve_date_format;
         }).removeClass('active').addClass('check');
 
 
@@ -161,7 +163,8 @@ function rentalDate(td) {
         $("#rental_date").find('td.inactive').removeClass('inactive').addClass("inactive");
 
         var rental_date_format = rental_date.getFullYear() + '-' + ('0' + (rental_date.getMonth() + 1)).slice(-2) + '-' + ('0' + rental_date.getDate()).slice(-2);
-        $("#rental_date").find('td.check').filter(function () {
+//        $("#rental_date").find('td.check').filter(function () {
+        $("#rental_date").find('td').filter(function () {
             return $(this).data('date') == rental_date_format;
         }).addClass('rental_date_check');
 
