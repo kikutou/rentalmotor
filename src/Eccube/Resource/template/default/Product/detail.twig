@@ -148,8 +148,9 @@ function rentalDate(td) {
 
         var achieve_date_format = achieve_date.getFullYear() + '-' + ('0' + (achieve_date.getMonth() + 1)).slice(-2) + '-' + ('0' + achieve_date.getDate()).slice(-2);
         var deadline = return_date.getFullYear() + '-' + ('0' + (return_date.getMonth() + 1)).slice(-2) + '-' + ('0' + return_date.getDate()).slice(-2);
-        $("#rental_date").find('td.active').filter(function () {
+//        $("#rental_date").find('td.active').filter(function () {
 //            return $(this).data('date') <= deadline && $(this).data('date') >= $(td).data('date');
+        $("#rental_date").find('td').filter(function () {
             return $(this).data('date') <= deadline && $(this).data('date') >= achieve_date_format;
         }).removeClass('active').addClass('check');
 
