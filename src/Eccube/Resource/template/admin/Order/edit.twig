@@ -450,13 +450,13 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                             </div>
 
                                             <div class="col-md-12 col-lg-3 item_subtotal text-right">
-                                                <span>
+                                                <p>
                                                     発送希望日：
                                                     {{ form_widget(orderDetailForm.rental_date) }}
                                                     {{ form_errors(orderDetailForm.rental_date) }}
-                                                </span></br>
-                                                <span>届け予定日：{{ orderDetailForm.vars.value.rental_date|date_modify("+2 day")|date('Y-m-d') }}</span></br>
-                                                <span>返却日：{{ orderDetailForm.vars.value.rental_date|date_modify("+14 day")|date('Y-m-d') }}</span></br>
+                                                </p>
+                                                <p>届け予定日：{{ orderDetailForm.vars.value.rental_date|date_modify("+2 day")|date('Y-m-d') }}</p>
+                                                <p>返却日：{{ orderDetailForm.vars.value.rental_date|date_modify("+14 day")|date('Y-m-d') }}</p>
                                             </div>
 
 
