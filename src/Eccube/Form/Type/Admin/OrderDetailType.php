@@ -94,6 +94,14 @@ class OrderDetailType extends AbstractType
                     )),
                 )
             ))
+            ->add('rental_date', 'date', array(
+                'required' => false,
+                'input' => 'datetime',
+                'years' => range(date('Y'), date('Y') + 10),
+                'widget' => 'choice',
+                'format' => 'yyyy-MM-dd',
+                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--')
+            ))
             ->add('product_name', 'hidden')
             ->add('product_code', 'hidden')
             ->add('class_name1', 'hidden')
