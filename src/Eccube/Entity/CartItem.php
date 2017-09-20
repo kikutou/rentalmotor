@@ -132,7 +132,7 @@ class CartItem extends \Eccube\Entity\AbstractEntity
      */
     public function getAchieveDate()
     {
-        return $this->rental_date->modify('+2 day');
+        return (clone $this->rental_date)->modify('+2 day');
     }
 
     /**
@@ -140,7 +140,7 @@ class CartItem extends \Eccube\Entity\AbstractEntity
      */
     public function getReturnDate()
     {
-        return $this->rental_date->modify('+12 day');
+        return (clone $this->rental_date)->modify('+12 day');
     }
 
     /**
