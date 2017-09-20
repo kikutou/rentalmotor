@@ -449,15 +449,49 @@ var setModeAndSubmit = function(mode, keyname, keyid) {
                                                 <span>小計：</span> {{ orderDetailForm.vars.value.total_price|price }}
                                             </div>
 
-                                            <div class="col-md-12 col-lg-3 item_subtotal text-right">
-                                                <p>
-                                                    発送希望日：
-                                                    {{ form_widget(orderDetailForm.rental_date) }}
-                                                    {{ form_errors(orderDetailForm.rental_date) }}
-                                                </p>
-                                                <p>届け予定日：{{ orderDetailForm.vars.value.rental_date|date_modify("+2 day")|date('Y-m-d') }}</p>
-                                                <p>返却日：{{ orderDetailForm.vars.value.rental_date|date_modify("+14 day")|date('Y-m-d') }}</p>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-12 col-lg-6 form-group form-inline text-right">
+                                                <span id="product_info_list__delivery_date--{{ loop.index }}" class="item_tax">
+                                                    {#<span class="in">#}
+                                                    <span>発送希望日</span>：{{ form_widget(orderDetailForm.rental_date) }}
+                                                        {{ form_errors(orderDetailForm.rental_date) }}
+                                                    {#</span>#}
+                                                </span>
                                             </div>
+
+                                            <div class="col-md-12 col-lg-3 form-group form-inline text-right">
+                                                <span id="product_info_list__arrive_date--{{ loop.index }}" class="item_tax">
+                                                    到着予定日：
+                                                    <span class="input-group">
+                                                        <span class="input-group-addon">{{ orderDetailForm.vars.value.rental_date|date_modify("+2 day")|date('Y-m-d') }}</span>
+                                                    </span>
+                                                </span>
+                                            </div>
+
+                                            <div class="col-md-12 col-lg-3 form-group form-inline text-right">
+                                                <span id="product_info_list__return_date--{{ loop.index }}" class="item_tax">
+                                                    返却日：
+                                                    <span class="input-group">
+                                                        <span class="input-group-addon">{{ orderDetailForm.vars.value.rental_date|date_modify("+14 day")|date('Y-m-d') }}</span>
+                                                    </span>
+                                                </span>
+                                            </div>
+
+
+
+
+
+                                                {#<p>#}
+                                                    {#発送希望日：#}
+                                                    {#{{ form_widget(orderDetailForm.rental_date) }}#}
+                                                    {#{{ form_errors(orderDetailForm.rental_date) }}#}
+                                                {#</p>#}
+                                                {#<p>届け予定日：{{ orderDetailForm.vars.value.rental_date|date_modify("+2 day")|date('Y-m-d') }}</p>#}
+                                                {#<p>返却日：{{ orderDetailForm.vars.value.rental_date|date_modify("+14 day")|date('Y-m-d') }}</p>#}
+                                            {#</div>#}
 
 
                                         </div>

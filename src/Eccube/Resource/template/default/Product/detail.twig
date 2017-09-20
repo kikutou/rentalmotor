@@ -148,8 +148,9 @@ function rentalDate(td) {
 
         var achieve_date_format = achieve_date.getFullYear() + '-' + ('0' + (achieve_date.getMonth() + 1)).slice(-2) + '-' + ('0' + achieve_date.getDate()).slice(-2);
         var deadline = return_date.getFullYear() + '-' + ('0' + (return_date.getMonth() + 1)).slice(-2) + '-' + ('0' + return_date.getDate()).slice(-2);
-        $("#rental_date").find('td.active').filter(function () {
+//        $("#rental_date").find('td.active').filter(function () {
 //            return $(this).data('date') <= deadline && $(this).data('date') >= $(td).data('date');
+        $("#rental_date").find('td').filter(function () {
             return $(this).data('date') <= deadline && $(this).data('date') >= achieve_date_format;
         }).removeClass('active').addClass('check');
 
@@ -305,7 +306,7 @@ function addFavorite() {
                     <section class="calendar">
                         <h3>レンタル希望日を選択（発送希望日を選択してください。商品の到着予定日とレンタル期間と返却日が自動で表示されます。）</h3>
                         <div>
-                            <a class="scroll-left" href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                            {#<a hidden="hidden" class="scroll-left" href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>#}
                             <div id="rental_date">
                                 <ul>
                                     <!-- class="active"は、選択ができるもの。 class="check"は現在レンタル希望日としてチェックを付けている日 -->
@@ -339,7 +340,7 @@ function addFavorite() {
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <a class="scroll-right" href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                            {#<a hidden="hidden" class="scroll-right" href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>#}
                         </div>
                     </section>
                 </article>
