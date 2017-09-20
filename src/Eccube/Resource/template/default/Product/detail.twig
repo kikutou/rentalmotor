@@ -62,8 +62,8 @@ $(function(){
     $('.carousel').slick({
         infinite: false,
         speed: 300,
-        prevArrow:'<button type="button" class="slick-prev"><span class="angle-circle"><svg class="cb cb-angle-right"><use xlink:href="#cb-angle-right" /></svg></span></button>',
-        nextArrow:'<button type="button" class="slick-next"><span class="angle-circle"><svg class="cb cb-angle-right"><use xlink:href="#cb-angle-right" /></svg></span></button>',
+        prevArrow:'<button type="button" class="slick-prev hide"><span class="angle-circle"><svg class="cb cb-angle-right"><use xlink:href="#cb-angle-right" /></svg></span></button>',
+        nextArrow:'<button type="button" class="slick-next hide"><span class="angle-circle"><svg class="cb cb-angle-right"><use xlink:href="#cb-angle-right" /></svg></span></button>',
         slidesToShow: 4,
         slidesToScroll: 4,
         responsive: [
@@ -244,9 +244,6 @@ function addFavorite() {
                                         {% endif %}
                                     </div>
                                 </div>
-                            </li>
-                            <li>
-                              <!-- slick slider -->
                             </li>
                             <li>
                                 <h3>商品名</h3>
