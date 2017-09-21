@@ -291,9 +291,9 @@ body {
     opacity: .25;
     background-color: black;
     border-radius: 50%;
-    display: none !important;
-
 }
+
+
 .slick-dots li.slick-active button:before {
     opacity: .75;
     background-color: black;
@@ -309,7 +309,29 @@ body {
 #item_photo_area .slick-slide img {
 	display: inline-block;
 }
-
+/*add*/
+#item_photo_area .slick-dots li button:before {
+  display: none !important;
+}
+.top-slick-dots{
+  display: table !important;
+  table-layout: fixed;
+  width:100%;
+}
+.top-slick-dots li{
+  width:33.333%;
+  display: table-cell;
+}
+.top-slick-dots li button{
+  display: block;
+  width:100%;
+  height:16px;
+  margin:4px auto;
+  background:#eee;
+}
+.top-slick-dots li.slick-active button{
+  background:#111;
+}
 
 /******************************
 	Media Query

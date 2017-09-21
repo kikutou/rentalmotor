@@ -408,11 +408,11 @@ article.top-catch a.right{
 }
 
 
-article.top-catch ul{
+article.top-catch ul:first-child{
     width:100%;
     height:600px;
 }
-article.top-catch ul li{
+article.top-catch ul:first-child li{
     width:100%;
     height:600px;
     /*background:#eee url(../img/default/top-catch01.jpg);*/
@@ -495,20 +495,20 @@ article.top-catch .catch-copy div .btn:hover{
         height:400px;
         overflow: hidden;
     }
-    article.top-catch ul li{
-        height:480px;
+    article.top-catch ul:first-child li{
+        height:420px;
     }
     
     #pic1{
-        height:480px;
+        height:420px;
     }
     
     #pic2{
-        height:480px;
+        height:420px;
     }
     
     #pic3{
-        height:480px;
+        height:420px;
     }
 
 
@@ -527,7 +527,7 @@ article.top-catch .catch-copy div .btn:hover{
     article.top-catch .catch-copy div .btn{
         width:100%;
     }
-    article.top-catch ,article.top-catch ul ,article.top-catch ul li{
+    article.top-catch ,article.top-catch ul:first-child ,article.top-catch ul:first-child li{
         height:420px;
     }
 }
@@ -1531,6 +1531,11 @@ article.wrap .go2payment a:hover{
     height:250px;
   }
 }
+
+
+
+
+
 @media screen and (max-width:640px){
   #item_list{
     width:100% !important;
