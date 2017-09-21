@@ -1531,3 +1531,15 @@ article.wrap .go2payment a:hover{
     height:250px;
   }
 }
+@media screen and (max-width:640px){
+  #item_list{
+    width:100% !important;
+  }
+  div#favorite_list__list{
+    width:100% !important;
+  }
+
+}
+
+
+

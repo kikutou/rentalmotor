@@ -52,27 +52,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 {% block main %}
     <h1 class="page-heading">ご注文完了</h1>
     <div id="complete_wrap" class="container-fluid">
-        <!-- div id="complete_flow_box" class="row">
+        <div id="complete_flow_box" class="row">
             <div id="complete_flow_box__body" class="col-md-12">
-                {% if is_granted('ROLE_USER') %}
-                <div id="complete_flow_box__flow_state" class="flowline step3">
-                {% else %}
-                <div id="complete_flow_box__flow_state" class="flowline step4">
-                {% endif %}
-                    <ul id="complete_flow_box__flow_state_list" class="clearfix">
-                        <li><span class="flow_number">1</span><br>カートの商品</li>
-                    {% if is_granted('ROLE_USER') %}
-                        <li><span class="flow_number">2</span><br>ご注文内容確認</li>
-                        <li class="active"><span class="flow_number">3</span><br>完了</li>
-                    {% else %}
-                        <li><span class="flow_number">2</span><br>お客様情報</li>
-                        <li><span class="flow_number">3</span><br>ご注文内容確認</li>
-                        <li class="active"><span class="flow_number">4</span><br>完了</li>
-                    {% endif %}
-                    </ul>
-                </div>
+                <article class="wrap">
+                    <section class="steps">
+                        <ul>
+                            <li><div><span>1.商品の確認</span></div></li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li><div><span>2.ご注文内容の確認</span></div></li>
+                                <li class="active"><div><span>3.完了</span></div></li>
+                            {% else %}
+                                <li><div><span>2.お客様情報</span></div></li>
+                                <li><div><span>3.ご注文内容の確認</span></div></li>
+                                <li class="active"><div><span>4.完了</span></div></li>
+                            {% endif %}
+                        </ul>
+                    </section>
+                </article>
             </div>
-        </div -->
+        </div>
 
 
         <div id="deliveradd_input" class="row">
