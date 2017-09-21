@@ -490,10 +490,8 @@ article.top-catch .catch-copy div .btn:hover{
 }
 @media screen and (max-width:640px){
     article.top-catch{
-        position: relative;
-        background:#fcfcfc;
-        height:400px;
-        overflow: hidden;
+      position: relative;
+      height:420px;
     }
     article.top-catch ul:first-child li{
         height:420px;
@@ -819,28 +817,43 @@ article.wrap .text-contents p{
 
 /**/
 article.wrap .item-detail{
-    width:100%;
+    height:auto;
 }
 article.wrap .item-detail ul{
     display: block;
-    margin-bottom:24px;
 }
 article.wrap .item-detail > ul li{
     display: inline-block;
     vertical-align: top;
 }
 article.wrap .item-detail > ul li:first-child{
-    width:480px;
-    height:480px;
+    width:35%;
+    height:auto;
 }
 article.wrap .item-detail > ul li:first-child img{
     width:100%;
     height:auto;
     border:solid 1px #aaa;
 }
+article.wrap .item-detail > ul li:nth-child(2){
+  width:12%;
+}
+article.wrap .item-detail > ul li:nth-child(2) > ol li{
+  display: block;
+  width:100%;
+  height:30%;
+  max-height:80px;
+  margin-bottom:0.25em;
+  border:solid 1px #cacaca;
+  overflow: hidden;
+}
+article.wrap .item-detail > ul li:nth-child(2) > ol li img{
+  width:100%;
+  height:auto;
+}
 
 article.wrap .item-detail > ul li:last-child{
-    width:calc(100% - 600px);
+    width:calc(100% - 50%);
     padding-left:16px;
 }
 @media screen and (max-width:640px){
@@ -857,6 +870,14 @@ article.wrap .item-detail > ul li:last-child{
         width:90% !important;
         height:auto;
         margin:0 auto;
+    }
+    article.wrap .item-detail > ul li:nth-child(2) > ol{
+      display: block;
+    }
+    article.wrap .item-detail > ul li:nth-child(2) > ol li{
+      display: inline-block;
+      padding:0.5em;
+      width:33.3333% !important;
     }
     article.wrap .item-detail > ul li:last-child{
         padding-left:0;
