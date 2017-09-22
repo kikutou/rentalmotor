@@ -237,7 +237,7 @@ body {
 
 /* Dots */
 .slick-slider {
-    margin-bottom: 30px;
+    margin-bottom: 8px;
 }
 
 .slick-dots {
@@ -332,6 +332,9 @@ body {
 .top-slick-dots li.slick-active button{
   background:#111;
 }
+
+
+
 
 /******************************
 	Media Query
