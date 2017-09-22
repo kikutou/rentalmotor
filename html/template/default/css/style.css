@@ -863,7 +863,6 @@ article.wrap .item-detail > ul li:last-child{
     }
     article.wrap .item-detail > ul li:first-child{
         height:auto !important;
-        padding-bottom:12px;
     }
     article.wrap .item-detail > ul li:first-child img{
         display: block;
@@ -1549,7 +1548,7 @@ article.wrap .go2payment a:hover{
     margin:0 auto;
   }
   #item_photo_area{
-    height:250px;
+    height:auto !important;
   }
 }
 
